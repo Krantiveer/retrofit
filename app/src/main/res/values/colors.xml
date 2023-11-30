@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="textcolor">#fff</color>
+    <color name="btn_txt_color">#fff</color>
+
+    <color name="main_color">#FF0000</color>
+    <color name="focus">#ffffff</color>
+    //this we using card selected and click card
+    <color name="colorButtonFocusedTV">@color/main_color</color>
+    <color name="colorButtonPressedTV">@color/main_color</color>
+    <color name="colorButtonFocusedTVHome">@color/main_color</color>
+    <color name="colorButtonPressedTVHome">@color/main_color</color>
+    <color name="colorButtonUnselectedTV">@color/transparent</color>
+    <color name="transparent">#00000000</color>
+    <color name="color_989898">#989898</color>
+    <color name="red_highlight_color">#D50A10</color>
+    <color name="black_color">#020610</color>
+    <color name="cardTextColor">#fff</color>
+
+    <color name="red_600">#E53935</color>
+    <color name="green_500">#4CAF50</color>
+    <color name="colorPrimary">#020610</color>
+
+    <color name="grey_5">#f2f2f2</color>
+    <color name="grey_20">#cccccc</color>
+    <color name="grey_40">#999999</color>
+    <color name="grey_60">#666666</color>
+    <color name="grey_90">#263238</color>
+    <color name="lightgrey">#c4c4c4</color>
+    <color name="colorGoldWhite">#FFFFFF</color>
+    <color name="color_dark_yellow_high_transparent_edit_text_focus">#536171</color>
+    <color name="colorGold">@color/main_color</color>  <!-- selected login-->
+    <color name="color_dark_yellow_high_transparent">#343D48</color>
+
+
+</resources>

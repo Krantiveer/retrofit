@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splash_screen_bg"
+    tools:context=".Actvity.SplashScreenActivityTv">
+    <!--    <ImageView-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        app:layout_constraintBottom_toTopOf="parent"-->
+    <!--        android:src="@drawable/splash_screen_images"-->
+    <!--        android:scaleType="fitXY"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"/>-->
+    <VideoView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/splash_screen_ll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:keepScreenOn="true"
+        android:visibility="visible"
+        tools:visibility="visible"
+        android:background="@drawable/splash_screen_bg"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/splash_img_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="140sp"
+            android:contentDescription="@string/description"
+            android:padding="30sp"
+            android:src="@drawable/logo_splash"
+            android:visibility="visible" />
+
+<!--
+        <TextView
+            android:id="@+id/builVersion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-50dp"
+            android:layout_below="@+id/splash_img_view"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:fontFamily="@font/roboto_medium"
+            android:text="App Version :14"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14sdp" />
+-->
+
+    </LinearLayout>
+
+</LinearLayout>
