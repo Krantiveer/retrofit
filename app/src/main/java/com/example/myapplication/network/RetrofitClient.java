@@ -15,7 +15,7 @@ public class RetrofitClient {
     private static final String API_EXTENSION = "v1/";
     private static final String API_USER_NAME = "admin";
     private static final String API_PASSWORD = "1234";
-    private static Retrofit retrofitAuth, retrofit;
+    private static Retrofit retrofitCMS,retrofitAuth, retrofit;
 
 
     public static Retrofit getRetrofitInstance() {
@@ -73,14 +73,14 @@ public class RetrofitClient {
           /*      .addInterceptor(new BasicAuthInterceptor(API_USER_NAME, API_PASSWORD))
                 .addInterceptor(interceptor).build();*/
 
-        if (retrofit == null) {
-            retrofit = new Retrofit.Builder()
+        if (retrofitCMS == null) {
+            retrofitCMS = new Retrofit.Builder()
                     .baseUrl(Config.API_SERVER_URL_SVMS)
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(client.build())
                     .build();
         }
-        return retrofit;
+        return retrofitCMS;
     }
 
     public static Retrofit getRetrofitInstanceWithV1() {

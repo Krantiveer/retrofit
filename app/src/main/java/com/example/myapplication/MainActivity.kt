@@ -50,10 +50,9 @@ class MainActivity : AppCompatActivity() {
                 if (response.code() == 200) {
                     Log.i(
                         TAG,
-                        "success--> " + PreferenceUtils.getInstance()
-                            .getLoginPref(applicationContext)
-                    )
+                        "success--> " )
 
+                    Toast.makeText(applicationContext, "Sucess Activation", Toast.LENGTH_SHORT).show()
 
                     onGetActiveScheduleSuccess(response.body()!!)
 
@@ -91,16 +90,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun fetchScreenversionAPI(id: String) {
-        val retrofit = RetrofitClient.getRetrofitInstanceCMS()
-        val api = retrofit.create(MainApi::class.java)
+        val retrofitcms = RetrofitClient.getRetrofitInstanceCMS()
+        val api = retrofitcms.create(MainApi::class.java)
         val accessToken = "Bearer ";
         Log.i(TAG, "fetchValidateAPI: ")
 
-        val call: Call<Int> = api.getScreenVersion(id)
-        call.enqueue(object : Callback<Int?> {
-            override fun onResponse(call: Call<Int?>, response: Response<Int?>) {
+        val call: Call<Long> = api.getScreenVersion(id)
+        call.enqueue(object : Callback<Long?> {
+            override fun onResponse(call: Call<Long?>, response: Response<Long?>) {
                 if (response.code() == 200) {
-                    if (response.body() == -1) {
+                    if (response.body()?.toInt() == -1) {
                         Toast.makeText(
                             applicationContext, "Sucess-->" + response.body(), Toast.LENGTH_LONG
                         ).show()
@@ -133,7 +132,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<Int?>, t: Throwable) {
+            override fun onFailure(call: Call<Long?>, t: Throwable) {
                 //   CMHelper.setSnackBar(requireView(), t.getMessage(), 2);
                 if (AccessController.getContext() != null) {
                     Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT).show()
@@ -146,7 +145,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun onGetActiveScheduleSuccess(body: ScreenScheduleResponse) {
         body.schedules.get(0).playlists.get(0).layout.layoutId
-        Log.i(TAG, "onGetAppInfoSuccess: " + body.schedules.get(0).playlists.get(0).layout.layoutId)
+        Log.i(TAG, "onGetAppInfoSuccess:--> " + body.schedules.get(0).playlists.get(0).layout.layoutId)
     }
 
     fun gotoHorizontalScreen() {
