@@ -50,6 +50,38 @@ public class RetrofitClient {
         }
         return retrofit;
     }
+    public static Retrofit getRetrofitInstanceCMS() {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient.Builder client = new
+                OkHttpClient.Builder()
+                .readTimeout(90, TimeUnit.SECONDS)
+                .connectTimeout(90, TimeUnit.SECONDS);
+     /*   client.setConnectTimeout(30, TimeUnit.SECONDS); // connect timeout
+        client.setReadTimeout(30, TimeUnit.SECONDS);
+     */
+        client.addInterceptor(chain -> {
+            Request request = chain.request().newBuilder()
+                    .addHeader("Accept", "application/json")
+                    .build();
+            return chain.proceed(request);
+        });
+        client.addInterceptor(new BasicAuthInterceptor(API_USER_NAME, API_PASSWORD));
+
+        //to enable logs
+        client.addInterceptor(interceptor).build();
+          /*      .addInterceptor(new BasicAuthInterceptor(API_USER_NAME, API_PASSWORD))
+                .addInterceptor(interceptor).build();*/
+
+        if (retrofit == null) {
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(Config.API_SERVER_URL_SVMS)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(client.build())
+                    .build();
+        }
+        return retrofit;
+    }
 
     public static Retrofit getRetrofitInstanceWithV1() {
 

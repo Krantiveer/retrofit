@@ -1,22 +1,20 @@
-package com.example.myapplication.utils;
+package com.example.myapplication.utils
 
-import android.content.Context;
-import android.text.TextUtils;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.TextView;
-
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
-
-import com.example.myapplication.R;
-import com.google.android.material.snackbar.Snackbar;
+import android.content.Context
+import android.text.TextUtils
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import com.example.myapplication.R
+import com.google.android.material.snackbar.Snackbar
 
 /**
  * Created by krantiveer  on 1/11/22 @ 11:52 am
  * Contact - krantiveersinghgaur@gmail.com ► +91-9928552344
  */
-public class CMHelper {
+object CMHelper {
     /**
      * Use for show the messages
      *
@@ -24,25 +22,44 @@ public class CMHelper {
      * @param message    -> Message in details
      * @param status     -> 0 for regular, 1 for Success message and 2 for failure
      */
-    public static void setSnackBar(View parentView, String message, int status) {
+    fun setSnackBar(parentView: View, message: String?, status: Int) {
         if (message != null) {
-            Snackbar snackBar = Snackbar.make(parentView, message, Snackbar.LENGTH_LONG);
-            View view = snackBar.getView();
-            TextView textView = view.findViewById(com.google.android.material.R.id.snackbar_text);
-            textView.setTypeface(ResourcesCompat.getFont(parentView.getContext(), R.font.amazon));
-            textView.setMaxLines(5);
-            textView.setEllipsize(TextUtils.TruncateAt.END);
-            textView.setTextColor(ContextCompat.getColor(parentView.getContext(), android.R.color.white));
-
+            val snackBar = Snackbar.make(parentView, message, Snackbar.LENGTH_LONG)
+            val view = snackBar.view
+            val textView =
+                view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
+            textView.typeface = ResourcesCompat.getFont(parentView.context, R.font.amazon)
+            textView.maxLines = 5
+            textView.ellipsize = TextUtils.TruncateAt.END
+            textView.setTextColor(ContextCompat.getColor(parentView.context, android.R.color.white))
             if (status == 1) {
-                view.setBackgroundColor(ContextCompat.getColor(parentView.getContext(), android.R.color.holo_green_dark));
-                textView.setTextColor(ContextCompat.getColor(parentView.getContext(), android.R.color.white));
+                view.setBackgroundColor(
+                    ContextCompat.getColor(
+                        parentView.context,
+                        android.R.color.holo_green_dark
+                    )
+                )
+                textView.setTextColor(
+                    ContextCompat.getColor(
+                        parentView.context,
+                        android.R.color.white
+                    )
+                )
             } else if (status == 2) {
-                view.setBackgroundColor(ContextCompat.getColor(parentView.getContext(), android.R.color.holo_red_dark));
-                textView.setTextColor(ContextCompat.getColor(parentView.getContext(), android.R.color.white));
+                view.setBackgroundColor(
+                    ContextCompat.getColor(
+                        parentView.context,
+                        android.R.color.holo_red_dark
+                    )
+                )
+                textView.setTextColor(
+                    ContextCompat.getColor(
+                        parentView.context,
+                        android.R.color.white
+                    )
+                )
             }
-
-            snackBar.show();
+            snackBar.show()
         }
     }
 
@@ -54,30 +71,49 @@ public class CMHelper {
      * @param status     -> 0 for regular, 1 for Success message and 2 for failure
      * @param length     -> for showing snack bar duration
      */
-    public static void setSnackBar(View parentView, String message, int status, int length) {
+    fun setSnackBar(parentView: View, message: String?, status: Int, length: Int) {
         if (message != null) {
-            Snackbar snackBar = Snackbar.make(parentView, message, length);
-            View view = snackBar.getView();
-            TextView textView = view.findViewById(com.google.android.material.R.id.snackbar_text);
-            textView.setTypeface(ResourcesCompat.getFont(parentView.getContext(), R.font.amazon));
-            textView.setMaxLines(5);
-            textView.setEllipsize(TextUtils.TruncateAt.END);
-            textView.setTextColor(ContextCompat.getColor(parentView.getContext(), android.R.color.white));
-
+            val snackBar = Snackbar.make(parentView, message, length)
+            val view = snackBar.view
+            val textView =
+                view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
+            textView.typeface = ResourcesCompat.getFont(parentView.context, R.font.amazon)
+            textView.maxLines = 5
+            textView.ellipsize = TextUtils.TruncateAt.END
+            textView.setTextColor(ContextCompat.getColor(parentView.context, android.R.color.white))
             if (status == 1) {
-                view.setBackgroundColor(ContextCompat.getColor(parentView.getContext(), android.R.color.holo_green_dark));
-                textView.setTextColor(ContextCompat.getColor(parentView.getContext(), android.R.color.white));
+                view.setBackgroundColor(
+                    ContextCompat.getColor(
+                        parentView.context,
+                        android.R.color.holo_green_dark
+                    )
+                )
+                textView.setTextColor(
+                    ContextCompat.getColor(
+                        parentView.context,
+                        android.R.color.white
+                    )
+                )
             } else if (status == 2) {
-                view.setBackgroundColor(ContextCompat.getColor(parentView.getContext(), android.R.color.holo_red_dark));
-                textView.setTextColor(ContextCompat.getColor(parentView.getContext(), android.R.color.white));
+                view.setBackgroundColor(
+                    ContextCompat.getColor(
+                        parentView.context,
+                        android.R.color.holo_red_dark
+                    )
+                )
+                textView.setTextColor(
+                    ContextCompat.getColor(
+                        parentView.context,
+                        android.R.color.white
+                    )
+                )
             }
-
-            snackBar.show();
+            snackBar.show()
         }
     }
 
-    public static void hideKeyboard(View view) {
-        InputMethodManager imm = ((InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE));
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    fun hideKeyboard(view: View) {
+        val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }

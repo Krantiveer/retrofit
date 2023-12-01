@@ -6,6 +6,7 @@ public class Config {
     public static final String DOMAIN = "https://cms-api.digitalsigns.ai/";
     public static final String Publisher_id = "86";
     public static final String API_SERVER_URL = DOMAIN + "/api/";
+    public static final String API_SERVER_URL_SVMS = "http://svms-api.digitalsigns.ai/";
     //copy your api key from php admin dashboard & paste below
     public static final String API_KEY = "75xi3uer76tb7krer3mjgqei";
 

@@ -42,9 +42,8 @@ public interface MainApi {
 
   @POST("/cms/api/v1/sdc/screen/code/generate")
   Call<GeneratePair> getGeneratePairCode();
-
   @GET("svms/api/v1/svc/screenversion/{id}")
-  Call<ApiResponse> getScreenVersion(@Path("id") int id);
+  Call<Integer> getScreenVersion(@Path("id") String id);
   @GET("cms/api/v1/sdc/screen/{screenId}/active-schedule")
   Call<ScreenScheduleResponse> getActiveSchedule(@Path("screenId") String screenId);
 
