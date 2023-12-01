@@ -57,15 +57,21 @@ android {
         androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
 //exo player
+/*
         implementation ("com.google.android.exoplayer:exoplayer:2.19.0")
-        implementation ("com.google.android.exoplayer:exoplayer-core:2.19.0")
         implementation ("com.google.android.exoplayer:exoplayer-dash:2.19.0")
-        implementation ("com.google.android.exoplayer:exoplayer-ui:2.19.0")
+
         implementation ("com.google.android.exoplayer:exoplayer-hls:2.19.0")
         implementation ("com.google.android.exoplayer:extension-rtmp:2.19.0")
         implementation ("com.google.android.exoplayer:extension-cast:2.19.0")
         implementation ("com.google.android.exoplayer:exoplayer-smoothstreaming:2.19.0")
         implementation ("com.google.android.exoplayer:exoplayer")
+        implementation ("com.google.android.exoplayer:exoplayer-rtsp:2.18.4")
+*/
+
+        implementation ("com.google.android.exoplayer:exoplayer-ui:2.19.1")
+        implementation ("com.google.android.exoplayer:exoplayer-core:2.19.1")
+
 
 
     }

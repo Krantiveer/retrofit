@@ -10,5 +10,6 @@
     <string name="dialog_instruction_2">2. Close this app. </string>
     <string name="dialog_instruction_3">3. Reopen this app. </string>
     <string name="continue_browsing">Continue browsing</string>
-
+    <string name="live">live</string>
+    <color name="colorGoldLight">#EAD384</color>
 </resources>

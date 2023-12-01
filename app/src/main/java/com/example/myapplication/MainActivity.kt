@@ -1,9 +1,12 @@
 package com.example.myapplication
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.myapplication.Actvity.handlerqr
+import com.example.myapplication.Screens.HorizontalView
 import com.example.myapplication.network.RetrofitClient
 import com.example.myapplication.network.api.MainApi
 import com.example.myapplication.network.model.ApiResponse
@@ -19,31 +22,41 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
        // fetchapi()
 
+        gotoHorizontalScreen();
+
     }
-/*
-    private fun fetchapi() {
-        val retrofit = RetrofitClient.getRetrofitInstance()
-        val api = retrofit.create(MainApi::class.java)
-        val accessToken = "Bearer "
-        val call = api.maindata(accessToken)
-        call.enqueue(object : Callback<RecordResponse.Record> {
-            override fun onResponse(
-                call: Call<RecordResponse.Record>,
-                response: Response<RecordResponse.Record>
-            ) {
+    fun gotoHorizontalScreen() {
+        //   handler.removeCallbacksAndMessages(null)
+        handlerqr.removeCallbacksAndMessages(null)
+        val intent = Intent(this, HorizontalView::class.java)
+        startActivity(intent)
 
-                if (response.code() == 200) {
-                    Log.i("kranti", "onResponse: "+response.body()!!.result)
+    }
 
-                    val navItems: RecordResponse.Record? = response.body()
-                   // val result:ResultData=response.body()!!.result
-                    var resultData =navItems!!.result
-                    Toast.makeText(
-                        applicationContext,
-                        "success"+resultData ,
-                        Toast.LENGTH_LONG
-                    ).show()
-                    */
+    /*
+        private fun fetchapi() {
+            val retrofit = RetrofitClient.getRetrofitInstance()
+            val api = retrofit.create(MainApi::class.java)
+            val accessToken = "Bearer "
+            val call = api.maindata(accessToken)
+            call.enqueue(object : Callback<RecordResponse.Record> {
+                override fun onResponse(
+                    call: Call<RecordResponse.Record>,
+                    response: Response<RecordResponse.Record>
+                ) {
+
+                    if (response.code() == 200) {
+                        Log.i("kranti", "onResponse: "+response.body()!!.result)
+
+                        val navItems: RecordResponse.Record? = response.body()
+                       // val result:ResultData=response.body()!!.result
+                        var resultData =navItems!!.result
+                        Toast.makeText(
+                            applicationContext,
+                            "success"+resultData ,
+                            Toast.LENGTH_LONG
+                        ).show()
+                        */
 /*val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
                     val adapter = MyListAdapter(navItems)
                     recyclerView.setHasFixedSize(true)

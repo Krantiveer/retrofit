@@ -22,15 +22,30 @@
             android:indeterminateTint="@color/colorGold"
             android:indeterminateTintMode="src_atop"
             android:visibility="gone" />
-
-        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-            android:id="@+id/youtube_player_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#000000"
+        <ImageView
+            android:id="@+id/image_contain"
+            android:layout_width="@dimen/_500sdp"
+            android:layout_height="@dimen/_500sdp"
+            android:layout_marginTop="-100sp"
+            android:layout_marginEnd="@dimen/_50sdp"
+            android:layout_centerHorizontal="true"
             android:visibility="gone"
-            app:autoPlay="true"
-            app:videoId="sLmwxN_Hzr" />
+            tool:visibility="visible"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="@dimen/_30sdp"
+            android:src="@drawable/banner_image"/>
+
+
+        <!--
+                <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+                    android:id="@+id/youtube_player_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#000000"
+                    android:visibility="gone"
+                    app:autoPlay="true"
+                    app:videoId="sLmwxN_Hzr" />
+        -->
 
         <com.google.android.exoplayer2.ui.PlayerView
             android:id="@+id/player_view"

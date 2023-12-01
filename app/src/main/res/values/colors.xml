@@ -39,6 +39,6 @@
     <color name="color_dark_yellow_high_transparent_edit_text_focus">#536171</color>
     <color name="colorGold">@color/main_color</color>  <!-- selected login-->
     <color name="color_dark_yellow_high_transparent">#343D48</color>
-
-
+    <color name="color_dark_yellow_high">#CCCC00</color>
+    <color name="player_progress_color">#feab91</color>
 </resources>
