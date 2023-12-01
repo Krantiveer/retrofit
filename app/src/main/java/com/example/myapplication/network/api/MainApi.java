@@ -6,6 +6,7 @@ import com.example.myapplication.network.model.ApiResponse;
 import com.example.myapplication.network.model.DeviceInfo;
 import com.example.myapplication.network.model.GeneratePair;
 import com.example.myapplication.network.model.RecordResponse;
+import com.example.myapplication.network.model.ScreenScheduleResponse;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface MainApi {
@@ -41,5 +43,11 @@ public interface MainApi {
   @POST("/cms/api/v1/sdc/screen/code/generate")
   Call<GeneratePair> getGeneratePairCode();
 
+  @GET("svms/api/v1/svc/screenversion/{id}")
+  Call<ApiResponse> getScreenVersion(@Path("id") int id);
+  @GET("cms/api/v1/sdc/screen/{screenId}/active-schedule")
+  Call<ScreenScheduleResponse> getActiveSchedule(@Path("screenId") String screenId);
+
+  // Replace YourResponseType with the type you expect to receive from the API
 
 }

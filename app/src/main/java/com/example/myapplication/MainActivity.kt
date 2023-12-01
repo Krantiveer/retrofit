@@ -10,21 +10,78 @@ import com.example.myapplication.Screens.HorizontalView
 import com.example.myapplication.network.RetrofitClient
 import com.example.myapplication.network.api.MainApi
 import com.example.myapplication.network.model.ApiResponse
+import com.example.myapplication.network.model.ScreenScheduleResponse
 import com.example.myapplication.network.model.MyListData
+import com.example.myapplication.utils.PreferenceUtils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.security.AccessController
+private const val TAG = "LoginScreenActivity"
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
        // fetchapi()
-
-        gotoHorizontalScreen();
+        fetchActiveScheduleAPI(PreferenceUtils.getInstance().getPairIDPref(applicationContext))
+       // gotoHorizontalScreen()
 
     }
+    private  fun fetchActiveScheduleAPI(id:String){
+        val retrofit = RetrofitClient.getRetrofitInstance()
+        val api = retrofit.create(MainApi::class.java)
+        val accessToken = "Bearer ";
+        Log.i(TAG, "fetchValidateAPI: ")
+
+        val call: Call<ScreenScheduleResponse> = api.getActiveSchedule(id)
+        call.enqueue(object : Callback<ScreenScheduleResponse?> {
+            override fun onResponse(call: Call<ScreenScheduleResponse?>, response: Response<ScreenScheduleResponse?>) {
+                if (response.code() == 200) {
+                    Log.i(TAG, "success--> "+ PreferenceUtils.getInstance().getLoginPref(applicationContext))
+
+
+                     onGetActiveScheduleSuccess(response.body()!!)
+
+
+                } else if (response.code() == 401) {
+
+                } else if (response.errorBody() != null) {
+                    if (AccessController.getContext() != null) {
+                        Toast.makeText(
+                            applicationContext,
+                            "sorry! Something went wrong. Please try again after some time" + response.errorBody(),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                } else {
+                    if (AccessController.getContext() != null) {
+                        Toast.makeText(
+                            applicationContext,
+                            "sorry! Something went wrong. Please try again after some time",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ScreenScheduleResponse?>, t: Throwable) {
+                //   CMHelper.setSnackBar(requireView(), t.getMessage(), 2);
+                if (AccessController.getContext() != null) {
+                    Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT).show()
+                } else {
+                }
+            }
+        })
+
+    }
+
+    private fun onGetActiveScheduleSuccess(body: ScreenScheduleResponse) {
+        body.schedules.get(0).playlists.get(0).layout.layoutId
+        Log.i(TAG, "onGetAppInfoSuccess: "+body.schedules.get(0).playlists.get(0).layout.layoutId)
+    }
+
     fun gotoHorizontalScreen() {
         //   handler.removeCallbacksAndMessages(null)
         handlerqr.removeCallbacksAndMessages(null)
