@@ -45,7 +45,7 @@ class SplitHalfHorizontalView : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_horizontal_view)
+        setContentView(R.layout.activity_horizontal_split_view)
         releasePlayer()
         intiViews()
 

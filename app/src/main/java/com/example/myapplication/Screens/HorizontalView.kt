@@ -43,14 +43,24 @@ class HorizontalView : AppCompatActivity() {
 
         receivedContentList = intent.getParcelableArrayListExtra("CONTENT_LIST")!!
         size = receivedContentList.size
+        var sec =receivedContentList.get(currentsize!!).duration * 1000
+
         if (receivedContentList != null) {
             if (receivedContentList.get(0).contentType != "VIDEO") {
                 image_contain!!.setVisibility(View.VISIBLE)
+                exoPlayerView!!.setVisibility(View.INVISIBLE)
                 updateCardViewImage(receivedContentList.get(currentsize!!).permaLink)
+                Handler().postDelayed(Runnable {
+                    currentsize = currentsize?.plus(1)
+                    logic()
+
+                }, sec.toLong())
 
 
             } else {
                 image_contain!!.setVisibility(View.GONE)
+                exoPlayerView!!.setVisibility(View.VISIBLE)
+
                 initVideoPlayer(
                     receivedContentList.get(0).permaLink.toString(),
                     receivedContentList.get(0).format.toString()
@@ -123,6 +133,8 @@ fun logic(){
             exoPlayerView!!.visibility=View.INVISIBLE
 
             image_contain!!.setVisibility(View.VISIBLE)
+            updateCardViewImage(receivedContentList.get(currentsize!!).permaLink)
+
 
         } else {
             exoPlayerView!!.visibility=View.VISIBLE
