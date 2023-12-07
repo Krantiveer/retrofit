@@ -14,6 +14,8 @@ public class Playlist implements Parcelable {
     private int duration;
     private Layout layout;
     private List<Content> contents;
+    private List<Zone> zones;
+
 
     protected Playlist(Parcel in) {
         id = in.readInt();

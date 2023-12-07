@@ -8,9 +8,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.Actvity.handlerqr
 import com.example.myapplication.Screens.HorizontalView
+import com.example.myapplication.Screens.SplitHalfHorizontalView
 import com.example.myapplication.network.RetrofitClient
 import com.example.myapplication.network.api.MainApi
 import com.example.myapplication.network.model.ApiResponse
+import com.example.myapplication.network.model.Content
 import com.example.myapplication.network.model.ScreenScheduleResponse
 import com.example.myapplication.network.model.MyListData
 import com.example.myapplication.utils.CMHelper
@@ -101,7 +103,7 @@ class MainActivity : AppCompatActivity() {
                 if (response.code() == 200) {
                     if (response.body()?.toInt() == -1) {
                         Toast.makeText(
-                            applicationContext, "Sucess-->" + response.body(), Toast.LENGTH_LONG
+                            applicationContext, "Screen Paired , Please schedule your content", Toast.LENGTH_LONG
                         ).show()
                     } else {
                         fetchActiveScheduleAPI(PreferenceUtils.getInstance().getPairIDPref(applicationContext))
@@ -144,14 +146,44 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onGetActiveScheduleSuccess(body: ScreenScheduleResponse) {
-        body.schedules.get(0).playlists.get(0).layout.layoutId
+        when (body.schedules.get(0).playlists.get(0).layout.layoutId) {
+            1 -> print("randomVal == 1")
+            2 -> print("randomVal == 2")
+            3 -> print("randomVal == 3")
+            4 -> print("randomVal == 4")
+            5 -> print("randomVal == 5")
+            6 -> print("randomVal == 6")
+            7 -> print("randomVal == 7")
+            8 -> print("randomVal == 8")
+            9 -> {gotoHorizontalScreen(body.schedules.get(0).playlists.get(0).layout.zones.get(0).contents)}
+            10 -> {gotoSplitHorizontalScreen(body.schedules.get(0).playlists.get(0).layout.zones.get(0).contents,body.schedules.get(0).playlists.get(0).layout.zones.get(1).contents)}
+            11 -> print("randomVal == 11")
+            12 -> print("randomVal == 12")
+            13 -> print("randomVal == 13")
+            14 -> print("randomVal == 14")
+            15 -> print("randomVal == 15")
+            else -> {
+                print("x is neither 1 nor 2")
+            }
+        }
         Log.i(TAG, "onGetAppInfoSuccess:--> " + body.schedules.get(0).playlists.get(0).layout.layoutId)
+
     }
 
-    fun gotoHorizontalScreen() {
+    fun gotoHorizontalScreen(content_data:List<Content>) {
         //   handler.removeCallbacksAndMessages(null)
         handlerqr.removeCallbacksAndMessages(null)
         val intent = Intent(this, HorizontalView::class.java)
+        intent.putParcelableArrayListExtra("CONTENT_LIST", ArrayList(content_data))
+        startActivity(intent)
+
+    }
+    fun gotoSplitHorizontalScreen(content_data:List<Content>,content_data_second:List<Content>) {
+        //   handler.removeCallbacksAndMessages(null)
+        handlerqr.removeCallbacksAndMessages(null)
+        val intent = Intent(this, SplitHalfHorizontalView::class.java)
+        intent.putParcelableArrayListExtra("CONTENT_LIST", ArrayList(content_data))
+        intent.putParcelableArrayListExtra("CONTENT_LIST_TWO", ArrayList(content_data_second))
         startActivity(intent)
 
     }

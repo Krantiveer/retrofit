@@ -6,11 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:keepScreenOn="true"
-    android:orientation="horizontal">
+    android:orientation="vertical"
+    android:baselineAligned="false">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0sp"
+        android:layout_weight="1"
+
+        android:id="@+id/rv_first"
+
+        >
 
 
         <ProgressBar
@@ -24,28 +30,16 @@
             android:visibility="gone" />
         <ImageView
             android:id="@+id/image_contain"
-            android:layout_width="@dimen/_500sdp"
-            android:layout_height="@dimen/_500sdp"
-            android:layout_marginTop="-100sp"
-            android:layout_marginEnd="@dimen/_50sdp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
             android:visibility="gone"
             tool:visibility="visible"
             android:layout_centerVertical="true"
-            android:layout_marginBottom="@dimen/_30sdp"
+            android:scaleType="fitCenter"
             android:src="@drawable/banner_image"/>
 
 
-        <!--
-                <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-                    android:id="@+id/youtube_player_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#000000"
-                    android:visibility="gone"
-                    app:autoPlay="true"
-                    app:videoId="sLmwxN_Hzr" />
-        -->
 
         <com.google.android.exoplayer2.ui.PlayerView
             android:id="@+id/player_view"
@@ -71,8 +65,61 @@
             />
 
 
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+
+        android:layout_height="0sp"
+        android:layout_weight="1"
+        android:id="@+id/rv_second"
+
+        >
 
 
+        <ProgressBar
+            android:id="@+id/progress_bar_second"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerInParent="true"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/colorGold"
+            android:indeterminateTintMode="src_atop"
+            android:visibility="gone" />
+        <ImageView
+            android:id="@+id/image_contain_second"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:visibility="gone"
+            tool:visibility="visible"
+            android:layout_centerVertical="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/banner_image"/>
+
+
+
+        <com.google.android.exoplayer2.ui.PlayerView
+            android:id="@+id/player_view_second"
+            android:layout_width="match_parent"
+
+            android:layout_height="match_parent"
+            android:outlineAmbientShadowColor="@color/color_dark_yellow_high"
+            android:outlineSpotShadowColor="@color/green_500"
+            app:auto_show="true"
+            app:buffered_color="@color/player_progress_color"
+            app:controller_layout_id="@layout/custom_exo_layout"
+            app:played_color="@color/main_color"
+
+            app:scrubber_color="@color/main_color"
+            app:scrubber_disabled_size="@dimen/_15sp"
+            app:scrubber_dragged_size="@dimen/_20sp"
+            app:scrubber_enabled_size="@dimen/_20sp"
+            app:show_buffering="when_playing"
+            app:show_shuffle_button="false"
+            app:show_subtitle_button="false"
+            app:show_vr_button="false"
+
+            />
 
 
     </RelativeLayout>

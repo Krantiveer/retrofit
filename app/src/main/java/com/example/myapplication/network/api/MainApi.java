@@ -1,7 +1,6 @@
 package com.example.myapplication.network.api;
 
 
-
 import com.example.myapplication.network.model.ApiResponse;
 import com.example.myapplication.network.model.DeviceInfo;
 import com.example.myapplication.network.model.GeneratePair;
@@ -20,33 +19,43 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface MainApi {
-  /*  @GET("v3/b/6458ec108e4aa6225e98d54d")
-    Call<RecordResponseParser.RecordResponse>*/
+    /*  @GET("v3/b/6458ec108e4aa6225e98d54d")
+      Call<RecordResponseParser.RecordResponse>*/
     @GET("b/6458ec108e4aa6225e98d54d")
     Call<RecordResponse.Record> getIndexData();
-  @GET("b/6458ec108e4aa6225e98d54d")
-  Call<RecordResponse.Record> maindata(
+
+    @GET("b/6458ec108e4aa6225e98d54d")
+    Call<RecordResponse.Record> maindata(
             @Header("Authorization") String token);
-  @GET("b/6458ec108e4aa6225e98d54d")
-  Call<ApiResponse> getApiResponse(); // Adjust the endpoint accordingly
-  @GET("userappversion")
-  Call<AppInfo> getAppInfo(
-          @Query("app_type") String appType, @Query("device_id") String device_id
 
-  );
-  @GET("/cms/api/v1/sdc/screen/code/validate")
-  Call<DeviceInfo> validate(
-          @Query("code") String code,
-          @Query("screenId") Integer screenId
-  );
+    @GET("b/6458ec108e4aa6225e98d54d")
+    Call<ApiResponse> getApiResponse(); // Adjust the endpoint accordingly
 
-  @POST("/cms/api/v1/sdc/screen/code/generate")
-  Call<GeneratePair> getGeneratePairCode();
-  @GET("svms/api/v1/svc/screenversion/{id}")
-  Call<Long> getScreenVersion(@Path("id") String id);
-  @GET("cms/api/v1/sdc/screen/{screenId}/active-schedule")
-  Call<ScreenScheduleResponse> getActiveSchedule(@Path("screenId") String screenId);
+    @GET("userappversion")
+    Call<AppInfo> getAppInfo(
+            @Query("app_type") String appType, @Query("device_id") String device_id
 
-  // Replace YourResponseType with the type you expect to receive from the API
+    );
+
+    @GET("/cms/api/v1/sdc/screen/code/validate")
+    Call<DeviceInfo> validate(
+            @Query("code") String code,
+            @Query("screenId") Integer screenId
+    );
+
+    @POST("/cms/api/v1/sdc/screen/code/generate")
+    Call<GeneratePair> getGeneratePairCode(@Query("apkVersion") String apkVersion,
+                                           @Query("osVersion") String osVersion,
+                                           @Query("deviceId") String deviceId
+    );
+
+
+    @GET("svms/api/v1/svc/screenversion/{id}")
+    Call<Long> getScreenVersion(@Path("id") String id);
+
+    @GET("cms/api/v1/sdc/screen/{screenId}/active-schedule")
+    Call<ScreenScheduleResponse> getActiveSchedule(@Path("screenId") String screenId);
+
+    // Replace YourResponseType with the type you expect to receive from the API
 
 }

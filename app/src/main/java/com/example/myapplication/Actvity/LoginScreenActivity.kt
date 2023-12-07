@@ -1,6 +1,8 @@
 package com.example.myapplication.Actvity
 
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -19,6 +21,7 @@ import com.example.myapplication.network.model.DeviceInfo
 import com.example.myapplication.network.model.GeneratePair
 import com.example.myapplication.utils.PreferenceUtils
 import com.example.myapplication.utils.ToastMsg
+import okhttp3.internal.http2.Settings
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -64,7 +67,10 @@ class LoginScreenActivity : AppCompatActivity() {
 
         val retrofit = RetrofitClient.getRetrofitInstance()
         val api = retrofit.create(MainApi::class.java)
-        val call = api.generatePairCode
+
+        //val osVersion = Build.VERSION.RELEASE
+
+        val call = api.getGeneratePairCode("1","9","2")
         call.enqueue(object : Callback<GeneratePair?> {
             override fun onResponse(call: Call<GeneratePair?>, response: Response<GeneratePair?>) {
                 if (response.code() == 200 && response.body() != null) {

@@ -22,6 +22,7 @@ public class ScreenScheduleResponse implements Parcelable {
     private String updatedDate;
     private List<Schedule> schedules;
 
+
     protected ScreenScheduleResponse(Parcel in) {
         id = in.readInt();
         name = in.readString();
