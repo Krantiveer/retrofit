@@ -394,11 +394,26 @@ class SplitHalfHorizontalView : AppCompatActivity() {
             }
         }
         if (receivedContentListSecond != null) {
+            var sec = receivedContentListSecond.get(currentsizeSecond!!).duration * 1000
+
             if (receivedContentListSecond.get(0).contentType != "VIDEO") {
                 image_containSecond!!.setVisibility(View.VISIBLE)
+                exoPlayerViewSecond!!.setVisibility(View.INVISIBLE)
+                updateCardViewImage(
+                    receivedContentListSecond.get(currentsizeSecond!!).permaLink,
+                    "Second"
+                )
+                Handler().postDelayed(Runnable {
+                    currentsizeSecond = currentsizeSecond?.plus(1)
+                    logicSecond()
+
+                }, sec.toLong())
+
 
             } else {
                 image_containSecond!!.setVisibility(View.GONE)
+                exoPlayerViewSecond!!.setVisibility(View.VISIBLE)
+
                 initVideoPlayerSecond(
                     receivedContentListSecond.get(0).permaLink.toString(),
                     receivedContentListSecond.get(0).format.toString()
@@ -442,6 +457,34 @@ class SplitHalfHorizontalView : AppCompatActivity() {
 
             }
             // Use the receivedContentList in your HorizontalView activity
+        }
+        var secSecond = receivedContentListSecond.get(currentsizeSecond!!).duration * 1000
+
+        if (receivedContentListSecond != null) {
+            if (receivedContentListSecond.get(0).contentType != "VIDEO") {
+                image_containSecond!!.setVisibility(View.VISIBLE)
+                exoPlayerViewSecond!!.setVisibility(View.INVISIBLE)
+                updateCardViewImage(
+                    receivedContentListSecond.get(currentsizeSecond!!).permaLink,
+                    "Second"
+                )
+                Handler().postDelayed(Runnable {
+                    currentsizeSecond = currentsizeSecond?.plus(1)
+                    logicSecond()
+
+                }, secSecond.toLong())
+
+
+            } else {
+                image_containSecond!!.setVisibility(View.GONE)
+                exoPlayerViewSecond!!.setVisibility(View.VISIBLE)
+
+                initVideoPlayer(
+                    receivedContentListSecond.get(0).permaLink.toString(),
+                    receivedContentListSecond.get(0).format.toString()
+                )
+
+            }
         }
 
     }

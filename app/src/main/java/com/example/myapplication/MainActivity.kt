@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.Actvity.handlerqr
 import com.example.myapplication.Screens.HorizontalView
 import com.example.myapplication.Screens.SplitHalfHorizontalView
+import com.example.myapplication.Screens.SplitThirdHorizontalView
 import com.example.myapplication.network.RetrofitClient
 import com.example.myapplication.network.api.MainApi
 import com.example.myapplication.network.model.ApiResponse
@@ -157,7 +158,7 @@ class MainActivity : AppCompatActivity() {
             8 -> print("randomVal == 8")
             9 -> {gotoHorizontalScreen(body.schedules.get(0).playlists.get(0).layout.zones.get(0).contents)}
             10 -> {gotoSplitHorizontalScreen(body.schedules.get(0).playlists.get(0).layout.zones.get(0).contents,body.schedules.get(0).playlists.get(0).layout.zones.get(1).contents)}
-            11 -> print("randomVal == 11")
+            11 -> {gotoThirdSplitHorizontalScreen(body.schedules.get(0).playlists.get(0).layout.zones.get(0).contents,body.schedules.get(0).playlists.get(0).layout.zones.get(1).contents,body.schedules.get(0).playlists.get(0).layout.zones.get(2).contents)}
             12 -> print("randomVal == 12")
             13 -> print("randomVal == 13")
             14 -> print("randomVal == 14")
@@ -184,6 +185,15 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, SplitHalfHorizontalView::class.java)
         intent.putParcelableArrayListExtra("CONTENT_LIST", ArrayList(content_data))
         intent.putParcelableArrayListExtra("CONTENT_LIST_TWO", ArrayList(content_data_second))
+        startActivity(intent)
+
+    } fun gotoThirdSplitHorizontalScreen(content_data:List<Content>,content_data_second:List<Content>,content_data_third:List<Content>) {
+        //   handler.removeCallbacksAndMessages(null)
+        handlerqr.removeCallbacksAndMessages(null)
+        val intent = Intent(this, SplitThirdHorizontalView::class.java)
+        intent.putParcelableArrayListExtra("CONTENT_LIST", ArrayList(content_data))
+        intent.putParcelableArrayListExtra("CONTENT_LIST_TWO", ArrayList(content_data_second))
+        intent.putParcelableArrayListExtra("CONTENT_LIST_Third", ArrayList(content_data_third))
         startActivity(intent)
 
     }
