@@ -279,6 +279,7 @@ class HorizontalView : AppCompatActivity() {
                     currentsize = currentsize?.plus(1)
                     Log.i(TAG, "onPlayerStateChanged: -->" + currentsize)
                     if (size!! >= currentsize!!) {
+                        currentsize=0
                         if (receivedContentList.get(currentsize!!).contentType == "VIDEO") {
                             image_contain!!.setVisibility(View.GONE)
                             initVideoPlayer(

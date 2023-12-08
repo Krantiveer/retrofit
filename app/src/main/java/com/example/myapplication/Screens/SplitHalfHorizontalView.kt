@@ -193,6 +193,7 @@ class SplitHalfHorizontalView : AppCompatActivity() {
                     currentsize = currentsize?.plus(1)
                     Log.i(TAG, "onPlayerStateChanged: -->" + currentsize)
                     if (size!! >= currentsize!!) {
+                        currentsize =0
                         if (receivedContentList.get(currentsize!!).contentType == "VIDEO") {
                             image_contain!!.setVisibility(View.GONE)
                             initVideoPlayer(
@@ -272,6 +273,7 @@ class SplitHalfHorizontalView : AppCompatActivity() {
                     currentsizeSecond = currentsizeSecond?.plus(1)
                     Log.i(TAG, "onPlayerStateChanged: -->" + currentsizeSecond)
                     if (sizeSecond!! >= currentsizeSecond!!) {
+                        currentsizeSecond=0
                         if (receivedContentListSecond.get(currentsizeSecond!!).contentType == "VIDEO") {
                             image_containSecond!!.setVisibility(View.GONE)
                             initVideoPlayer(

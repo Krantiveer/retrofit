@@ -219,15 +219,19 @@ class SplitThirdHorizontalView : AppCompatActivity() {
                       player!!.play()*/
                     // loadNextVideo("M",related_id)
                     currentsize = currentsize?.plus(1)
-                    Log.i(TAG, "onPlayerStateChanged: -->" + currentsize)
+                    Log.i(TAG, "onPlayerStateChangedfirst: -->" + currentsize +size)
                     if (size!! >= currentsize!!) {
+                        currentsize =0
+
+
                         if (receivedContentList.get(currentsize!!).contentType == "VIDEO") {
                             image_contain!!.setVisibility(View.GONE)
                             initVideoPlayer(
                                 receivedContentList.get(currentsize!!).permaLink.toString(),
                                 receivedContentList.get(currentsize!!).format.toString()
                             )
-                        } else {
+                        }
+                        else {
                             image_contain!!.setVisibility(View.VISIBLE)
                             exoPlayerView!!.visibility = View.INVISIBLE
                             var sec = receivedContentList.get(currentsize!!).duration * 1000
@@ -300,6 +304,8 @@ class SplitThirdHorizontalView : AppCompatActivity() {
                     currentsizeSecond = currentsizeSecond?.plus(1)
                     Log.i(TAG, "onPlayerStateChanged: -->" + currentsizeSecond)
                     if (sizeSecond!! >= currentsizeSecond!!) {
+                        currentsizeSecond =0
+
                         if (receivedContentListSecond.get(currentsizeSecond!!).contentType == "VIDEO") {
                             image_containSecond!!.setVisibility(View.GONE)
                             initVideoPlayer(
@@ -380,6 +386,8 @@ class SplitThirdHorizontalView : AppCompatActivity() {
                     currentsizeThird = currentsizeThird?.plus(1)
                     Log.i(TAG, "onPlayerStateChanged: -->" + currentsizeThird)
                     if (sizeThird!! >= currentsizeThird!!) {
+                        currentsizeThird =0
+
                         if (receivedContentListThird.get(currentsizeThird!!).contentType == "VIDEO") {
                             image_containThird!!.setVisibility(View.GONE)
                             initVideoPlayer(
