@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.myapplication.R
 import com.example.myapplication.network.model.Content
 import com.google.android.exoplayer2.ExoPlaybackException
@@ -77,13 +78,45 @@ class HorizontalView : AppCompatActivity() {
                .into(image_contain!!)
    */
     }
+    fun restart(){
+        var sec =receivedContentList.get(currentsize!!).duration * 1000
+
+        if (receivedContentList != null) {
+            if (receivedContentList.get(0).contentType != "VIDEO") {
+                image_contain!!.setVisibility(View.VISIBLE)
+                exoPlayerView!!.setVisibility(View.INVISIBLE)
+                updateCardViewImage(receivedContentList.get(currentsize!!).permaLink)
+                Handler().postDelayed(Runnable {
+                    currentsize = currentsize?.plus(1)
+                    logic()
+
+                }, sec.toLong())
+
+
+            } else {
+                image_contain!!.setVisibility(View.GONE)
+                exoPlayerView!!.setVisibility(View.VISIBLE)
+
+                initVideoPlayer(
+                    receivedContentList.get(0).permaLink.toString(),
+                    receivedContentList.get(0).format.toString()
+                )
+                // initVideoPlayer("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "mp4")
+
+            }
+            // Use the receivedContentList in your HorizontalView activity
+        }
+
+    }
     protected fun updateCardViewImage(url: String?) {
 
         Glide.with(applicationContext)
             .load(url) /*.override(100,300)*/
             .error(applicationContext
                 .getResources()
+
                 .getDrawable(R.drawable.logo))
+            .transition(DrawableTransitionOptions.withCrossFade(2000)) // Set duration to 2000ms (2 seconds)
 
             .into(image_contain!!)
     }
@@ -129,11 +162,38 @@ class HorizontalView : AppCompatActivity() {
     }
 fun logic(){
     if (receivedContentList != null) {
-        if (receivedContentList.get(0).contentType != "VIDEO") {
+        if(currentsize!!>= size!!){
+
+            currentsize=0
+            Log.i(TAG, "logic: "+currentsize +size)
+
+            restart()
+            return
+
+        }
+        if (receivedContentList.get(currentsize!!).contentType != "VIDEO") {
             exoPlayerView!!.visibility=View.INVISIBLE
 
             image_contain!!.setVisibility(View.VISIBLE)
             updateCardViewImage(receivedContentList.get(currentsize!!).permaLink)
+            var sec =receivedContentList.get(currentsize!!).duration * 1000
+            Log.i(TAG, "logic: "+currentsize +size)
+            Handler().postDelayed(Runnable {
+                currentsize = currentsize?.plus(1)
+                if(currentsize!!>= size!!){
+
+                    currentsize=0
+                    Log.i(TAG, "logic: "+currentsize +size)
+
+                    restart()
+
+                }else{
+                    Log.i(TAG, "logic:1 "+currentsize +size)
+
+                    logic()
+                }
+
+            }, sec.toLong())
 
 
         } else {

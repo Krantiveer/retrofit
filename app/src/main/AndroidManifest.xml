@@ -74,6 +74,9 @@
             android:name=".Screens.SplitHalfHorizontalView"
             android:exported="false" />
         <activity
+            android:name=".Screens.SplitThirdHorizontalView"
+            android:exported="false" />
+        <activity
             android:name=".Actvity.LoginScreenActivity"
             android:exported="true">
             <meta-data
