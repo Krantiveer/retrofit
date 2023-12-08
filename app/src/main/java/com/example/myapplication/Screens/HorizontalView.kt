@@ -1,11 +1,14 @@
 package com.example.myapplication.Screens
 
+import android.animation.ObjectAnimator
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.RotateAnimation
 import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
@@ -18,8 +21,7 @@ import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.ui.PlayerView
-import com.google.android.exoplayer2.upstream.DataSource
-import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
+
 
 class HorizontalView : AppCompatActivity() {
     private val TAG = "HorizontalView"
@@ -44,7 +46,7 @@ class HorizontalView : AppCompatActivity() {
 
         receivedContentList = intent.getParcelableArrayListExtra("CONTENT_LIST")!!
         size = receivedContentList.size
-        var sec =receivedContentList.get(currentsize!!).duration * 1000
+        var sec = receivedContentList.get(currentsize!!).duration * 1000
 
         if (receivedContentList != null) {
             if (receivedContentList.get(0).contentType != "VIDEO") {
@@ -78,8 +80,9 @@ class HorizontalView : AppCompatActivity() {
                .into(image_contain!!)
    */
     }
-    fun restart(){
-        var sec =receivedContentList.get(currentsize!!).duration * 1000
+
+    fun restart() {
+        var sec = receivedContentList.get(currentsize!!).duration * 1000
 
         if (receivedContentList != null) {
             if (receivedContentList.get(0).contentType != "VIDEO") {
@@ -108,17 +111,43 @@ class HorizontalView : AppCompatActivity() {
         }
 
     }
+
     protected fun updateCardViewImage(url: String?) {
+
+//https://www.adorama.com/alc/wp-content/uploads/2021/05/bird-wings-flying-feature.gif
 
         Glide.with(applicationContext)
             .load(url) /*.override(100,300)*/
-            .error(applicationContext
-                .getResources()
-
-                .getDrawable(R.drawable.logo))
+            .error(
+                applicationContext
+                    .getResources()
+                    .getDrawable(R.drawable.logo)
+            )
             .transition(DrawableTransitionOptions.withCrossFade(2000)) // Set duration to 2000ms (2 seconds)
-
             .into(image_contain!!)
+  /*      image_contain?.let {
+            val rotateAnimator = ObjectAnimator.ofFloat(it, "rotation", 0f, 360f)
+            rotateAnimator.duration = 2000 // Duration of the rotation in milliseconds
+            rotateAnimator.repeatCount = ObjectAnimator.INFINITE // Repeat indefinitely
+            rotateAnimator.start()
+        }*/
+
+        /*
+        val rotateAnimation = RotateAnimation(
+            0f, 360f,
+            Animation.RELATIVE_TO_SELF, 0.5f,
+            Animation.RELATIVE_TO_SELF, 0.5f
+        )
+
+        rotateAnimation.duration = 2000 // Duration of the animation in milliseconds
+
+        rotateAnimation.repeatCount = Animation.INFINITE // Repeat indefinitely
+
+
+        image_contain!!.startAnimation(rotateAnimation)*/
+
+
+
     }
 
     private fun intiViews() {
@@ -160,53 +189,56 @@ class HorizontalView : AppCompatActivity() {
  */
         // PreferenceUtils.getInstance().getWatermarkLogoUrlPref(this);
     }
-fun logic(){
-    if (receivedContentList != null) {
-        if(currentsize!!>= size!!){
 
-            currentsize=0
-            Log.i(TAG, "logic: "+currentsize +size)
+    fun logic() {
+        if (receivedContentList != null) {
+            if (currentsize!! >= size!!) {
 
-            restart()
-            return
+                currentsize = 0
+                Log.i(TAG, "logic: " + currentsize + size)
 
+                restart()
+                return
+
+            }
+            if (receivedContentList.get(currentsize!!).contentType != "VIDEO") {
+                exoPlayerView!!.visibility = View.INVISIBLE
+
+                image_contain!!.setVisibility(View.VISIBLE)
+                updateCardViewImage(receivedContentList.get(currentsize!!).permaLink)
+                var sec = receivedContentList.get(currentsize!!).duration * 1000
+                Log.i(TAG, "logic: " + currentsize + size)
+                Handler().postDelayed(Runnable {
+                    currentsize = currentsize?.plus(1)
+                    if (currentsize!! >= size!!) {
+
+                        currentsize = 0
+                        Log.i(TAG, "logic: " + currentsize + size)
+
+                        restart()
+
+                    } else {
+                        Log.i(TAG, "logic:1 " + currentsize + size)
+
+                        logic()
+                    }
+
+                }, sec.toLong())
+
+
+            } else {
+                exoPlayerView!!.visibility = View.VISIBLE
+                image_contain!!.setVisibility(View.INVISIBLE)
+                initVideoPlayer(
+                    receivedContentList.get(currentsize!!).permaLink.toString(),
+                    receivedContentList.get(currentsize!!).format.toString()
+                )
+                // initVideoPlayer("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "mp4")
+
+            }
         }
-        if (receivedContentList.get(currentsize!!).contentType != "VIDEO") {
-            exoPlayerView!!.visibility=View.INVISIBLE
+    }
 
-            image_contain!!.setVisibility(View.VISIBLE)
-            updateCardViewImage(receivedContentList.get(currentsize!!).permaLink)
-            var sec =receivedContentList.get(currentsize!!).duration * 1000
-            Log.i(TAG, "logic: "+currentsize +size)
-            Handler().postDelayed(Runnable {
-                currentsize = currentsize?.plus(1)
-                if(currentsize!!>= size!!){
-
-                    currentsize=0
-                    Log.i(TAG, "logic: "+currentsize +size)
-
-                    restart()
-
-                }else{
-                    Log.i(TAG, "logic:1 "+currentsize +size)
-
-                    logic()
-                }
-
-            }, sec.toLong())
-
-
-        } else {
-            exoPlayerView!!.visibility=View.VISIBLE
-            image_contain!!.setVisibility(View.INVISIBLE)
-            initVideoPlayer(
-                receivedContentList.get(currentsize!!).permaLink.toString(),
-                receivedContentList.get(currentsize!!).format.toString()
-            )
-            // initVideoPlayer("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "mp4")
-
-        }
-}}
     fun initVideoPlayer(url: String?, type: String) {
         Log.i(TAG, "initVideoPlayer: $type")
         if (player != null) {
@@ -253,10 +285,10 @@ fun logic(){
                                 receivedContentList.get(currentsize!!).permaLink.toString(),
                                 receivedContentList.get(currentsize!!).format.toString()
                             )
-                        }else{
+                        } else {
                             image_contain!!.setVisibility(View.VISIBLE)
-                            exoPlayerView!!.visibility=View.INVISIBLE
-                            var sec =receivedContentList.get(currentsize!!).duration * 1000
+                            exoPlayerView!!.visibility = View.INVISIBLE
+                            var sec = receivedContentList.get(currentsize!!).duration * 1000
 
                             updateCardViewImage(receivedContentList.get(currentsize!!).permaLink)
 
