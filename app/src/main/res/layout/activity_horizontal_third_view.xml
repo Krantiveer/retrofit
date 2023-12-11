@@ -37,7 +37,6 @@
             android:visibility="gone"
             tool:visibility="visible"
             android:layout_centerVertical="true"
-            android:scaleType="fitXY"
             android:src="@drawable/banner_image"/>
 
 
@@ -49,7 +48,7 @@
             android:layout_height="match_parent"
             android:outlineAmbientShadowColor="@color/color_dark_yellow_high"
             android:outlineSpotShadowColor="@color/green_500"
-            app:auto_show="true"
+
             app:buffered_color="@color/player_progress_color"
             app:use_controller="false"
             app:played_color="@color/main_color"
@@ -94,7 +93,6 @@
             android:visibility="gone"
             tool:visibility="visible"
             android:layout_centerVertical="true"
-            android:scaleType="fitXY"
             android:src="@drawable/banner_image"/>
 
 
@@ -106,7 +104,7 @@
             android:layout_height="match_parent"
             android:outlineAmbientShadowColor="@color/color_dark_yellow_high"
             android:outlineSpotShadowColor="@color/green_500"
-            app:auto_show="true"
+
             app:buffered_color="@color/player_progress_color"
             app:controller_layout_id="@layout/custom_exo_layout"
             app:played_color="@color/main_color"
@@ -152,7 +150,6 @@
             tool:visibility="visible"
 
             android:layout_centerVertical="true"
-            android:scaleType="fitXY"
             android:src="@drawable/banner_image"/>
 
 
@@ -163,7 +160,7 @@
             android:layout_height="match_parent"
             android:outlineAmbientShadowColor="@color/color_dark_yellow_high"
             android:outlineSpotShadowColor="@color/green_500"
-            app:auto_show="true"
+
             app:buffered_color="@color/player_progress_color"
             app:use_controller="false"
             app:played_color="@color/main_color"

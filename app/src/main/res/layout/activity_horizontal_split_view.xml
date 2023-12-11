@@ -48,7 +48,7 @@
             android:layout_height="match_parent"
             android:outlineAmbientShadowColor="@color/color_dark_yellow_high"
             android:outlineSpotShadowColor="@color/green_500"
-            app:auto_show="true"
+
             app:buffered_color="@color/player_progress_color"
             app:controller_layout_id="@layout/custom_exo_layout"
             app:played_color="@color/main_color"
@@ -105,7 +105,7 @@
             android:layout_height="match_parent"
             android:outlineAmbientShadowColor="@color/color_dark_yellow_high"
             android:outlineSpotShadowColor="@color/green_500"
-            app:auto_show="true"
+
             app:buffered_color="@color/player_progress_color"
             app:controller_layout_id="@layout/custom_exo_layout"
             app:played_color="@color/main_color"
