@@ -1,15 +1,15 @@
 <resources>
-    <string name="app_name">DS Player</string>
+    <string name="app_name">DSPlayer</string>
     <string name="hint_image">Image</string>
     <string name="description">description</string>
     <string name="error_toast">Something went wrong ! try later</string>
     <string name="internet_toast">Please check internate ! try later</string>
     <string name="subscription_required">Subscription Required</string>
-
     <string name="dialog_instruction_1">1. Purchase a plan from your phone/website.</string>
     <string name="dialog_instruction_2">2. Close this app. </string>
     <string name="dialog_instruction_3">3. Reopen this app. </string>
     <string name="continue_browsing">Continue browsing</string>
     <string name="live">live</string>
+    <string name="paircode">XXXXXX</string>
     <color name="colorGoldLight">#EAD384</color>
 </resources>

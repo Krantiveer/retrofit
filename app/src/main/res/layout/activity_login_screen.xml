@@ -44,7 +44,7 @@
                     android:background="@drawable/curved_gold_stroke_bg"
                     android:fontFamily="@font/roboto_regular"
                     android:gravity="center"
-                    android:text="Paircode"
+                    android:text="@string/paircode"
                     android:paddingStart="@dimen/_15sp"
                     android:textColor="@color/black"
                     android:textColorHint="@color/black"
