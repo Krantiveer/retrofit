@@ -148,7 +148,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun onGetActiveScheduleSuccess(body: ScreenScheduleResponse) {
         when (body.schedules.get(0).playlists.get(0).layout.layoutId) {
-            1 -> print("randomVal == 1")
+            1 -> {gotoVerticalScreen(body.schedules.get(0).playlists.get(0).layout.zones.get(0).contents)}
             2 -> print("randomVal == 2")
             3 -> print("randomVal == 3")
             4 -> print("randomVal == 4")
@@ -171,6 +171,14 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    fun gotoVerticalScreen(content_data:List<Content>) {
+        //   handler.removeCallbacksAndMessages(null)
+        handlerqr.removeCallbacksAndMessages(null)
+        val intent = Intent(this, HorizontalView::class.java)
+        intent.putParcelableArrayListExtra("CONTENT_LIST", ArrayList(content_data))
+        startActivity(intent)
+
+    }
     fun gotoHorizontalScreen(content_data:List<Content>) {
         //   handler.removeCallbacksAndMessages(null)
         handlerqr.removeCallbacksAndMessages(null)
