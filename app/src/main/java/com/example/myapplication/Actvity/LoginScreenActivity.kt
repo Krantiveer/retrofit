@@ -96,14 +96,14 @@ class LoginScreenActivity : AppCompatActivity() {
                     // signOut()
                 } else {
 
-                    ToastMsg(this@LoginScreenActivity).toastIconError(getString(R.string.error_toast))
+              //      ToastMsg(this@LoginScreenActivity).toastIconError(getString(R.string.error_toast))
                 }
                 progress_bar.visibility = View.INVISIBLE
 
             }
 
             override fun onFailure(call: Call<GeneratePair?>, t: Throwable) {
-                ToastMsg(this@LoginScreenActivity).toastIconError(getString(R.string.error_toast))
+               // ToastMsg(this@LoginScreenActivity).toastIconError(getString(R.string.error_toast))
                 Log.e("DetailsActivityPhando", "onFailure: $t")
                 progress_bar.visibility = View.INVISIBLE
 

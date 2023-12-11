@@ -10,6 +10,7 @@ import com.example.myapplication.Actvity.handlerqr
 import com.example.myapplication.Screens.HorizontalView
 import com.example.myapplication.Screens.SplitHalfHorizontalView
 import com.example.myapplication.Screens.SplitThirdHorizontalView
+import com.example.myapplication.Screens.VerticalView
 import com.example.myapplication.network.RetrofitClient
 import com.example.myapplication.network.api.MainApi
 import com.example.myapplication.network.model.ApiResponse
@@ -149,7 +150,7 @@ class MainActivity : AppCompatActivity() {
     private fun onGetActiveScheduleSuccess(body: ScreenScheduleResponse) {
         when (body.schedules.get(0).playlists.get(0).layout.layoutId) {
             1 -> {gotoVerticalScreen(body.schedules.get(0).playlists.get(0).layout.zones.get(0).contents)}
-            2 -> print("randomVal == 2")
+            2 -> {gotoVerticalSplitScreen(body.schedules.get(0).playlists.get(0).layout.zones.get(0).contents,body.schedules.get(0).playlists.get(0).layout.zones.get(1).contents)}
             3 -> print("randomVal == 3")
             4 -> print("randomVal == 4")
             5 -> print("randomVal == 5")
@@ -174,12 +175,20 @@ class MainActivity : AppCompatActivity() {
     fun gotoVerticalScreen(content_data:List<Content>) {
         //   handler.removeCallbacksAndMessages(null)
         handlerqr.removeCallbacksAndMessages(null)
-        val intent = Intent(this, HorizontalView::class.java)
+        val intent = Intent(this, VerticalView::class.java)
         intent.putParcelableArrayListExtra("CONTENT_LIST", ArrayList(content_data))
         startActivity(intent)
 
+    }fun gotoVerticalSplitScreen(content_data:List<Content>,content_data_second:List<Content>) {
+        //   handler.removeCallbacksAndMessages(null)
+        handlerqr.removeCallbacksAndMessages(null)
+        val intent = Intent(this, SplitHalfHorizontalView::class.java)
+        intent.putParcelableArrayListExtra("CONTENT_LIST", ArrayList(content_data))
+        intent.putParcelableArrayListExtra("CONTENT_LIST_TWO", ArrayList(content_data_second))
+        startActivity(intent)
     }
-    fun gotoHorizontalScreen(content_data:List<Content>) {
+
+        fun gotoHorizontalScreen(content_data:List<Content>) {
         //   handler.removeCallbacksAndMessages(null)
         handlerqr.removeCallbacksAndMessages(null)
         val intent = Intent(this, HorizontalView::class.java)

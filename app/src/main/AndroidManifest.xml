@@ -74,6 +74,10 @@
             android:name=".Screens.VerticalView"
             android:exported="false" />
         <activity
+            android:screenOrientation="portrait"
+            android:name=".Screens.SplitVerticalView"
+            android:exported="false" />
+        <activity
             android:name=".Screens.HorizontalView"
             android:exported="false" />
         <activity
