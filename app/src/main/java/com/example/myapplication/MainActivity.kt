@@ -48,13 +48,13 @@ class MainActivity : AppCompatActivity() {
             override fun run() {
                 handlerscreen.postDelayed(this, 15000)
                 //    CheckAccessCode(randomNumber)
-                fetchScreenversionAPI(
+                fetchScreenversionAPIHandler(
                     PreferenceUtils.getInstance().getPairIDPref(applicationContext)
                 )
 
                 //Do something after 3 seconds
             }
-        }, 4000)
+        }, 2000)
     }
 
     private fun fetchActiveScheduleAPI(id: String) {
@@ -124,17 +124,123 @@ class MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call<Long?>, response: Response<Long?>) {
                 if (response.code() == 200) {
                     if (response.body()?.toInt() == -1) {
+                        Log.i(
+                            TAG,
+                            "onResponse:SCREEN_VERSION_CODE -false " + (response.body()
+                                ?.toString())
+                        )
                         Toast.makeText(
                             applicationContext,
                             "Screen Paired , Please schedule your content",
                             Toast.LENGTH_LONG
                         ).show()
-                    } else {
-                        handlerscreen.removeCallbacksAndMessages(null)
 
-                        fetchActiveScheduleAPI(
-                            PreferenceUtils.getInstance().getPairIDPref(applicationContext)
+                    } else {
+
+                        //   handlerscreen.removeCallbacksAndMessages(null)
+
+
+                            PreferenceUtils.getInstance().setSCREEN_VERSION_CODEPref(
+                                applicationContext,
+                                response.body().toString()
+                            )
+                            Log.i(
+                                TAG,
+                                "onResponse:SCREEN_VERSION_CODE else true" + (response.body()
+                                    ?.toString())
+                            )
+
+                            fetchActiveScheduleAPI(
+                                PreferenceUtils.getInstance().getPairIDPref(applicationContext)
+                            )
+                        }
+
+
+
+                    Log.i(TAG, "success--> " + response.body())
+
+
+                } else if (response.code() == 401) {
+
+                } else if (response.errorBody() != null) {
+                    if (AccessController.getContext() != null) {
+                        Toast.makeText(
+                            applicationContext,
+                            "sorry! Something went wrong. Please try again after some time" + response.errorBody(),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                } else {
+                    if (AccessController.getContext() != null) {
+                        Toast.makeText(
+                            applicationContext,
+                            "sorry! Something went wrong. Please try again after some time",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<Long?>, t: Throwable) {
+                //   CMHelper.setSnackBar(requireView(), t.getMessage(), 2);
+                if (AccessController.getContext() != null) {
+                    Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT).show()
+                } else {
+                }
+            }
+        })
+
+    }
+    private fun fetchScreenversionAPIHandler(id: String) {
+        val retrofitcms = RetrofitClient.getRetrofitInstanceCMS()
+        val api = retrofitcms.create(MainApi::class.java)
+        val accessToken = "Bearer ";
+        Log.i(TAG, "fetchValidateAPI: ")
+
+        val call: Call<Long> = api.getScreenVersion(id)
+        call.enqueue(object : Callback<Long?> {
+            override fun onResponse(call: Call<Long?>, response: Response<Long?>) {
+                if (response.code() == 200) {
+                    if (response.body()?.toInt() == -1) {
+                        Log.i(
+                            TAG,
+                            "onResponse:SCREEN_VERSION_CODE -false " + (response.body()
+                                ?.toString())
                         )
+                        Toast.makeText(
+                            applicationContext,
+                            "Screen Paired , Please schedule your content",
+                            Toast.LENGTH_LONG
+                        ).show()
+
+                    } else {
+
+                        //   handlerscreen.removeCallbacksAndMessages(null)
+                        if (PreferenceUtils.getInstance().getSCREEN_VERSION_CODEPref(applicationContext).contentEquals(
+                                    response.body()?.toString()
+                                )
+                        ) {
+                            Log.i(
+                                TAG,
+                                "onResponse:SCREEN_VERSION_CODE --no data assign" + (response.body()
+                                    ?.toString())
+                            )
+
+                        } else {
+                            PreferenceUtils.getInstance().setSCREEN_VERSION_CODEPref(
+                                applicationContext,
+                                response.body().toString()
+                            )
+                            Log.i(
+                                TAG,
+                                "onResponse:SCREEN_VERSION_CODE else true" + (response.body()
+                                    ?.toString())
+                            )
+
+                            fetchActiveScheduleAPI(
+                                PreferenceUtils.getInstance().getPairIDPref(applicationContext)
+                            )
+                        }
 
                     }
 
@@ -231,8 +337,7 @@ class MainActivity : AppCompatActivity() {
     fun gotoVerticalScreen(content_data: List<Content>) {
         //   handler.removeCallbacksAndMessages(null)
         handlerqr.removeCallbacksAndMessages(null)
-        handlerscreen.removeCallbacksAndMessages(null)
-
+      //  handlerscreen.removeCallbacksAndMessages(null)
         val intent = Intent(this, VerticalView::class.java)
         intent.putParcelableArrayListExtra("CONTENT_LIST", ArrayList(content_data))
         startActivity(intent)
@@ -242,8 +347,7 @@ class MainActivity : AppCompatActivity() {
     fun gotoVerticalSplitScreen(content_data: List<Content>, content_data_second: List<Content>) {
         //   handler.removeCallbacksAndMessages(null)
         handlerqr.removeCallbacksAndMessages(null)
-        handlerscreen.removeCallbacksAndMessages(null)
-
+      //  handlerscreen.removeCallbacksAndMessages(null)
         val intent = Intent(this, SplitHalfHorizontalView::class.java)
         intent.putParcelableArrayListExtra("CONTENT_LIST", ArrayList(content_data))
         intent.putParcelableArrayListExtra("CONTENT_LIST_TWO", ArrayList(content_data_second))
@@ -253,8 +357,7 @@ class MainActivity : AppCompatActivity() {
     fun gotoHorizontalScreen(content_data: List<Content>) {
         //   handler.removeCallbacksAndMessages(null)
         handlerqr.removeCallbacksAndMessages(null)
-        handlerscreen.removeCallbacksAndMessages(null)
-
+      //  handlerscreen.removeCallbacksAndMessages(null)
         val intent = Intent(this, HorizontalView::class.java)
         intent.putParcelableArrayListExtra("CONTENT_LIST", ArrayList(content_data))
         startActivity(intent)
@@ -264,8 +367,7 @@ class MainActivity : AppCompatActivity() {
     fun gotoSplitHorizontalScreen(content_data: List<Content>, content_data_second: List<Content>) {
         //   handler.removeCallbacksAndMessages(null)
         handlerqr.removeCallbacksAndMessages(null)
-        handlerscreen.removeCallbacksAndMessages(null)
-
+      //  handlerscreen.removeCallbacksAndMessages(null)
         val intent = Intent(this, SplitHalfHorizontalView::class.java)
         intent.putParcelableArrayListExtra("CONTENT_LIST", ArrayList(content_data))
         intent.putParcelableArrayListExtra("CONTENT_LIST_TWO", ArrayList(content_data_second))
@@ -280,8 +382,7 @@ class MainActivity : AppCompatActivity() {
     ) {
         //   handler.removeCallbacksAndMessages(null)
         handlerqr.removeCallbacksAndMessages(null)
-        handlerscreen.removeCallbacksAndMessages(null)
-
+      //  handlerscreen.removeCallbacksAndMessages(null)
         val intent = Intent(this, SplitThirdHorizontalView::class.java)
         intent.putParcelableArrayListExtra("CONTENT_LIST", ArrayList(content_data))
         intent.putParcelableArrayListExtra("CONTENT_LIST_TWO", ArrayList(content_data_second))
@@ -292,7 +393,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        handlerscreen.removeCallbacksAndMessages(null)
+        // handlerscreen.removeCallbacksAndMessages(null)
         //    handler.removeCallbacksAndMessages(null)
         /*     if(BuildConfig.FLAVOR.equalsIgnoreCase("kaafaltv")||BuildConfig.FLAVOR.equalsIgnoreCase("solidtv")){
         }else{*/

@@ -31,11 +31,12 @@ public class PreferenceUtils {
     public static final String access_coupon = "access_coupon";
     public static final String state_name = "state_name";
     public static final Integer watch_list = 0;
-    public static final String PairID="";
+    public static final String PairID = "";
     public static final String watermarklogourl = "watermarklogourl";
     public static final String watermarkEnable = "";
     public static final String websiteUrl = "";
     public static final String PAIR_CODE = "PAIR_CODE";
+    public static final String SCREEN_VERSION_CODE = "SCREEN_VERSION_CODE";
     public static final String Login = "false";
 
 
@@ -44,7 +45,6 @@ public class PreferenceUtils {
     public static PreferenceUtils getInstance() {
         return INSTANCE;
     }
-
 
 
     public static long getCurrentTime() {
@@ -79,7 +79,6 @@ public class PreferenceUtils {
 
         return calendar.getTimeInMillis();
     }
-
 
 
     public void setWindowHeightPref(Context context, String hight) {
@@ -180,6 +179,18 @@ public class PreferenceUtils {
     }
 
 
+    public void setSCREEN_VERSION_CODEPref(Context context, String str) {
+        SharedPreferences prefs = context.getSharedPreferences(shared_preferences, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(SCREEN_VERSION_CODE, str);
+        editor.apply();
+    }
+
+    public String getSCREEN_VERSION_CODEPref(Context context) {
+        return context.getSharedPreferences(shared_preferences, Context.MODE_PRIVATE)
+                .getString(SCREEN_VERSION_CODE, "-1");
+    }
+
     public void setPAIR_CODEPref(Context context, String str) {
         SharedPreferences prefs = context.getSharedPreferences(shared_preferences, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
@@ -203,6 +214,7 @@ public class PreferenceUtils {
         return context.getSharedPreferences(shared_preferences, Context.MODE_PRIVATE)
                 .getString(access_token, "");
     }
+
     public void setLoginPref(Context context, String login) {
         SharedPreferences prefs = context.getSharedPreferences(shared_preferences, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();

@@ -180,12 +180,11 @@ class LoginScreenActivity : AppCompatActivity() {
 
                 } else if (response.errorBody() != null) {
                     if (AccessController.getContext() != null) {
-                        /*  Toast.makeText(
+                          Toast.makeText(
                               applicationContext,
                               "sorry! Something went wrong. Please try again after some time" + response.errorBody(),
                               Toast.LENGTH_SHORT
                           ).show()
-                */
                     }
                 } else {
                     if (AccessController.getContext() != null) {
