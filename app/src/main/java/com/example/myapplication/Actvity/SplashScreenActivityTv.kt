@@ -14,6 +14,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.VideoView
+import com.example.myapplication.Config
 import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.network.RetrofitClient
@@ -33,18 +34,20 @@ class SplashScreenActivityTv : Activity() {
 
     // private var userProfile: UserProfile? = null
     private var is_reviewdata: Integer? = null
-    private lateinit var appversion:TextView
-    private lateinit var sdkversion:TextView
+    private lateinit var appversion: TextView
+    private lateinit var sdkversion: TextView
 
     private val TAG = SplashScreenActivityTv::class.java.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_onboarding)
-      //  appversion.text="APK version: 1"
-       // sdkversion.text="SDK Version (Android): 34"
+        appversion = findViewById<TextView>(R.id.appversion)
+        sdkversion = findViewById<TextView>(R.id.sdkversion)
+        appversion.text = "APK version: "+Config.APKVersion
+        sdkversion.text = "SDK Version (Android): 34"
 
-        openHomeFun()
+         openHomeFun()
 
         /*       val retrofit = RetrofitClient.getRetrofitInstance()
                val api = retrofit.create(Dashboard::class.java)
@@ -179,7 +182,6 @@ class SplashScreenActivityTv : Activity() {
         }, 1000)
 
     }
-
 
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
