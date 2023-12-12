@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splash_screen_bg"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        tools:ignore="UselessParent">
+
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:gravity="center">
+            <LinearLayout
+                android:id="@+id/ll_verify_otp"
+                android:layout_width="600sp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:visibility="visible"
+                tools:visibility="visible">
+
+
+                <TextView
+                    android:visibility="visible"
+                    android:id="@+id/paircode"
+                    android:layout_width="@dimen/_600sdp"
+                    android:layout_height="@dimen/_200sdp"
+                    android:background="@drawable/curved_gold_stroke_bg"
+                    android:fontFamily="@font/amazon"
+                    android:gravity="center_horizontal"
+                    android:text="@string/paircode"
+                    android:textColor="@color/textcolor_paircode"
+                    android:textColorHint="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/_140sdp"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                        android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_height="wrap_content"
+                    android:text="Enter the above code to Pair your Screen"
+                    android:textSize="@dimen/_21sdp"
+
+                    android:fontFamily="@font/roboto_medium"
+
+                    />
+
+                <Button
+                    android:visibility="gone"
+                    android:id="@+id/progress_bard"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50sdp"
+                    android:background="@drawable/button_focus"
+                    android:fontFamily="@font/roboto_medium"
+                    android:gravity="center"
+                    android:onClick="bt_verified_login"
+                    android:paddingTop="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:text="login"
+                    android:textAllCaps="false"
+                    android:textColor="@color/btn_txt_color"
+                    android:textSize="@dimen/_16sdp"
+                    android:textStyle="bold" />
+
+
+                <ProgressBar
+                    android:id="@+id/progress_bar_load"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:indeterminateTint="@color/colorGold"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
+
+            </LinearLayout>
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <ImageView
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_70sdp"
+            android:layout_gravity="end|bottom"
+
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:contentDescription="TODO"
+
+            android:src="@drawable/logo" />
+
+    </FrameLayout>
+
+
+</LinearLayout>

@@ -12,6 +12,7 @@ import android.view.KeyEvent
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.VideoView
 import com.example.myapplication.MainActivity
 import com.example.myapplication.R
@@ -32,14 +33,19 @@ class SplashScreenActivityTv : Activity() {
 
     // private var userProfile: UserProfile? = null
     private var is_reviewdata: Integer? = null
+    private lateinit var appversion:TextView
+    private lateinit var sdkversion:TextView
 
     private val TAG = SplashScreenActivityTv::class.java.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_onboarding)
-        Log.i(TAG, "onCreate: -->")
+      //  appversion.text="APK version: 1"
+       // sdkversion.text="SDK Version (Android): 34"
+
         openHomeFun()
+
         /*       val retrofit = RetrofitClient.getRetrofitInstance()
                val api = retrofit.create(Dashboard::class.java)
                val accessToken = "Bearer " + PreferenceUtils.getInstance().getAccessTokenPref(
