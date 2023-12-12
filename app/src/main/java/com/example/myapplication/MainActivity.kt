@@ -2,11 +2,13 @@ package com.example.myapplication
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.Actvity.handlerqr
+import com.example.myapplication.Actvity.randomNumber
 import com.example.myapplication.Screens.HorizontalView
 import com.example.myapplication.Screens.SplitHalfHorizontalView
 import com.example.myapplication.Screens.SplitThirdHorizontalView
@@ -25,6 +27,7 @@ import retrofit2.Response
 import java.security.AccessController
 
 private const val TAG = "LoginScreenActivity"
+val handlerscreen = Handler()
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,11 +35,26 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         // fetchapi()
+        CallHandlerCall()
 
         fetchScreenversionAPI(PreferenceUtils.getInstance().getPairIDPref(applicationContext))
         // gotoHorizontalScreen()
 
 
+    }
+
+    private fun CallHandlerCall() {
+        handlerscreen.postDelayed(object : Runnable {
+            override fun run() {
+                handlerscreen.postDelayed(this, 15000)
+                //    CheckAccessCode(randomNumber)
+                fetchScreenversionAPI(
+                    PreferenceUtils.getInstance().getPairIDPref(applicationContext)
+                )
+
+                //Do something after 3 seconds
+            }
+        }, 4000)
     }
 
     private fun fetchActiveScheduleAPI(id: String) {
@@ -112,6 +130,8 @@ class MainActivity : AppCompatActivity() {
                             Toast.LENGTH_LONG
                         ).show()
                     } else {
+                        handlerscreen.removeCallbacksAndMessages(null)
+
                         fetchActiveScheduleAPI(
                             PreferenceUtils.getInstance().getPairIDPref(applicationContext)
                         )
@@ -211,6 +231,8 @@ class MainActivity : AppCompatActivity() {
     fun gotoVerticalScreen(content_data: List<Content>) {
         //   handler.removeCallbacksAndMessages(null)
         handlerqr.removeCallbacksAndMessages(null)
+        handlerscreen.removeCallbacksAndMessages(null)
+
         val intent = Intent(this, VerticalView::class.java)
         intent.putParcelableArrayListExtra("CONTENT_LIST", ArrayList(content_data))
         startActivity(intent)
@@ -220,6 +242,8 @@ class MainActivity : AppCompatActivity() {
     fun gotoVerticalSplitScreen(content_data: List<Content>, content_data_second: List<Content>) {
         //   handler.removeCallbacksAndMessages(null)
         handlerqr.removeCallbacksAndMessages(null)
+        handlerscreen.removeCallbacksAndMessages(null)
+
         val intent = Intent(this, SplitHalfHorizontalView::class.java)
         intent.putParcelableArrayListExtra("CONTENT_LIST", ArrayList(content_data))
         intent.putParcelableArrayListExtra("CONTENT_LIST_TWO", ArrayList(content_data_second))
@@ -229,6 +253,8 @@ class MainActivity : AppCompatActivity() {
     fun gotoHorizontalScreen(content_data: List<Content>) {
         //   handler.removeCallbacksAndMessages(null)
         handlerqr.removeCallbacksAndMessages(null)
+        handlerscreen.removeCallbacksAndMessages(null)
+
         val intent = Intent(this, HorizontalView::class.java)
         intent.putParcelableArrayListExtra("CONTENT_LIST", ArrayList(content_data))
         startActivity(intent)
@@ -238,6 +264,8 @@ class MainActivity : AppCompatActivity() {
     fun gotoSplitHorizontalScreen(content_data: List<Content>, content_data_second: List<Content>) {
         //   handler.removeCallbacksAndMessages(null)
         handlerqr.removeCallbacksAndMessages(null)
+        handlerscreen.removeCallbacksAndMessages(null)
+
         val intent = Intent(this, SplitHalfHorizontalView::class.java)
         intent.putParcelableArrayListExtra("CONTENT_LIST", ArrayList(content_data))
         intent.putParcelableArrayListExtra("CONTENT_LIST_TWO", ArrayList(content_data_second))
@@ -252,12 +280,22 @@ class MainActivity : AppCompatActivity() {
     ) {
         //   handler.removeCallbacksAndMessages(null)
         handlerqr.removeCallbacksAndMessages(null)
+        handlerscreen.removeCallbacksAndMessages(null)
+
         val intent = Intent(this, SplitThirdHorizontalView::class.java)
         intent.putParcelableArrayListExtra("CONTENT_LIST", ArrayList(content_data))
         intent.putParcelableArrayListExtra("CONTENT_LIST_TWO", ArrayList(content_data_second))
         intent.putParcelableArrayListExtra("CONTENT_LIST_Third", ArrayList(content_data_third))
         startActivity(intent)
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        handlerscreen.removeCallbacksAndMessages(null)
+        //    handler.removeCallbacksAndMessages(null)
+        /*     if(BuildConfig.FLAVOR.equalsIgnoreCase("kaafaltv")||BuildConfig.FLAVOR.equalsIgnoreCase("solidtv")){
+        }else{*/
     }
 
     /*
