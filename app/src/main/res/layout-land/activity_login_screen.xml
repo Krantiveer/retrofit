@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/splash_screen_bg"
     android:gravity="center"
     android:orientation="vertical">
@@ -40,8 +40,8 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:cardBackgroundColor="@color/lightgrey"
                     android:layout_margin="-2sp"
+                    app:cardBackgroundColor="@color/lightgrey"
 
                     app:cardCornerRadius="20sp"
                     app:cardElevation="3sp">
@@ -50,9 +50,9 @@
                         android:id="@+id/paircode"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_20sdp"
                         android:fontFamily="@font/amazon"
                         android:gravity="center"
-                        android:layout_margin="@dimen/_20sdp"
                         android:text="@string/paircode"
                         android:textColor="@color/textcolor_paircode"
                         android:textColorHint="@color/black"
@@ -115,13 +115,14 @@
             android:contentDescription="TODO"
 
             android:src="@drawable/logo" />
+
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_gravity="bottom|start"
             android:layout_marginStart="@dimen/_20sdp"
-            android:layout_marginBottom="@dimen/_20sdp">
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/sdkversion"
@@ -138,13 +139,13 @@
                 android:id="@+id/appversion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_20sdp"
                 android:layout_gravity="start"
-                android:visibility="visible"
+                android:layout_marginStart="@dimen/_20sdp"
                 android:fontFamily="@font/roboto_medium"
                 android:text="SDK Version (Android): 34 "
                 android:textColor="#ECE9E9"
-                android:textSize="@dimen/_14sdp" />
+                android:textSize="@dimen/_14sdp"
+                android:visibility="visible" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
 

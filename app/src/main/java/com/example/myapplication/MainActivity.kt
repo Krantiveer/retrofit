@@ -54,9 +54,11 @@ class MainActivity : AppCompatActivity() {
                 if (response.code() == 200) {
                     Log.i(
                         TAG,
-                        "success--> " )
+                        "success--> "
+                    )
 
-                    Toast.makeText(applicationContext, "Sucess Activation", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, "Sucess Activation", Toast.LENGTH_SHORT)
+                        .show()
 
                     onGetActiveScheduleSuccess(response.body()!!)
 
@@ -105,10 +107,14 @@ class MainActivity : AppCompatActivity() {
                 if (response.code() == 200) {
                     if (response.body()?.toInt() == -1) {
                         Toast.makeText(
-                            applicationContext, "Screen Paired , Please schedule your content", Toast.LENGTH_LONG
+                            applicationContext,
+                            "Screen Paired , Please schedule your content",
+                            Toast.LENGTH_LONG
                         ).show()
                     } else {
-                        fetchActiveScheduleAPI(PreferenceUtils.getInstance().getPairIDPref(applicationContext))
+                        fetchActiveScheduleAPI(
+                            PreferenceUtils.getInstance().getPairIDPref(applicationContext)
+                        )
 
                     }
 
@@ -149,17 +155,44 @@ class MainActivity : AppCompatActivity() {
 
     private fun onGetActiveScheduleSuccess(body: ScreenScheduleResponse) {
         when (body.schedules.get(0).playlists.get(0).layout.layoutId) {
-            1 -> {gotoVerticalScreen(body.schedules.get(0).playlists.get(0).layout.zones.get(0).contents)}
-            2 -> {gotoVerticalSplitScreen(body.schedules.get(0).playlists.get(0).layout.zones.get(0).contents,body.schedules.get(0).playlists.get(0).layout.zones.get(1).contents)}
+            1 -> {
+                gotoVerticalScreen(body.schedules.get(0).playlists.get(0).layout.zones.get(0).contents)
+            }
+
+            2 -> {
+                gotoVerticalSplitScreen(
+                    body.schedules.get(0).playlists.get(0).layout.zones.get(0).contents,
+                    body.schedules.get(0).playlists.get(0).layout.zones.get(1).contents
+                )
+            }
+
             3 -> print("randomVal == 3")
             4 -> print("randomVal == 4")
             5 -> print("randomVal == 5")
             6 -> print("randomVal == 6")
             7 -> print("randomVal == 7")
             8 -> print("randomVal == 8")
-            9 -> {gotoHorizontalScreen(body.schedules.get(0).playlists.get(0).layout.zones.get(0).contents)}
-            10 -> {gotoSplitHorizontalScreen(body.schedules.get(0).playlists.get(0).layout.zones.get(0).contents,body.schedules.get(0).playlists.get(0).layout.zones.get(1).contents)}
-            11 -> {gotoThirdSplitHorizontalScreen(body.schedules.get(0).playlists.get(0).layout.zones.get(0).contents,body.schedules.get(0).playlists.get(0).layout.zones.get(1).contents,body.schedules.get(0).playlists.get(0).layout.zones.get(2).contents)}
+            9 -> {
+                gotoHorizontalScreen(body.schedules.get(0).playlists.get(0).layout.zones.get(0).contents)
+            }
+
+            10 -> {
+                gotoSplitHorizontalScreen(
+                    body.schedules.get(0).playlists.get(0).layout.zones.get(0).contents,
+                    body.schedules.get(0).playlists.get(0).layout.zones.get(1).contents
+                )
+            }
+
+            11 -> {
+                gotoThirdSplitHorizontalScreen(
+                    body.schedules.get(0).playlists.get(0).layout.zones.get(
+                        0
+                    ).contents,
+                    body.schedules.get(0).playlists.get(0).layout.zones.get(1).contents,
+                    body.schedules.get(0).playlists.get(0).layout.zones.get(2).contents
+                )
+            }
+
             12 -> print("randomVal == 12")
             13 -> print("randomVal == 13")
             14 -> print("randomVal == 14")
@@ -168,18 +201,23 @@ class MainActivity : AppCompatActivity() {
                 print("x is neither 1 nor 2")
             }
         }
-        Log.i(TAG, "onGetAppInfoSuccess:--> " + body.schedules.get(0).playlists.get(0).layout.layoutId)
+        Log.i(
+            TAG,
+            "onGetAppInfoSuccess:--> " + body.schedules.get(0).playlists.get(0).layout.layoutId
+        )
 
     }
 
-    fun gotoVerticalScreen(content_data:List<Content>) {
+    fun gotoVerticalScreen(content_data: List<Content>) {
         //   handler.removeCallbacksAndMessages(null)
         handlerqr.removeCallbacksAndMessages(null)
         val intent = Intent(this, VerticalView::class.java)
         intent.putParcelableArrayListExtra("CONTENT_LIST", ArrayList(content_data))
         startActivity(intent)
 
-    }fun gotoVerticalSplitScreen(content_data:List<Content>,content_data_second:List<Content>) {
+    }
+
+    fun gotoVerticalSplitScreen(content_data: List<Content>, content_data_second: List<Content>) {
         //   handler.removeCallbacksAndMessages(null)
         handlerqr.removeCallbacksAndMessages(null)
         val intent = Intent(this, SplitHalfHorizontalView::class.java)
@@ -188,7 +226,7 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-        fun gotoHorizontalScreen(content_data:List<Content>) {
+    fun gotoHorizontalScreen(content_data: List<Content>) {
         //   handler.removeCallbacksAndMessages(null)
         handlerqr.removeCallbacksAndMessages(null)
         val intent = Intent(this, HorizontalView::class.java)
@@ -196,7 +234,8 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
 
     }
-    fun gotoSplitHorizontalScreen(content_data:List<Content>,content_data_second:List<Content>) {
+
+    fun gotoSplitHorizontalScreen(content_data: List<Content>, content_data_second: List<Content>) {
         //   handler.removeCallbacksAndMessages(null)
         handlerqr.removeCallbacksAndMessages(null)
         val intent = Intent(this, SplitHalfHorizontalView::class.java)
@@ -204,7 +243,13 @@ class MainActivity : AppCompatActivity() {
         intent.putParcelableArrayListExtra("CONTENT_LIST_TWO", ArrayList(content_data_second))
         startActivity(intent)
 
-    } fun gotoThirdSplitHorizontalScreen(content_data:List<Content>,content_data_second:List<Content>,content_data_third:List<Content>) {
+    }
+
+    fun gotoThirdSplitHorizontalScreen(
+        content_data: List<Content>,
+        content_data_second: List<Content>,
+        content_data_third: List<Content>
+    ) {
         //   handler.removeCallbacksAndMessages(null)
         handlerqr.removeCallbacksAndMessages(null)
         val intent = Intent(this, SplitThirdHorizontalView::class.java)

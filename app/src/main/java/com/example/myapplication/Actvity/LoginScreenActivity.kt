@@ -54,7 +54,7 @@ class LoginScreenActivity : AppCompatActivity() {
 
     fun gotoMainScreen() {
 
-     //   handler.removeCallbacksAndMessages(null)
+        //   handler.removeCallbacksAndMessages(null)
         handlerqr.removeCallbacksAndMessages(null)
 
         val intent = Intent(this, MainActivity::class.java)
@@ -70,21 +70,32 @@ class LoginScreenActivity : AppCompatActivity() {
 
         //val osVersion = Build.VERSION.RELEASE
 
-        val call = api.getGeneratePairCode("1","9","2")
+        val call = api.getGeneratePairCode("1", "9", "2")
         call.enqueue(object : Callback<GeneratePair?> {
             override fun onResponse(call: Call<GeneratePair?>, response: Response<GeneratePair?>) {
                 if (response.code() == 200 && response.body() != null) {
                     if (response.body()?.pairCode != null) {
                         if (!response.body()?.pairCode.isNullOrBlank()) {
                             pairCodeTextView.text = response.body()?.pairCode.toString()
-                            fetchValidateAPI(response.body()!!.id,response.body()?.pairCode.toString());
-                            PreferenceUtils.getInstance().setPAIR_CODEPref(applicationContext,response.body()?.pairCode.toString())
+                            fetchValidateAPI(
+                                response.body()!!.id,
+                                response.body()?.pairCode.toString()
+                            );
+                            PreferenceUtils.getInstance().setPAIR_CODEPref(
+                                applicationContext,
+                                response.body()?.pairCode.toString()
+                            )
 
-                            PreferenceUtils.getInstance().setPairIDPref(applicationContext,
-                                response.body()!!.id.toString())
+                            PreferenceUtils.getInstance().setPairIDPref(
+                                applicationContext,
+                                response.body()!!.id.toString()
+                            )
                             CallHandlerCall()
 
-                            Log.i(TAG, "PairCode screen id = paircode=>"+response.body()?.pairCode+ "id"+ response.body()!!.id)
+                            Log.i(
+                                TAG,
+                                "PairCode screen id = paircode=>" + response.body()?.pairCode + "id" + response.body()!!.id
+                            )
                         }
                     } else {
                         ToastMsg(this@LoginScreenActivity).toastIconError(getString(R.string.internet_toast))
@@ -96,14 +107,14 @@ class LoginScreenActivity : AppCompatActivity() {
                     // signOut()
                 } else {
 
-              //      ToastMsg(this@LoginScreenActivity).toastIconError(getString(R.string.error_toast))
+                    //      ToastMsg(this@LoginScreenActivity).toastIconError(getString(R.string.error_toast))
                 }
                 progress_bar.visibility = View.INVISIBLE
 
             }
 
             override fun onFailure(call: Call<GeneratePair?>, t: Throwable) {
-               // ToastMsg(this@LoginScreenActivity).toastIconError(getString(R.string.error_toast))
+                // ToastMsg(this@LoginScreenActivity).toastIconError(getString(R.string.error_toast))
                 Log.e("DetailsActivityPhando", "onFailure: $t")
                 progress_bar.visibility = View.INVISIBLE
 
@@ -115,7 +126,7 @@ class LoginScreenActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         handlerqr.removeCallbacksAndMessages(null)
-     //    handler.removeCallbacksAndMessages(null)
+        //    handler.removeCallbacksAndMessages(null)
         /*     if(BuildConfig.FLAVOR.equalsIgnoreCase("kaafaltv")||BuildConfig.FLAVOR.equalsIgnoreCase("solidtv")){
         }else{*/
     }
@@ -125,29 +136,42 @@ class LoginScreenActivity : AppCompatActivity() {
             override fun run() {
                 Log.i(TAG, "Handler run run:1 $randomNumber")
                 handlerqr.postDelayed(this, 15000)
-            //    CheckAccessCode(randomNumber)
-                fetchValidateAPI(PreferenceUtils.getInstance().getPairIDPref(applicationContext).toInt(),PreferenceUtils.getInstance().getPAIR_CODEPref(applicationContext))
+                //    CheckAccessCode(randomNumber)
+                fetchValidateAPI(
+                    PreferenceUtils.getInstance().getPairIDPref(applicationContext).toInt(),
+                    PreferenceUtils.getInstance().getPAIR_CODEPref(applicationContext)
+                )
                 //Do something after 3 seconds
             }
         }, 3000)
     }
-    private  fun fetchValidateAPI(id:Int,paircode:String){
+
+    private fun fetchValidateAPI(id: Int, paircode: String) {
         val retrofit = RetrofitClient.getRetrofitInstance()
         val api = retrofit.create(MainApi::class.java)
         val accessToken = "Bearer ";
         Log.i(TAG, "fetchValidateAPI: ")
 
-        val call: Call<DeviceInfo> = api.validate(paircode,id)
+        val call: Call<DeviceInfo> = api.validate(paircode, id)
         call.enqueue(object : Callback<DeviceInfo?> {
             override fun onResponse(call: Call<DeviceInfo?>, response: Response<DeviceInfo?>) {
                 if (response.code() == 200) {
-                    Log.i(TAG, "success--> "+PreferenceUtils.getInstance().getLoginPref(applicationContext))
+                    Log.i(
+                        TAG,
+                        "success--> " + PreferenceUtils.getInstance()
+                            .getLoginPref(applicationContext)
+                    )
 
-                    PreferenceUtils.getInstance().setLoginPref(applicationContext,"true")
-                    Log.i(TAG, "success--> "+PreferenceUtils.getInstance().getLoginPref(applicationContext))
+                    PreferenceUtils.getInstance().setLoginPref(applicationContext, "true")
+                    Log.i(
+                        TAG,
+                        "success--> " + PreferenceUtils.getInstance()
+                            .getLoginPref(applicationContext)
+                    )
 
 
-                    PreferenceUtils.getInstance().setAccessTokenNPref(applicationContext,response.body()?.token)
+                    PreferenceUtils.getInstance()
+                        .setAccessTokenNPref(applicationContext, response.body()?.token)
                     gotoMainScreen()
                     // onGetAppInfoSuccess(response.body()!!)
 
@@ -156,12 +180,13 @@ class LoginScreenActivity : AppCompatActivity() {
 
                 } else if (response.errorBody() != null) {
                     if (AccessController.getContext() != null) {
-                      /*  Toast.makeText(
-                            applicationContext,
-                            "sorry! Something went wrong. Please try again after some time" + response.errorBody(),
-                            Toast.LENGTH_SHORT
-                        ).show()
-              */      }
+                        /*  Toast.makeText(
+                              applicationContext,
+                              "sorry! Something went wrong. Please try again after some time" + response.errorBody(),
+                              Toast.LENGTH_SHORT
+                          ).show()
+                */
+                    }
                 } else {
                     if (AccessController.getContext() != null) {
                         Toast.makeText(
@@ -184,48 +209,48 @@ class LoginScreenActivity : AppCompatActivity() {
 
     }
 
- /*   private fun CheckAccessCode(accessCode: String?) {
-        val retrofit = RetrofitClient.getRetrofitInstance()
-        val api = retrofit.create(SendOTPApi::class.java)
-        val call = api.getCheckAccessCode(Config.API_KEY, accessCode)
-        call.enqueue(object : Callback<User?> {
-            override fun onResponse(call: Call<User?>, response: Response<User?>) {
-                if (response.code() == 200) {
-                    assert(response.body() != null)
-                    if (response.body()!!.status.equals("success", ignoreCase = true)) {
-                        if (response.body()!!.access_token != null) {
-                            handler.removeCallbacksAndMessages(null)
-                            handlerqr.removeCallbacksAndMessages(null)
-                            val user = response.body()
-                            val db = DatabaseHelper(applicationContext)
-                            if (db.userDataCount > 1) {
-                                db.deleteUserData()
-                            } else {
-                                if (db.userDataCount == 0) {
-                                    db.insertUserData(user)
-                                } else {
-                                    db.updateUserData(user, 1)
-                                }
-                            }
-                            val preferences = getSharedPreferences(
-                                Constants.USER_LOGIN_STATUS,
-                                MODE_PRIVATE
-                            ).edit()
-                            preferences.putBoolean(Constants.USER_LOGIN_STATUS, true)
-                            preferences.apply()
-                            PreferenceUtils.getInstance().setAccessTokenNPref(
-                                applicationContext, response.body()!!
-                                    .access_token
-                            )
-                            val intent = Intent(applicationContext, NewMainActivity::class.java)
-                            startActivity(intent)
-                            finishAffinity()
-                            overridePendingTransition(R.anim.enter, R.anim.exit)
+    /*   private fun CheckAccessCode(accessCode: String?) {
+           val retrofit = RetrofitClient.getRetrofitInstance()
+           val api = retrofit.create(SendOTPApi::class.java)
+           val call = api.getCheckAccessCode(Config.API_KEY, accessCode)
+           call.enqueue(object : Callback<User?> {
+               override fun onResponse(call: Call<User?>, response: Response<User?>) {
+                   if (response.code() == 200) {
+                       assert(response.body() != null)
+                       if (response.body()!!.status.equals("success", ignoreCase = true)) {
+                           if (response.body()!!.access_token != null) {
+                               handler.removeCallbacksAndMessages(null)
+                               handlerqr.removeCallbacksAndMessages(null)
+                               val user = response.body()
+                               val db = DatabaseHelper(applicationContext)
+                               if (db.userDataCount > 1) {
+                                   db.deleteUserData()
+                               } else {
+                                   if (db.userDataCount == 0) {
+                                       db.insertUserData(user)
+                                   } else {
+                                       db.updateUserData(user, 1)
+                                   }
+                               }
+                               val preferences = getSharedPreferences(
+                                   Constants.USER_LOGIN_STATUS,
+                                   MODE_PRIVATE
+                               ).edit()
+                               preferences.putBoolean(Constants.USER_LOGIN_STATUS, true)
+                               preferences.apply()
+                               PreferenceUtils.getInstance().setAccessTokenNPref(
+                                   applicationContext, response.body()!!
+                                       .access_token
+                               )
+                               val intent = Intent(applicationContext, NewMainActivity::class.java)
+                               startActivity(intent)
+                               finishAffinity()
+                               overridePendingTransition(R.anim.enter, R.anim.exit)
 
-                            //save user login time, expire time
-                            // updateSubscriptionStatus(user.getUserId());
-                            progressBar!!.visibility = View.GONE
-                            *//*    ll_send_otp.setVisibility(View.GONE);
+                               //save user login time, expire time
+                               // updateSubscriptionStatus(user.getUserId());
+                               progressBar!!.visibility = View.GONE
+                               *//*    ll_send_otp.setVisibility(View.GONE);
                         ll_verify_otp.setVisibility(View.VISIBLE);
                         startTimer();
 *//*
@@ -274,7 +299,6 @@ class LoginScreenActivity : AppCompatActivity() {
         }
         return sb.toString()
     }
-
 
 
     fun userappversion() {

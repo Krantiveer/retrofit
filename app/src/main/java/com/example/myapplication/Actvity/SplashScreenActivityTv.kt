@@ -44,10 +44,10 @@ class SplashScreenActivityTv : Activity() {
         setContentView(R.layout.activity_onboarding)
         appversion = findViewById<TextView>(R.id.appversion)
         sdkversion = findViewById<TextView>(R.id.sdkversion)
-        appversion.text = "APK version: "+Config.APKVersion
+        appversion.text = "APK version: " + Config.APKVersion
         sdkversion.text = "SDK Version (Android): 34"
 
-         openHomeFun()
+        openHomeFun()
 
         /*       val retrofit = RetrofitClient.getRetrofitInstance()
                val api = retrofit.create(Dashboard::class.java)
