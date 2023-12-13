@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "807172773167",
+    "project_id": "fluxstore-1eae2",
+    "storage_bucket": "fluxstore-1eae2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:807172773167:android:38ad8b2796f3d29c003dda",
+        "android_client_info": {
+          "package_name": "com.allgrocery.vendorapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "807172773167-m4ea1de6uaqd28em826acvnb8k08tt6a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.allgrocery.vendorapp",
+            "certificate_hash": "4877bf80e7b2b7603ee2012199d9014f2f3481f6"
+          }
+        },
+        {
+          "client_id": "807172773167-vonipnslldjo487gbfup1vhas4ulb6ni.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.allgrocery.vendorapp",
+            "certificate_hash": "e95916dd988c31a5fdb0359a4d697408119fc25f"
+          }
+        },
+        {
+          "client_id": "807172773167-kikp7bo4dtsneq9sugir4atifbjq6cmk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkp28Du28K7QpYgspE-QgCb2nVnsEEWJ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "807172773167-kikp7bo4dtsneq9sugir4atifbjq6cmk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "807172773167-90v2li38085vgps8h6ca0q81hp3gs3o3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.allgrocery.vendorapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:807172773167:android:1714e8d045db1cb8003dda",
+        "android_client_info": {
+          "package_name": "com.dsplayer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "807172773167-kikp7bo4dtsneq9sugir4atifbjq6cmk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkp28Du28K7QpYgspE-QgCb2nVnsEEWJ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "807172773167-kikp7bo4dtsneq9sugir4atifbjq6cmk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "807172773167-90v2li38085vgps8h6ca0q81hp3gs3o3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.allgrocery.vendorapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

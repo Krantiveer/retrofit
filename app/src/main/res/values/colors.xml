@@ -42,4 +42,6 @@
     <color name="color_dark_yellow_high">#CCCC00</color>
     <color name="player_progress_color">#feab91</color>
     <color name="textcolor_paircode">#e6010E16</color>
+    <color name="red_400">#EF5350</color>
+
 </resources>

@@ -8,7 +8,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.myapplication"
+        applicationId = "com.dsplayer"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -69,9 +69,11 @@ android {
         implementation ("com.google.android.exoplayer:exoplayer-rtsp:2.18.4")
 */
 
-        implementation ("com.google.android.exoplayer:exoplayer-ui:2.19.1")
-        implementation ("com.google.android.exoplayer:exoplayer-core:2.19.1")
-
-
+    implementation("com.google.android.exoplayer:exoplayer-ui:2.19.1")
+    implementation("com.google.android.exoplayer:exoplayer-core:2.19.1")
+//firebase
+    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
+    implementation("com.google.firebase:firebase-analytics")
+  //  implementation("com.google.gms:google-services:4.4.0")
 
     }

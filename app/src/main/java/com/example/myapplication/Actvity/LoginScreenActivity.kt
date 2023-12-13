@@ -180,19 +180,19 @@ class LoginScreenActivity : AppCompatActivity() {
 
                 } else if (response.errorBody() != null) {
                     if (AccessController.getContext() != null) {
-                          Toast.makeText(
+                         /* Toast.makeText(
                               applicationContext,
                               "sorry! Something went wrong. Please try again after some time" + response.errorBody(),
                               Toast.LENGTH_SHORT
-                          ).show()
+                          ).show()*/
                     }
                 } else {
                     if (AccessController.getContext() != null) {
-                        Toast.makeText(
+                        /*Toast.makeText(
                             applicationContext,
                             "sorry! Something went wrong. Please try again after some time",
                             Toast.LENGTH_SHORT
-                        ).show()
+                        ).show()*/
                     }
                 }
             }
@@ -200,7 +200,7 @@ class LoginScreenActivity : AppCompatActivity() {
             override fun onFailure(call: Call<DeviceInfo?>, t: Throwable) {
                 //   CMHelper.setSnackBar(requireView(), t.getMessage(), 2);
                 if (AccessController.getContext() != null) {
-                    Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT).show()
+                //    Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT).show()
                 } else {
                 }
             }
