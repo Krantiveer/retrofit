@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.myapplication.R
 import com.example.myapplication.network.model.Content
 import com.google.android.exoplayer2.ExoPlaybackException
@@ -33,6 +34,7 @@ class SplitHalfHorizontalView : AppCompatActivity() {
                         .getResources()
                         .getDrawable(R.drawable.logo)
                 )
+                .transition(DrawableTransitionOptions.withCrossFade()) // Adding crossfade transition
 
                 .into(image_containSecond!!)
         } else {
@@ -44,6 +46,7 @@ class SplitHalfHorizontalView : AppCompatActivity() {
                         .getResources()
                         .getDrawable(R.drawable.logo)
                 )
+                .transition(DrawableTransitionOptions.withCrossFade()) // Adding crossfade transition
 
                 .into(image_contain!!)
         }
@@ -193,7 +196,7 @@ class SplitHalfHorizontalView : AppCompatActivity() {
                     currentsize = currentsize?.plus(1)
                     Log.i(TAG, "onPlayerStateChanged: -->" + currentsize)
                     if (size!! >= currentsize!!) {
-                        currentsize =0
+                        currentsize = 0
                         if (receivedContentList.get(currentsize!!).contentType == "VIDEO") {
                             image_contain!!.setVisibility(View.GONE)
                             initVideoPlayer(
@@ -273,7 +276,7 @@ class SplitHalfHorizontalView : AppCompatActivity() {
                     currentsizeSecond = currentsizeSecond?.plus(1)
                     Log.i(TAG, "onPlayerStateChanged: -->" + currentsizeSecond)
                     if (sizeSecond!! >= currentsizeSecond!!) {
-                        currentsizeSecond=0
+                        currentsizeSecond = 0
                         if (receivedContentListSecond.get(currentsizeSecond!!).contentType == "VIDEO") {
                             image_containSecond!!.setVisibility(View.GONE)
                             initVideoPlayer(

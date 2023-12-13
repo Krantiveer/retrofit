@@ -123,14 +123,15 @@ class VerticalView : AppCompatActivity() {
                     .getResources()
                     .getDrawable(R.drawable.logo)
             )
-            .transition(DrawableTransitionOptions.withCrossFade(2000)) // Set duration to 2000ms (2 seconds)
+            .transition(DrawableTransitionOptions.withCrossFade()) // Adding crossfade transition
+
             .into(image_contain!!)
-  /*      image_contain?.let {
-            val rotateAnimator = ObjectAnimator.ofFloat(it, "rotation", 0f, 360f)
-            rotateAnimator.duration = 2000 // Duration of the rotation in milliseconds
-            rotateAnimator.repeatCount = ObjectAnimator.INFINITE // Repeat indefinitely
-            rotateAnimator.start()
-        }*/
+        /*      image_contain?.let {
+                  val rotateAnimator = ObjectAnimator.ofFloat(it, "rotation", 0f, 360f)
+                  rotateAnimator.duration = 2000 // Duration of the rotation in milliseconds
+                  rotateAnimator.repeatCount = ObjectAnimator.INFINITE // Repeat indefinitely
+                  rotateAnimator.start()
+              }*/
 
         /*
         val rotateAnimation = RotateAnimation(
@@ -145,7 +146,6 @@ class VerticalView : AppCompatActivity() {
 
 
         image_contain!!.startAnimation(rotateAnimation)*/
-
 
 
     }
@@ -279,7 +279,7 @@ class VerticalView : AppCompatActivity() {
                     currentsize = currentsize?.plus(1)
                     Log.i(TAG, "onPlayerStateChanged: -->" + currentsize)
                     if (size!! >= currentsize!!) {
-                        currentsize=0
+                        currentsize = 0
                         if (receivedContentList.get(currentsize!!).contentType == "VIDEO") {
                             image_contain!!.setVisibility(View.GONE)
                             initVideoPlayer(

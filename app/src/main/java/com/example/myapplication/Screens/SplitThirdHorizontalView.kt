@@ -151,6 +151,7 @@ class SplitThirdHorizontalView : AppCompatActivity() {
             }
         }
     }
+
     fun logicThird() {
         if (receivedContentListThird != null) {
             if (currentsizeThird!! >= sizeThird!!) {
@@ -219,9 +220,9 @@ class SplitThirdHorizontalView : AppCompatActivity() {
                       player!!.play()*/
                     // loadNextVideo("M",related_id)
                     currentsize = currentsize?.plus(1)
-                    Log.i(TAG, "onPlayerStateChangedfirst: -->" + currentsize +size)
+                    Log.i(TAG, "onPlayerStateChangedfirst: -->" + currentsize + size)
                     if (size!! >= currentsize!!) {
-                        currentsize =0
+                        currentsize = 0
 
 
                         if (receivedContentList.get(currentsize!!).contentType == "VIDEO") {
@@ -230,8 +231,7 @@ class SplitThirdHorizontalView : AppCompatActivity() {
                                 receivedContentList.get(currentsize!!).permaLink.toString(),
                                 receivedContentList.get(currentsize!!).format.toString()
                             )
-                        }
-                        else {
+                        } else {
                             image_contain!!.setVisibility(View.VISIBLE)
                             exoPlayerView!!.visibility = View.INVISIBLE
                             var sec = receivedContentList.get(currentsize!!).duration * 1000
@@ -304,7 +304,7 @@ class SplitThirdHorizontalView : AppCompatActivity() {
                     currentsizeSecond = currentsizeSecond?.plus(1)
                     Log.i(TAG, "onPlayerStateChanged: -->" + currentsizeSecond)
                     if (sizeSecond!! >= currentsizeSecond!!) {
-                        currentsizeSecond =0
+                        currentsizeSecond = 0
 
                         if (receivedContentListSecond.get(currentsizeSecond!!).contentType == "VIDEO") {
                             image_containSecond!!.setVisibility(View.GONE)
@@ -346,6 +346,7 @@ class SplitThirdHorizontalView : AppCompatActivity() {
 
 
     }
+
     fun initVideoPlayerThird(url: String?, type: String) {
         Log.i(TAG, "initVideoPlayer: $type")
         if (playerThird != null) {
@@ -386,7 +387,7 @@ class SplitThirdHorizontalView : AppCompatActivity() {
                     currentsizeThird = currentsizeThird?.plus(1)
                     Log.i(TAG, "onPlayerStateChanged: -->" + currentsizeThird)
                     if (sizeThird!! >= currentsizeThird!!) {
-                        currentsizeThird =0
+                        currentsizeThird = 0
 
                         if (receivedContentListThird.get(currentsizeThird!!).contentType == "VIDEO") {
                             image_containThird!!.setVisibility(View.GONE)
@@ -459,19 +460,33 @@ class SplitThirdHorizontalView : AppCompatActivity() {
     }
 
     private val TAG = "HorizontalView"
-    private var progressBar: ProgressBar? = null;    private var progressBarSecond: ProgressBar? = null;    private var progressBarThird: ProgressBar? = null
+    private var progressBar: ProgressBar? = null;
+    private var progressBarSecond: ProgressBar? = null;
+    private var progressBarThird: ProgressBar? = null
 
-    private var image_contain: ImageView? = null;    private var image_containSecond: ImageView? = null;    private var image_containThird: ImageView? = null
+    private var image_contain: ImageView? = null;
+    private var image_containSecond: ImageView? = null;
+    private var image_containThird: ImageView? = null
 
 
-    protected var exoPlayerView: PlayerView? = null;    protected var exoPlayerViewSecond: PlayerView? = null;    protected var exoPlayerViewThird: PlayerView? = null
+    protected var exoPlayerView: PlayerView? = null;
+    protected var exoPlayerViewSecond: PlayerView? = null;
+    protected var exoPlayerViewThird: PlayerView? = null
 
-    protected var player: ExoPlayer? = null;    protected var playerSecond: ExoPlayer? = null;    protected var playerThird: ExoPlayer? = null
+    protected var player: ExoPlayer? = null;
+    protected var playerSecond: ExoPlayer? = null;
+    protected var playerThird: ExoPlayer? = null
     private val startAutoPlay = true
     lateinit var sharedPreferences: SharedPreferences
-    lateinit var receivedContentList: ArrayList<Content>;    lateinit var receivedContentListSecond: ArrayList<Content>;    lateinit var receivedContentListThird: ArrayList<Content>
-    private var size: Int? = null;    private var sizeSecond: Int? = null;    private var sizeThird: Int? = null
-    private var currentsize: Int? = 0 ;   private var currentsizeSecond: Int? = 0;   private var currentsizeThird: Int? = 0
+    lateinit var receivedContentList: ArrayList<Content>;
+    lateinit var receivedContentListSecond: ArrayList<Content>;
+    lateinit var receivedContentListThird: ArrayList<Content>
+    private var size: Int? = null;
+    private var sizeSecond: Int? = null;
+    private var sizeThird: Int? = null
+    private var currentsize: Int? = 0;
+    private var currentsizeSecond: Int? = 0;
+    private var currentsizeThird: Int? = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -517,7 +532,10 @@ class SplitThirdHorizontalView : AppCompatActivity() {
             if (receivedContentListSecond.get(0).contentType != "VIDEO") {
                 image_containSecond!!.setVisibility(View.VISIBLE)
                 exoPlayerViewSecond!!.setVisibility(View.INVISIBLE)
-                updateCardViewImage(receivedContentListSecond.get(currentsizeSecond!!).permaLink, "Second")
+                updateCardViewImage(
+                    receivedContentListSecond.get(currentsizeSecond!!).permaLink,
+                    "Second"
+                )
                 Handler().postDelayed(Runnable {
                     currentsizeSecond = currentsizeSecond?.plus(1)
                     logicSecond()
@@ -550,8 +568,6 @@ class SplitThirdHorizontalView : AppCompatActivity() {
                     logicThird()
 
                 }, sec.toLong())
-
-
 
 
             } else {
@@ -660,6 +676,7 @@ class SplitThirdHorizontalView : AppCompatActivity() {
         }
 
     }
+
     protected fun updateCardViewImage(url: String?, second: String) {
 
         if (second.contentEquals("Second")) {
@@ -673,9 +690,10 @@ class SplitThirdHorizontalView : AppCompatActivity() {
                         .getDrawable(R.drawable.logo)
                 )
 
+                .transition(DrawableTransitionOptions.withCrossFade()) // Adding crossfade transition
 
                 .into(image_containSecond!!)
-        }else if (second.contentEquals("Third")) {
+        } else if (second.contentEquals("Third")) {
 
 
             Glide.with(applicationContext)
@@ -685,6 +703,7 @@ class SplitThirdHorizontalView : AppCompatActivity() {
                         .getResources()
                         .getDrawable(R.drawable.logo)
                 )
+                .transition(DrawableTransitionOptions.withCrossFade()) // Adding crossfade transition
 
                 .into(image_containThird!!)
         } else {
@@ -696,6 +715,7 @@ class SplitThirdHorizontalView : AppCompatActivity() {
                         .getResources()
                         .getDrawable(R.drawable.logo)
                 )
+                .transition(DrawableTransitionOptions.withCrossFade()) // Adding crossfade transition
 
                 .into(image_contain!!)
         }

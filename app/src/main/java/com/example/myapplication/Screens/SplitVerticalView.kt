@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.myapplication.R
 import com.example.myapplication.network.model.Content
 import com.google.android.exoplayer2.ExoPlaybackException
@@ -26,24 +27,26 @@ class SplitVerticalView : AppCompatActivity() {
         if (second.contentEquals("Second")) {
 
 
-            Glide.with(applicationContext)
-                .load(url) /*.override(100,300)*/
+             Glide.with(applicationContext)
+    .load(url) /*.override(100,300)*/
                 .error(
                     applicationContext
                         .getResources()
                         .getDrawable(R.drawable.logo)
                 )
+                 .transition(DrawableTransitionOptions.withCrossFade()) // Adding crossfade transition
 
                 .into(image_containSecond!!)
         } else {
 
-            Glide.with(applicationContext)
-                .load(url) /*.override(100,300)*/
+             Glide.with(applicationContext)
+    .load(url) /*.override(100,300)*/
                 .error(
                     applicationContext
                         .getResources()
                         .getDrawable(R.drawable.logo)
                 )
+                 .transition(DrawableTransitionOptions.withCrossFade()) // Adding crossfade transition
 
                 .into(image_contain!!)
         }
