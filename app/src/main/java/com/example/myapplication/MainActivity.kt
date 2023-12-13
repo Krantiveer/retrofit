@@ -1,14 +1,21 @@
 package com.example.myapplication
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.AbsoluteSizeSpan
 import android.util.Log
 import android.view.View
+import android.widget.LinearLayout
+import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.VIEW_MODEL_STORE_OWNER_KEY
 import com.example.myapplication.Actvity.handlerqr
-import com.example.myapplication.Actvity.randomNumber
 import com.example.myapplication.Screens.HorizontalView
 import com.example.myapplication.Screens.SplitHalfHorizontalView
 import com.example.myapplication.Screens.SplitThirdHorizontalView
@@ -18,29 +25,49 @@ import com.example.myapplication.network.api.MainApi
 import com.example.myapplication.network.model.ApiResponse
 import com.example.myapplication.network.model.Content
 import com.example.myapplication.network.model.ScreenScheduleResponse
-import com.example.myapplication.network.model.MyListData
-import com.example.myapplication.utils.CMHelper
 import com.example.myapplication.utils.PreferenceUtils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.security.AccessController
 
+
 private const val TAG = "LoginScreenActivity"
 val handlerscreen = Handler()
 
 class MainActivity : AppCompatActivity() {
+    var fullText = "NO SCHEDULES \n Please schedule your playlist"
+    lateinit var ll_verify_otp: LinearLayout
+    lateinit var progress_bar_load_main: ProgressBar
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        // fetchapi()
+        var textView = findViewById<TextView>(R.id.paircode_main)
+        ll_verify_otp = findViewById(R.id.ll_verify_otp)
+
+        progress_bar_load_main = findViewById<ProgressBar>(R.id.progress_bar_load_main)
+        progress_bar_load_main.visibility=View.VISIBLE
+        ll_verify_otp.visibility=View.INVISIBLE
+        val spannableString = SpannableString(fullText)
+        spannableString.setSpan(
+            AbsoluteSizeSpan(40, true),
+            0,
+            12,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        spannableString.setSpan(
+            AbsoluteSizeSpan(18, true),
+            13,
+            fullText.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        textView.text = spannableString
         CallHandlerCall()
 
         fetchScreenversionAPI(PreferenceUtils.getInstance().getPairIDPref(applicationContext))
         // gotoHorizontalScreen()
-
-
     }
 
     private fun CallHandlerCall() {
@@ -113,6 +140,15 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    fun restartApp(context: Context) {
+        val packageManager = context.packageManager
+        val intent = packageManager.getLaunchIntentForPackage(context.packageName)
+        val componentName = intent?.component
+        val mainIntent = Intent.makeRestartActivityTask(componentName)
+        context.startActivity(mainIntent)
+        Runtime.getRuntime().exit(0)
+    }
+
     private fun fetchScreenversionAPI(id: String) {
         val retrofitcms = RetrofitClient.getRetrofitInstanceCMS()
         val api = retrofitcms.create(MainApi::class.java)
@@ -134,26 +170,28 @@ class MainActivity : AppCompatActivity() {
                             "Screen Paired , Please schedule your content",
                             Toast.LENGTH_LONG
                         ).show()
+                        ll_verify_otp.visibility = View.VISIBLE
+                        progress_bar_load_main.visibility = View.INVISIBLE
 
                     } else {
 
                         //   handlerscreen.removeCallbacksAndMessages(null)
+                        PreferenceUtils.getInstance().setSCREEN_VERSION_CODEPref(
+                            applicationContext,
+                            response.body().toString()
+                        )
+                        Log.i(
+                            TAG,
+                            "onResponse:SCREEN_VERSION_CODE else true" + (response.body()
+                                ?.toString())
+                        )
+                        ll_verify_otp.visibility = View.INVISIBLE
+                        progress_bar_load_main.visibility = View.VISIBLE
 
-
-                            PreferenceUtils.getInstance().setSCREEN_VERSION_CODEPref(
-                                applicationContext,
-                                response.body().toString()
-                            )
-                            Log.i(
-                                TAG,
-                                "onResponse:SCREEN_VERSION_CODE else true" + (response.body()
-                                    ?.toString())
-                            )
-
-                            fetchActiveScheduleAPI(
-                                PreferenceUtils.getInstance().getPairIDPref(applicationContext)
-                            )
-                        }
+                        fetchActiveScheduleAPI(
+                            PreferenceUtils.getInstance().getPairIDPref(applicationContext)
+                        )
+                    }
 
 
 
@@ -191,6 +229,7 @@ class MainActivity : AppCompatActivity() {
         })
 
     }
+
     private fun fetchScreenversionAPIHandler(id: String) {
         val retrofitcms = RetrofitClient.getRetrofitInstanceCMS()
         val api = retrofitcms.create(MainApi::class.java)
@@ -207,18 +246,19 @@ class MainActivity : AppCompatActivity() {
                             "onResponse:SCREEN_VERSION_CODE -false " + (response.body()
                                 ?.toString())
                         )
-                        Toast.makeText(
-                            applicationContext,
-                            "Screen Paired , Please schedule your content",
-                            Toast.LENGTH_LONG
-                        ).show()
+                        /*   Toast.makeText(
+                               applicationContext,
+                               "Screen Paired , Please schedule your content",
+                               Toast.LENGTH_LONG
+                           ).show()*/
 
                     } else {
 
                         //   handlerscreen.removeCallbacksAndMessages(null)
-                        if (PreferenceUtils.getInstance().getSCREEN_VERSION_CODEPref(applicationContext).contentEquals(
-                                    response.body()?.toString()
-                                )
+                        if (PreferenceUtils.getInstance()
+                                .getSCREEN_VERSION_CODEPref(applicationContext).contentEquals(
+                                response.body()?.toString()
+                            )
                         ) {
                             Log.i(
                                 TAG,
@@ -231,6 +271,14 @@ class MainActivity : AppCompatActivity() {
                                 applicationContext,
                                 response.body().toString()
                             )
+                            /*
+                                                        val intent = Intent(applicationContext, MainActivity::class.java)
+                                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                                                        startActivity(intent)
+                                                        finish()
+                            */
+
+
                             Log.i(
                                 TAG,
                                 "onResponse:SCREEN_VERSION_CODE else true" + (response.body()
@@ -337,7 +385,7 @@ class MainActivity : AppCompatActivity() {
     fun gotoVerticalScreen(content_data: List<Content>) {
         //   handler.removeCallbacksAndMessages(null)
         handlerqr.removeCallbacksAndMessages(null)
-      //  handlerscreen.removeCallbacksAndMessages(null)
+        //  handlerscreen.removeCallbacksAndMessages(null)
         val intent = Intent(this, VerticalView::class.java)
         intent.putParcelableArrayListExtra("CONTENT_LIST", ArrayList(content_data))
         startActivity(intent)
@@ -347,7 +395,7 @@ class MainActivity : AppCompatActivity() {
     fun gotoVerticalSplitScreen(content_data: List<Content>, content_data_second: List<Content>) {
         //   handler.removeCallbacksAndMessages(null)
         handlerqr.removeCallbacksAndMessages(null)
-      //  handlerscreen.removeCallbacksAndMessages(null)
+        //  handlerscreen.removeCallbacksAndMessages(null)
         val intent = Intent(this, SplitHalfHorizontalView::class.java)
         intent.putParcelableArrayListExtra("CONTENT_LIST", ArrayList(content_data))
         intent.putParcelableArrayListExtra("CONTENT_LIST_TWO", ArrayList(content_data_second))
@@ -357,7 +405,7 @@ class MainActivity : AppCompatActivity() {
     fun gotoHorizontalScreen(content_data: List<Content>) {
         //   handler.removeCallbacksAndMessages(null)
         handlerqr.removeCallbacksAndMessages(null)
-      //  handlerscreen.removeCallbacksAndMessages(null)
+        //  handlerscreen.removeCallbacksAndMessages(null)
         val intent = Intent(this, HorizontalView::class.java)
         intent.putParcelableArrayListExtra("CONTENT_LIST", ArrayList(content_data))
         startActivity(intent)
@@ -367,7 +415,7 @@ class MainActivity : AppCompatActivity() {
     fun gotoSplitHorizontalScreen(content_data: List<Content>, content_data_second: List<Content>) {
         //   handler.removeCallbacksAndMessages(null)
         handlerqr.removeCallbacksAndMessages(null)
-      //  handlerscreen.removeCallbacksAndMessages(null)
+        //  handlerscreen.removeCallbacksAndMessages(null)
         val intent = Intent(this, SplitHalfHorizontalView::class.java)
         intent.putParcelableArrayListExtra("CONTENT_LIST", ArrayList(content_data))
         intent.putParcelableArrayListExtra("CONTENT_LIST_TWO", ArrayList(content_data_second))
@@ -382,7 +430,7 @@ class MainActivity : AppCompatActivity() {
     ) {
         //   handler.removeCallbacksAndMessages(null)
         handlerqr.removeCallbacksAndMessages(null)
-      //  handlerscreen.removeCallbacksAndMessages(null)
+        //  handlerscreen.removeCallbacksAndMessages(null)
         val intent = Intent(this, SplitThirdHorizontalView::class.java)
         intent.putParcelableArrayListExtra("CONTENT_LIST", ArrayList(content_data))
         intent.putParcelableArrayListExtra("CONTENT_LIST_TWO", ArrayList(content_data_second))

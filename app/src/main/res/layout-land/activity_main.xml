@@ -11,7 +11,7 @@
 
 
 
-    <FrameLayout
+<FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="7"
@@ -99,18 +99,18 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <ProgressBar
-            android:id="@+id/progress_bar_load_main"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:indeterminateTint="@color/colorGold"
-            android:visibility="gone"
-            android:layout_gravity="center"
-            tools:visibility="visible" />
+    <ProgressBar
+        android:id="@+id/progress_bar_load_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:indeterminateTint="@color/colorGold"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        tools:visibility="visible" />
 
 
-        <ImageView
+    <ImageView
             android:layout_width="@dimen/_70sdp"
             android:layout_height="@dimen/_70sdp"
             android:layout_gravity="end|bottom"

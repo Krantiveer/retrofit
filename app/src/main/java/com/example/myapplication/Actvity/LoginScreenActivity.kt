@@ -48,9 +48,91 @@ class LoginScreenActivity : AppCompatActivity() {
 
 
     fun bt_verified_login(view: View) {
+/*
+        fetchScreenversionAPI(PreferenceUtils.getInstance().getPairIDPref(applicationContext))
+*/
         gotoMainScreen()
 
     }
+/*
+    private fun fetchScreenversionAPI(id: String) {
+        val retrofitcms = RetrofitClient.getRetrofitInstanceCMS()
+        val api = retrofitcms.create(MainApi::class.java)
+        val accessToken = "Bearer ";
+        Log.i(TAG, "fetchValidateAPI: ")
+
+        val call: Call<Long> = api.getScreenVersion(id)
+        call.enqueue(object : Callback<Long?> {
+            override fun onResponse(call: Call<Long?>, response: Response<Long?>) {
+                if (response.code() == 200) {
+                    if (response.body()?.toInt() == -1) {
+                        Log.i(
+                            TAG,
+                            "onResponse:SCREEN_VERSION_CODE -false " + (response.body()
+                                ?.toString())
+                        )
+                        Toast.makeText(
+                            applicationContext,
+                            "Screen Paired , Please schedule your content",
+                            Toast.LENGTH_LONG
+                        ).show()
+
+                    } else {
+
+                        //   handlerscreen.removeCallbacksAndMessages(null)
+
+
+                        PreferenceUtils.getInstance().setSCREEN_VERSION_CODEPref(
+                            applicationContext,
+                            response.body().toString()
+                        )
+                        Log.i(
+                            TAG,
+                            "onResponse:SCREEN_VERSION_CODE else true" + (response.body()
+                                ?.toString())
+                        )
+
+
+                    }
+
+
+
+                    Log.i(TAG, "success--> " + response.body())
+
+
+                } else if (response.code() == 401) {
+
+                } else if (response.errorBody() != null) {
+                    if (AccessController.getContext() != null) {
+                        Toast.makeText(
+                            applicationContext,
+                            "sorry! Something went wrong. Please try again after some time" + response.errorBody(),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                } else {
+                    if (AccessController.getContext() != null) {
+                        Toast.makeText(
+                            applicationContext,
+                            "sorry! Something went wrong. Please try again after some time",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<Long?>, t: Throwable) {
+                //   CMHelper.setSnackBar(requireView(), t.getMessage(), 2);
+                if (AccessController.getContext() != null) {
+                    Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT).show()
+                } else {
+                }
+            }
+        })
+
+    }
+*/
+
 
     fun gotoMainScreen() {
 
