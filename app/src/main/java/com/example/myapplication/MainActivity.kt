@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var progress_bar_load_main: ProgressBar
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
