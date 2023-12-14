@@ -39,12 +39,15 @@ class MainActivity : AppCompatActivity() {
     var fullText = "NO SCHEDULES \n Please schedule your playlist"
     lateinit var ll_verify_otp: LinearLayout
     lateinit var progress_bar_load_main: ProgressBar
+    lateinit var datafrom:String
 
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
         var textView = findViewById<TextView>(R.id.paircode_main)
         ll_verify_otp = findViewById(R.id.ll_verify_otp)
 
@@ -68,6 +71,14 @@ class MainActivity : AppCompatActivity() {
         CallHandlerCall()
 
         fetchScreenversionAPI(PreferenceUtils.getInstance().getPairIDPref(applicationContext))
+        datafrom= intent.getStringExtra("dataFrom").toString()
+        if (datafrom != null) {
+            // Do something with the received data
+            // For example, log it or use it in your app logic
+            fetchActiveScheduleAPI(
+                PreferenceUtils.getInstance().getPairIDPref(applicationContext)
+            )
+        }
         // gotoHorizontalScreen()
     }
 
@@ -111,7 +122,9 @@ class MainActivity : AppCompatActivity() {
 
 
 
-                } else if (response.code() == 401) {
+                } else if (response.code() == 400) {
+                    progress_bar_load_main.visibility=View.INVISIBLE
+                    ll_verify_otp.visibility=View.VISIBLE
 
                 } else if (response.errorBody() != null) {
                     if (AccessController.getContext() != null) {
@@ -188,9 +201,9 @@ class MainActivity : AppCompatActivity() {
                             "onResponse:SCREEN_VERSION_CODE else true" + (response.body()
                                 ?.toString())
                         )
-                        ll_verify_otp.visibility = View.INVISIBLE
+                     /*   ll_verify_otp.visibility = View.INVISIBLE
                         progress_bar_load_main.visibility = View.VISIBLE
-
+*/
                         fetchActiveScheduleAPI(
                             PreferenceUtils.getInstance().getPairIDPref(applicationContext)
                         )

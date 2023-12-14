@@ -171,6 +171,7 @@ class SplashScreenActivityTv : Activity() {
                         .contentEquals("true")
                 ) {
                     val intent = Intent(this, MainActivity::class.java)
+                    intent.putExtra("dataFrom","SplashScreen")
                     startActivity(intent)
                 } else {
                     val intent = Intent(this, LoginScreenActivity::class.java)
