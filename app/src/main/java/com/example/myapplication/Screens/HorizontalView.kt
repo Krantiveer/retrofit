@@ -75,10 +75,6 @@ class HorizontalView : AppCompatActivity() {
         }
 
 
-        /*   Glide.with(this)
-               .load(model!!.cardImageUrl)
-               .into(image_contain!!)
-   */
     }
 
     fun restart() {
@@ -113,8 +109,6 @@ class HorizontalView : AppCompatActivity() {
     }
 
     protected fun updateCardViewImage(url: String?) {
-
-//https://www.adorama.com/alc/wp-content/uploads/2021/05/bird-wings-flying-feature.gif
 
         Glide.with(applicationContext)
             .load(url) /*.override(100,300)*/
@@ -155,39 +149,6 @@ class HorizontalView : AppCompatActivity() {
         exoPlayerView = findViewById(R.id.player_view)
         image_contain = findViewById(R.id.image_contain)
 
-        /*
-            val imageUrl = PreferenceUtils.getInstance().getWatermarkLogoUrlPref(this)
-            if(media_type=="audio"){
-                image_contain!!.setVisibility(View.VISIBLE)
-
-            }else{
-                image_contain!!.setVisibility(View.GONE)
-
-            }*/
-
-        // Replace with your image URL
-        /* Log.i(
-             TAG,
-             "intiViews:playerAcitivity " + imageUrl.equals("1", ignoreCase = true) + imageUrl
-         )*/
-        /* if (!imageUrl.isEmpty() && !imageUrl.equals("1", ignoreCase = true)) {
-             Glide.with(this)
-                 .load(imageUrl)
-                 .into(watermark_live!!)
-             Glide.with(this)
-                 .load(imageUrl)
-                 .into(watermark!!)
-         }
-
-         //  webView=findViewById(R.id.webview);
-         if (!model!!.cardImageUrl.isNullOrEmpty()) {
-             Glide.with(this)
-                 .load(model!!.cardImageUrl)
-                 .into(image_contain!!)
-
-         }
- */
-        // PreferenceUtils.getInstance().getWatermarkLogoUrlPref(this);
     }
 
     fun logic() {
