@@ -22,6 +22,164 @@ import com.google.android.exoplayer2.upstream.DataSource
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 
 class SplitHalfHorizontalView : AppCompatActivity() {
+
+
+    private val TAG = "HorizontalView"
+    private var progressBar: ProgressBar? = null;
+    private var progressBarSecond: ProgressBar? = null
+
+    private var image_contain: ImageView? = null;
+    private var image_containSecond: ImageView? = null
+
+
+    protected var exoPlayerView: PlayerView? = null;
+    protected var exoPlayerViewSecond: PlayerView? = null
+
+    protected var player: ExoPlayer? = null;
+    protected var playerSecond: ExoPlayer? = null
+    private val startAutoPlay = true
+    lateinit var sharedPreferences: SharedPreferences
+    lateinit var receivedContentList: ArrayList<Content>;
+    lateinit var receivedContentListSecond: ArrayList<Content>
+    private var size: Int? = null;
+    private var sizeSecond: Int? = null
+    private var currentsize: Int? = 0
+    private var currentsizeSecond: Int? = 0
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_horizontal_split_view)
+        releasePlayer()
+        intiViews()
+
+
+        receivedContentList = intent.getParcelableArrayListExtra("CONTENT_LIST")!!
+        receivedContentListSecond = intent.getParcelableArrayListExtra("CONTENT_LIST_TWO")!!
+        size = receivedContentList.size
+        sizeSecond = receivedContentListSecond.size
+        var sec = receivedContentList.get(currentsize!!).duration * 1000
+        /*
+                if (receivedContentList != null) {
+                    if (receivedContentList.get(0).contentType != "VIDEO") {
+                        image_contain!!.setVisibility(View.VISIBLE)
+                        exoPlayerView!!.setVisibility(View.INVISIBLE)
+                        updateCardViewImage(receivedContentList.get(currentsize!!).permaLink, "")
+                        Handler().postDelayed(Runnable {
+                            currentsize = currentsize?.plus(1)
+                            logic()
+
+                        }, sec.toLong())
+
+
+                    } else {
+                        image_contain!!.setVisibility(View.GONE)
+                        exoPlayerView!!.setVisibility(View.VISIBLE)
+
+                        initVideoPlayer(
+                            receivedContentList.get(0).permaLink.toString(),
+                            receivedContentList.get(0).format.toString()
+                        )
+                        // initVideoPlayer("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "mp4")
+
+                    }
+                }
+                if (receivedContentListSecond != null) {
+                    var sec = receivedContentListSecond.get(currentsizeSecond!!).duration * 1000
+
+                    if (receivedContentListSecond.get(0).contentType != "VIDEO") {
+                        image_containSecond!!.setVisibility(View.VISIBLE)
+                        exoPlayerViewSecond!!.setVisibility(View.INVISIBLE)
+                        updateCardViewImage(
+                            receivedContentListSecond.get(currentsizeSecond!!).permaLink,
+                            "Second"
+                        )
+                        Handler().postDelayed(Runnable {
+                            currentsizeSecond = currentsizeSecond?.plus(1)
+                            logicSecond()
+
+                        }, sec.toLong())
+
+
+                    } else {
+                        image_containSecond!!.setVisibility(View.GONE)
+                        exoPlayerViewSecond!!.setVisibility(View.VISIBLE)
+
+                        initVideoPlayerSecond(
+                            receivedContentListSecond.get(0).permaLink.toString(),
+                            receivedContentListSecond.get(0).format.toString()
+                        )
+                        // initVideoPlayer("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "mp4")
+
+                    }
+                }
+
+        */
+        firstscreen()
+        secondscreen()
+    }
+    fun firstscreen(){
+        receivedContentList = intent.getParcelableArrayListExtra("CONTENT_LIST")!!
+        size = receivedContentList.size
+        var sec = receivedContentList.get(currentsize!!).duration * 1000
+
+        if (receivedContentList != null) {
+            if (receivedContentList.get(0).contentType != "VIDEO") {
+                image_contain!!.setVisibility(View.VISIBLE)
+                exoPlayerView!!.setVisibility(View.INVISIBLE)
+                updateCardViewImage(receivedContentList.get(currentsize!!).permaLink,"")
+                Handler().postDelayed(Runnable {
+                    currentsize = currentsize?.plus(1)
+                    logic()
+
+                }, sec.toLong())
+
+
+            } else {
+                image_contain!!.setVisibility(View.GONE)
+                exoPlayerView!!.setVisibility(View.VISIBLE)
+
+                initVideoPlayer(
+                    receivedContentList.get(0).permaLink.toString(),
+                    receivedContentList.get(0).format.toString()
+                )
+                // initVideoPlayer("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "mp4")
+
+            }
+            // Use the receivedContentList in your HorizontalView activity
+        }
+    }
+    fun secondscreen(){
+        receivedContentListSecond = intent.getParcelableArrayListExtra("CONTENT_LIST_TWO")!!
+        sizeSecond = receivedContentListSecond.size
+        var sec = receivedContentListSecond.get(currentsizeSecond!!).duration * 1000
+
+        if (receivedContentListSecond != null) {
+            if (receivedContentListSecond.get(0).contentType != "VIDEO") {
+                image_containSecond!!.setVisibility(View.VISIBLE)
+                exoPlayerViewSecond!!.setVisibility(View.INVISIBLE)
+                updateCardViewImage(receivedContentListSecond.get(currentsizeSecond!!).permaLink,"Second")
+                Handler().postDelayed(Runnable {
+                    currentsizeSecond = currentsizeSecond?.plus(1)
+                    logicSecond()
+
+                }, sec.toLong())
+
+
+            } else {
+                image_containSecond!!.setVisibility(View.GONE)
+                exoPlayerViewSecond!!.setVisibility(View.VISIBLE)
+
+                initVideoPlayerSecond(
+                    receivedContentListSecond.get(0).permaLink.toString(),
+                    receivedContentListSecond.get(0).format.toString()
+                )
+                // initVideoPlayer("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "mp4")
+
+            }
+            // Use the receivedContentList in your HorizontalView activity
+        }
+    }
+
     protected fun updateCardViewImage(url: String?, second: String) {
 
         if (second.contentEquals("Second")) {
@@ -61,43 +219,19 @@ class SplitHalfHorizontalView : AppCompatActivity() {
         exoPlayerViewSecond = findViewById(R.id.player_view_second)
         image_containSecond = findViewById(R.id.image_contain_second)
 
-        /*
-            val imageUrl = PreferenceUtils.getInstance().getWatermarkLogoUrlPref(this)
-            if(media_type=="audio"){
-                image_contain!!.setVisibility(View.VISIBLE)
-
-            }else{
-                image_contain!!.setVisibility(View.GONE)
-
-            }*/
-
-        // Replace with your image URL
-        /* Log.i(
-             TAG,
-             "intiViews:playerAcitivity " + imageUrl.equals("1", ignoreCase = true) + imageUrl
-         )*/
-        /* if (!imageUrl.isEmpty() && !imageUrl.equals("1", ignoreCase = true)) {
-             Glide.with(this)
-                 .load(imageUrl)
-                 .into(watermark_live!!)
-             Glide.with(this)
-                 .load(imageUrl)
-                 .into(watermark!!)
-         }
-
-         //  webView=findViewById(R.id.webview);
-         if (!model!!.cardImageUrl.isNullOrEmpty()) {
-             Glide.with(this)
-                 .load(model!!.cardImageUrl)
-                 .into(image_contain!!)
-
-         }
- */
-        // PreferenceUtils.getInstance().getWatermarkLogoUrlPref(this);
     }
-
     fun logic() {
         if (receivedContentList != null) {
+            if (currentsize!! >= size!!) {
+
+                currentsize = 0
+                Log.i(TAG, "logic: " + currentsize + size)
+                Log.i(TAG, "restart: calling1")
+
+                restart()
+                return
+
+            }
             if (receivedContentList.get(currentsize!!).contentType != "VIDEO") {
                 exoPlayerView!!.visibility = View.INVISIBLE
 
@@ -136,17 +270,89 @@ class SplitHalfHorizontalView : AppCompatActivity() {
         }
     }
 
+    /*
+        fun logic() {
+            if (receivedContentList != null) {
+                if (receivedContentList.get(currentsize!!).contentType != "VIDEO") {
+                    exoPlayerView!!.visibility = View.INVISIBLE
+
+                    image_contain!!.setVisibility(View.VISIBLE)
+                    updateCardViewImage(receivedContentList.get(currentsize!!).permaLink, "")
+                    var sec = receivedContentList.get(currentsize!!).duration * 1000
+                    Log.i(TAG, "logic: " + currentsize + size)
+                    Handler().postDelayed(Runnable {
+                        currentsize = currentsize?.plus(1)
+                        if (currentsize!! >= size!!) {
+
+                            currentsize = 0
+                            Log.i(TAG, "logic: " + currentsize + size)
+
+                            restart()
+
+                        } else {
+                            Log.i(TAG, "logic:1 " + currentsize + size)
+
+                            logic()
+                        }
+
+                    }, sec.toLong())
+
+
+                } else {
+                    exoPlayerView!!.visibility = View.VISIBLE
+                    image_contain!!.setVisibility(View.INVISIBLE)
+                    initVideoPlayer(
+                        receivedContentList.get(currentsize!!).permaLink.toString(),
+                        receivedContentList.get(currentsize!!).format.toString()
+                    )
+                    // initVideoPlayer("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "mp4")
+
+                }
+            }
+        }
+    */
+
     fun logicSecond() {
         if (receivedContentListSecond != null) {
-            if (receivedContentListSecond.get(0).contentType != "VIDEO") {
+            if (currentsizeSecond!! >= size!!) {
+
+                currentsizeSecond = 0
+                Log.i(TAG, "logic: " + currentsizeSecond + sizeSecond)
+                Log.i(TAG, "restart: calling1")
+
+                restartSecond()
+                return
+
+            }
+            if (receivedContentListSecond.get(currentsizeSecond!!).contentType != "VIDEO") {
                 exoPlayerViewSecond!!.visibility = View.INVISIBLE
 
                 image_containSecond!!.setVisibility(View.VISIBLE)
+                updateCardViewImage(receivedContentListSecond.get(currentsizeSecond!!).permaLink, "")
+                var sec = receivedContentListSecond.get(currentsizeSecond!!).duration * 1000
+                Log.i(TAG, "logic: " + currentsizeSecond + sizeSecond)
+                Handler().postDelayed(Runnable {
+                    currentsizeSecond = currentsizeSecond?.plus(1)
+                    if (currentsizeSecond!! >= sizeSecond!!) {
+
+                        currentsizeSecond = 0
+                        Log.i(TAG, "logic: " + currentsizeSecond + sizeSecond)
+
+                        restartSecond()
+
+                    } else {
+                        Log.i(TAG, "logic:1 " + currentsizeSecond + sizeSecond)
+
+                        logic()
+                    }
+
+                }, sec.toLong())
+
 
             } else {
                 exoPlayerViewSecond!!.visibility = View.VISIBLE
                 image_containSecond!!.setVisibility(View.INVISIBLE)
-                initVideoPlayer(
+                initVideoPlayerSecond(
                     receivedContentListSecond.get(currentsizeSecond!!).permaLink.toString(),
                     receivedContentListSecond.get(currentsizeSecond!!).format.toString()
                 )
@@ -269,17 +475,14 @@ class SplitHalfHorizontalView : AppCompatActivity() {
                 Log.d(TAG, "onPlayerStateChanged + $playbackState")
                 if (playbackState == ExoPlayer.STATE_ENDED) {
                     Log.d(TAG, "onPlayerStateChanged + $playbackState")
-                    /*  player!!.seekTo(0)
-                      // Start playback again
-                      player!!.play()*/
-                    // loadNextVideo("M",related_id)
+
                     currentsizeSecond = currentsizeSecond?.plus(1)
                     Log.i(TAG, "onPlayerStateChanged: -->" + currentsizeSecond)
                     if (sizeSecond!! >= currentsizeSecond!!) {
                         currentsizeSecond = 0
                         if (receivedContentListSecond.get(currentsizeSecond!!).contentType == "VIDEO") {
                             image_containSecond!!.setVisibility(View.GONE)
-                            initVideoPlayer(
+                            initVideoPlayerSecond(
                                 receivedContentListSecond.get(currentsizeSecond!!).permaLink.toString(),
                                 receivedContentListSecond.get(currentsizeSecond!!).format.toString()
                             )
@@ -339,103 +542,8 @@ class SplitHalfHorizontalView : AppCompatActivity() {
         super.onDestroy()
         releasePlayer()
     }
-
-    private val TAG = "HorizontalView"
-    private var progressBar: ProgressBar? = null;
-    private var progressBarSecond: ProgressBar? = null
-
-    private var image_contain: ImageView? = null;
-    private var image_containSecond: ImageView? = null
-
-
-    protected var exoPlayerView: PlayerView? = null;
-    protected var exoPlayerViewSecond: PlayerView? = null
-
-    protected var player: ExoPlayer? = null;
-    protected var playerSecond: ExoPlayer? = null
-    private val startAutoPlay = true
-    lateinit var sharedPreferences: SharedPreferences
-    lateinit var receivedContentList: ArrayList<Content>;
-    lateinit var receivedContentListSecond: ArrayList<Content>
-    private var size: Int? = null;
-    private var sizeSecond: Int? = null
-    private var currentsize: Int? = 0
-    private var currentsizeSecond: Int? = 0
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_horizontal_split_view)
-        releasePlayer()
-        intiViews()
-
-        receivedContentList = intent.getParcelableArrayListExtra("CONTENT_LIST")!!
-        receivedContentListSecond = intent.getParcelableArrayListExtra("CONTENT_LIST_TWO")!!
-        size = receivedContentList.size
-        sizeSecond = receivedContentListSecond.size
-        var sec = receivedContentList.get(currentsize!!).duration * 1000
-
-        if (receivedContentList != null) {
-            if (receivedContentList.get(0).contentType != "VIDEO") {
-                image_contain!!.setVisibility(View.VISIBLE)
-                exoPlayerView!!.setVisibility(View.INVISIBLE)
-                updateCardViewImage(receivedContentList.get(currentsize!!).permaLink, "")
-                Handler().postDelayed(Runnable {
-                    currentsize = currentsize?.plus(1)
-                    logic()
-
-                }, sec.toLong())
-
-
-            } else {
-                image_contain!!.setVisibility(View.GONE)
-                exoPlayerView!!.setVisibility(View.VISIBLE)
-
-                initVideoPlayer(
-                    receivedContentList.get(0).permaLink.toString(),
-                    receivedContentList.get(0).format.toString()
-                )
-                // initVideoPlayer("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "mp4")
-
-            }
-        }
-        if (receivedContentListSecond != null) {
-            var sec = receivedContentListSecond.get(currentsizeSecond!!).duration * 1000
-
-            if (receivedContentListSecond.get(0).contentType != "VIDEO") {
-                image_containSecond!!.setVisibility(View.VISIBLE)
-                exoPlayerViewSecond!!.setVisibility(View.INVISIBLE)
-                updateCardViewImage(
-                    receivedContentListSecond.get(currentsizeSecond!!).permaLink,
-                    "Second"
-                )
-                Handler().postDelayed(Runnable {
-                    currentsizeSecond = currentsizeSecond?.plus(1)
-                    logicSecond()
-
-                }, sec.toLong())
-
-
-            } else {
-                image_containSecond!!.setVisibility(View.GONE)
-                exoPlayerViewSecond!!.setVisibility(View.VISIBLE)
-
-                initVideoPlayerSecond(
-                    receivedContentListSecond.get(0).permaLink.toString(),
-                    receivedContentListSecond.get(0).format.toString()
-                )
-                // initVideoPlayer("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "mp4")
-
-            }
-        }
-
-
-        /*   Glide.with(this)
-               .load(model!!.cardImageUrl)
-               .into(image_contain!!)
-   */
-    }
-
     fun restart() {
+        Log.i(TAG, "restart: calling")
         var sec = receivedContentList.get(currentsize!!).duration * 1000
 
         if (receivedContentList != null) {
@@ -463,35 +571,37 @@ class SplitHalfHorizontalView : AppCompatActivity() {
             }
             // Use the receivedContentList in your HorizontalView activity
         }
-        var secSecond = receivedContentListSecond.get(currentsizeSecond!!).duration * 1000
+
+
+    }
+    fun restartSecond() {
+        var sec = receivedContentListSecond.get(currentsizeSecond!!).duration * 1000
 
         if (receivedContentListSecond != null) {
             if (receivedContentListSecond.get(0).contentType != "VIDEO") {
                 image_containSecond!!.setVisibility(View.VISIBLE)
                 exoPlayerViewSecond!!.setVisibility(View.INVISIBLE)
-                updateCardViewImage(
-                    receivedContentListSecond.get(currentsizeSecond!!).permaLink,
-                    "Second"
-                )
+                updateCardViewImage(receivedContentListSecond.get(currentsize!!).permaLink,"Second")
                 Handler().postDelayed(Runnable {
                     currentsizeSecond = currentsizeSecond?.plus(1)
                     logicSecond()
 
-                }, secSecond.toLong())
+                }, sec.toLong())
 
 
             } else {
                 image_containSecond!!.setVisibility(View.GONE)
                 exoPlayerViewSecond!!.setVisibility(View.VISIBLE)
 
-                initVideoPlayer(
+                initVideoPlayerSecond(
                     receivedContentListSecond.get(0).permaLink.toString(),
                     receivedContentListSecond.get(0).format.toString()
                 )
+                // initVideoPlayer("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "mp4")
 
             }
+            // Use the receivedContentList in your HorizontalView activity
         }
 
     }
-
 }
