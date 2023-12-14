@@ -26,7 +26,7 @@
 
             <LinearLayout
                 android:id="@+id/ll_verify_otp"
-                android:layout_width="600sp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:gravity="center"
@@ -57,6 +57,7 @@
                         android:textColor="@color/textcolor_paircode"
                         android:textColorHint="@color/black"
                         android:textSize="@dimen/_40sdp"
+                        android:singleLine="true"
                         android:textStyle="bold"
                         android:visibility="visible" />
                 </androidx.cardview.widget.CardView>

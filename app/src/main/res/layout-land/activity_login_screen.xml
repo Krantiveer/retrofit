@@ -26,7 +26,7 @@
 
             <LinearLayout
                 android:id="@+id/ll_verify_otp"
-                android:layout_width="600sp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:gravity="center"
@@ -56,6 +56,7 @@
                         android:text="@string/paircode"
                         android:textColor="@color/textcolor_paircode"
                         android:textColorHint="@color/black"
+                        android:singleLine="true"
                         android:textSize="@dimen/_140sdp"
                         android:textStyle="bold"
                         android:visibility="visible" />

@@ -98,15 +98,17 @@ class MainActivity : AppCompatActivity() {
                 response: Response<ScreenScheduleResponse?>
             ) {
                 if (response.code() == 200) {
+               //     Toast.makeText(applicationContext,"startDateTime -"+response.body()!!.schedules.get(0).startDateTime+" endDateTime -"+response.body()!!.schedules.get(0).endDateTime,Toast.LENGTH_LONG).show()
                     Log.i(
                         TAG,
                         "success--> "
                     )
 
-                    Toast.makeText(applicationContext, "Sucess Activation", Toast.LENGTH_SHORT)
+                 /*   Toast.makeText(applicationContext, "Sucess Activation", Toast.LENGTH_SHORT)
                         .show()
-
+*/
                     onGetActiveScheduleSuccess(response.body()!!)
+
 
 
                 } else if (response.code() == 401) {
