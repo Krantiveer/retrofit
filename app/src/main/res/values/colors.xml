@@ -43,5 +43,6 @@
     <color name="player_progress_color">#feab91</color>
     <color name="textcolor_paircode">#e6010E16</color>
     <color name="red_400">#EF5350</color>
+    <color name="version_color">#cccccc</color>
 
 </resources>

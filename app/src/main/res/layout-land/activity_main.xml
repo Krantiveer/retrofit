@@ -136,7 +136,7 @@
                 android:layout_gravity="start"
                 android:fontFamily="@font/roboto_medium"
                 android:text="App Version :1"
-                android:textColor="#ECE9E9"
+                android:textColor="@color/version_color"
                 android:textSize="@dimen/_14sdp"
                 android:visibility="visible" />
 
@@ -148,7 +148,7 @@
                 android:layout_marginStart="@dimen/_20sdp"
                 android:fontFamily="@font/roboto_medium"
                 android:text="SDK Version (Android): 34 "
-                android:textColor="#ECE9E9"
+                android:textColor="@color/version_color"
                 android:textSize="@dimen/_14sdp"
                 android:visibility="visible" />
         </androidx.appcompat.widget.LinearLayoutCompat>
