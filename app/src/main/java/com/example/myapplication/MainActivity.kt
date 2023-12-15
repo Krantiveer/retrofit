@@ -56,11 +56,7 @@ class MainActivity : AppCompatActivity() {
         if (datafromlogin != null) {
             if (datafromlogin.contentEquals("Login")) {
 
-                Log.i("@love", "onCreate: ")
                 fullText = "SCREEN PAIRED\n Lets schedule your playlist"
-            } else {
-                Log.i("@love", "onCreate: second")
-
             }
         }
         progress_bar_load_main = findViewById<ProgressBar>(R.id.progress_bar_load_main)
@@ -261,7 +257,7 @@ class MainActivity : AppCompatActivity() {
         val retrofitcms = RetrofitClient.getRetrofitInstanceCMS()
         val api = retrofitcms.create(MainApi::class.java)
         val accessToken = "Bearer ";
-        Log.i(TAG, "fetchValidateAPI: ")
+        Log.i("@veer", "fetchValidateAPI: ")
 
         val call: Call<Long> = api.getScreenVersion(id)
         call.enqueue(object : Callback<Long?> {
@@ -282,39 +278,17 @@ class MainActivity : AppCompatActivity() {
                     } else {
 
                         //   handlerscreen.removeCallbacksAndMessages(null)
-                        if (PreferenceUtils.getInstance()
-                                .getSCREEN_VERSION_CODEPref(applicationContext).contentEquals(
-                                    response.body()?.toString()
-                                )
-                        ) {
-                            Log.i(
-                                TAG,
-                                "onResponse:SCREEN_VERSION_CODE --no data assign" + (response.body()
-                                    ?.toString())
-                            )
-
+                        if (PreferenceUtils.getInstance().getSCREEN_VERSION_CODEPref(applicationContext).contentEquals(response.body()?.toString())) {
+                            Log.i("@veer", "fetchValidateAPI: ")
                         } else {
                             PreferenceUtils.getInstance().setSCREEN_VERSION_CODEPref(
                                 applicationContext,
                                 response.body().toString()
                             )
-                            /*
-                                                        val intent = Intent(applicationContext, MainActivity::class.java)
-                                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-                                                        startActivity(intent)
-                                                        finish()
-                            */
-
-
-                            Log.i(
-                                TAG,
-                                "onResponse:SCREEN_VERSION_CODE else true" + (response.body()
-                                    ?.toString())
-                            )
-
-                            fetchActiveScheduleAPI(
+                            restartApp(applicationContext)
+                          /*  fetchActiveScheduleAPI(
                                 PreferenceUtils.getInstance().getPairIDPref(applicationContext)
-                            )
+                            )*/
                         }
 
                     }

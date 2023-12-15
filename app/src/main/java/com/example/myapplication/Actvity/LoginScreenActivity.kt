@@ -142,6 +142,8 @@ class LoginScreenActivity : AppCompatActivity() {
         val intent = Intent(this, MainActivity::class.java)
         intent.putExtra("dataFromlogin","Login")
         startActivity(intent)
+        this.finishAffinity()
+        this.overridePendingTransition(R.anim.enter, R.anim.exit)
 
     }
 
