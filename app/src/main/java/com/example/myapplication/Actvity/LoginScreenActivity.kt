@@ -140,6 +140,7 @@ class LoginScreenActivity : AppCompatActivity() {
         handlerqr.removeCallbacksAndMessages(null)
 
         val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra("dataFromlogin","Login")
         startActivity(intent)
 
     }

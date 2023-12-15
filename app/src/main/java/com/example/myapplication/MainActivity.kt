@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var ll_verify_otp: LinearLayout
     lateinit var progress_bar_load_main: ProgressBar
     lateinit var datafrom:String
+    lateinit var datafromlogin:String
 
 
 
@@ -47,10 +48,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         var textView = findViewById<TextView>(R.id.paircode_main)
         ll_verify_otp = findViewById(R.id.ll_verify_otp)
 
+        datafromlogin= intent.getStringExtra("dataFromlogin").toString()
+        if (datafromlogin != null) {
+            if(datafromlogin.contentEquals("Login")){
+
+                Log.i("@love", "onCreate: ")
+            }else{
+                Log.i("@love", "onCreate: second")
+
+            }
+        }
         progress_bar_load_main = findViewById<ProgressBar>(R.id.progress_bar_load_main)
         progress_bar_load_main.visibility=View.VISIBLE
         ll_verify_otp.visibility=View.INVISIBLE
