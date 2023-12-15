@@ -36,12 +36,13 @@ private const val TAG = "LoginScreenActivity"
 val handlerscreen = Handler()
 
 class MainActivity : AppCompatActivity() {
-    var fullText = "NO SCHEDULES \n Please schedule your playlist"
+    var fullText = "NO SCHEDULES  \nPlease schedule your playlist"
+    //  var fullText = "SCREEN PAIRED\n Lets schedule your playlist"
+
     lateinit var ll_verify_otp: LinearLayout
     lateinit var progress_bar_load_main: ProgressBar
-    lateinit var datafrom:String
-    lateinit var datafromlogin:String
-
+    lateinit var datafrom: String
+    lateinit var datafromlogin: String
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,29 +52,30 @@ class MainActivity : AppCompatActivity() {
         var textView = findViewById<TextView>(R.id.paircode_main)
         ll_verify_otp = findViewById(R.id.ll_verify_otp)
 
-        datafromlogin= intent.getStringExtra("dataFromlogin").toString()
+        datafromlogin = intent.getStringExtra("dataFromlogin").toString()
         if (datafromlogin != null) {
-            if(datafromlogin.contentEquals("Login")){
+            if (datafromlogin.contentEquals("Login")) {
 
                 Log.i("@love", "onCreate: ")
-            }else{
+                fullText = "SCREEN PAIRED\n Lets schedule your playlist"
+            } else {
                 Log.i("@love", "onCreate: second")
 
             }
         }
         progress_bar_load_main = findViewById<ProgressBar>(R.id.progress_bar_load_main)
-        progress_bar_load_main.visibility=View.VISIBLE
-        ll_verify_otp.visibility=View.INVISIBLE
+        progress_bar_load_main.visibility = View.VISIBLE
+        ll_verify_otp.visibility = View.INVISIBLE
         val spannableString = SpannableString(fullText)
         spannableString.setSpan(
             AbsoluteSizeSpan(40, true),
             0,
-            12,
+            13,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
         spannableString.setSpan(
             AbsoluteSizeSpan(18, true),
-            13,
+            14,
             fullText.length,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
@@ -81,7 +83,7 @@ class MainActivity : AppCompatActivity() {
         CallHandlerCall()
 
         fetchScreenversionAPI(PreferenceUtils.getInstance().getPairIDPref(applicationContext))
-        datafrom= intent.getStringExtra("dataFrom").toString()
+        datafrom = intent.getStringExtra("dataFrom").toString()
         if (datafrom != null) {
             // Do something with the received data
             // For example, log it or use it in your app logic
@@ -119,22 +121,21 @@ class MainActivity : AppCompatActivity() {
                 response: Response<ScreenScheduleResponse?>
             ) {
                 if (response.code() == 200) {
-               //     Toast.makeText(applicationContext,"startDateTime -"+response.body()!!.schedules.get(0).startDateTime+" endDateTime -"+response.body()!!.schedules.get(0).endDateTime,Toast.LENGTH_LONG).show()
+                    //     Toast.makeText(applicationContext,"startDateTime -"+response.body()!!.schedules.get(0).startDateTime+" endDateTime -"+response.body()!!.schedules.get(0).endDateTime,Toast.LENGTH_LONG).show()
                     Log.i(
                         TAG,
                         "success--> "
                     )
 
-                 /*   Toast.makeText(applicationContext, "Sucess Activation", Toast.LENGTH_SHORT)
-                        .show()
-*/
+                    /*   Toast.makeText(applicationContext, "Sucess Activation", Toast.LENGTH_SHORT)
+                           .show()
+   */
                     onGetActiveScheduleSuccess(response.body()!!)
 
 
-
                 } else if (response.code() == 400) {
-                    progress_bar_load_main.visibility=View.INVISIBLE
-                    ll_verify_otp.visibility=View.VISIBLE
+                    progress_bar_load_main.visibility = View.INVISIBLE
+                    ll_verify_otp.visibility = View.VISIBLE
 
                 } else if (response.errorBody() != null) {
                     if (AccessController.getContext() != null) {
@@ -211,9 +212,9 @@ class MainActivity : AppCompatActivity() {
                             "onResponse:SCREEN_VERSION_CODE else true" + (response.body()
                                 ?.toString())
                         )
-                     /*   ll_verify_otp.visibility = View.INVISIBLE
-                        progress_bar_load_main.visibility = View.VISIBLE
-*/
+                        /*   ll_verify_otp.visibility = View.INVISIBLE
+                           progress_bar_load_main.visibility = View.VISIBLE
+   */
                         fetchActiveScheduleAPI(
                             PreferenceUtils.getInstance().getPairIDPref(applicationContext)
                         )
@@ -283,8 +284,8 @@ class MainActivity : AppCompatActivity() {
                         //   handlerscreen.removeCallbacksAndMessages(null)
                         if (PreferenceUtils.getInstance()
                                 .getSCREEN_VERSION_CODEPref(applicationContext).contentEquals(
-                                response.body()?.toString()
-                            )
+                                    response.body()?.toString()
+                                )
                         ) {
                             Log.i(
                                 TAG,
