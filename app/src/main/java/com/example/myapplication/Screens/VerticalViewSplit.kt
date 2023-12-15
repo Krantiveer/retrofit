@@ -18,35 +18,33 @@ import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.ui.PlayerView
-import com.google.android.exoplayer2.upstream.DataSource
-import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 
-class SplitVerticalView : AppCompatActivity() {
+class VerticalViewSplit : AppCompatActivity() {
     protected fun updateCardViewImage(url: String?, second: String) {
 
         if (second.contentEquals("Second")) {
 
 
-             Glide.with(applicationContext)
-    .load(url) /*.override(100,300)*/
+            Glide.with(applicationContext)
+                .load(url) /*.override(100,300)*/
                 .error(
                     applicationContext
                         .getResources()
                         .getDrawable(R.drawable.logo)
                 )
-                 .transition(DrawableTransitionOptions.withCrossFade()) // Adding crossfade transition
+                .transition(DrawableTransitionOptions.withCrossFade()) // Adding crossfade transition
 
                 .into(image_containSecond!!)
         } else {
 
-             Glide.with(applicationContext)
-    .load(url) /*.override(100,300)*/
+            Glide.with(applicationContext)
+                .load(url) /*.override(100,300)*/
                 .error(
                     applicationContext
                         .getResources()
                         .getDrawable(R.drawable.logo)
                 )
-                 .transition(DrawableTransitionOptions.withCrossFade()) // Adding crossfade transition
+                .transition(DrawableTransitionOptions.withCrossFade()) // Adding crossfade transition
 
                 .into(image_contain!!)
         }
@@ -156,7 +154,7 @@ class SplitVerticalView : AppCompatActivity() {
                     currentsize = currentsize?.plus(1)
                     Log.i(TAG, "onPlayerStateChanged: -->" + currentsize)
                     if (size!! >= currentsize!!) {
-                        currentsize =0
+                        currentsize = 0
                         if (receivedContentList.get(currentsize!!).contentType == "VIDEO") {
                             image_contain!!.setVisibility(View.GONE)
                             initVideoPlayer(
@@ -236,7 +234,7 @@ class SplitVerticalView : AppCompatActivity() {
                     currentsizeSecond = currentsizeSecond?.plus(1)
                     Log.i(TAG, "onPlayerStateChanged: -->" + currentsizeSecond)
                     if (sizeSecond!! >= currentsizeSecond!!) {
-                        currentsizeSecond=0
+                        currentsizeSecond = 0
                         if (receivedContentListSecond.get(currentsizeSecond!!).contentType == "VIDEO") {
                             image_containSecond!!.setVisibility(View.GONE)
                             initVideoPlayer(

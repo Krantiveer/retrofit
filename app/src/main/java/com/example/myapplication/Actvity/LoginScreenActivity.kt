@@ -1,12 +1,19 @@
 package com.example.myapplication.Actvity
 
+import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.StateListDrawable
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.util.StateSet
 import android.view.View
+import android.view.Window
+import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
@@ -503,5 +510,51 @@ class LoginScreenActivity : AppCompatActivity() {
         })
     }
 */
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+            // binding.slidingPaneLayout.openPane();
+            val dialog: Dialog
+            dialog = Dialog(this)
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog.setContentView(R.layout.layout_dialog_exit)
+            dialog.setCancelable(true)
+            val button_no = dialog.findViewById<View>(R.id.button_no) as Button
+            button_no.background = getSelectorDrawable()
+            button_no.setOnClickListener { dialog.dismiss() }
+
+            val button_yes = dialog.findViewById<View>(R.id.button_yes) as Button
+            button_yes.background = getSelectorDrawable()
+            button_yes.setOnClickListener {
+                dialog.dismiss()
+                this.finishAffinity()
+            }
+            dialog.show()
+        }
+
+    private fun getSelectorDrawable(): StateListDrawable? {
+        val out = StateListDrawable()
+        out.addState(
+            intArrayOf(android.R.attr.state_focused), createFocusedDrawable(
+                Color.parseColor("#EF3C23")
+            )
+        )
+        out.addState(
+            StateSet.WILD_CARD,
+            createNormalDrawable(Color.parseColor("#80858B"))
+        )
+        return out
+    }
+    private fun createFocusedDrawable(color: Int): GradientDrawable? {
+        val out = GradientDrawable()
+        out.setColor(color)
+        return out
+    }
+
+    private fun createNormalDrawable(color: Int): GradientDrawable? {
+        val out = GradientDrawable()
+        out.setColor(color)
+        return out
+    }
 
 }

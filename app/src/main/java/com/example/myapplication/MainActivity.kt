@@ -20,6 +20,8 @@ import com.example.myapplication.Screens.HorizontalView
 import com.example.myapplication.Screens.SplitHalfHorizontalView
 import com.example.myapplication.Screens.SplitThirdHorizontalView
 import com.example.myapplication.Screens.VerticalView
+import com.example.myapplication.Screens.VerticalViewFour
+import com.example.myapplication.Screens.VerticalViewTriple
 import com.example.myapplication.network.RetrofitClient
 import com.example.myapplication.network.api.MainApi
 import com.example.myapplication.network.model.ApiResponse
@@ -329,6 +331,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onGetActiveScheduleSuccess(body: ScreenScheduleResponse) {
+        Log.i("@@activeschedule=-->", "onGetActiveScheduleSuccess: =="+body.schedules.get(0).playlists.get(0).layout.layoutId)
         when (body.schedules.get(0).playlists.get(0).layout.layoutId) {
             1 -> {
                 gotoVerticalScreen(body.schedules.get(0).playlists.get(0).layout.zones.get(0).contents)
@@ -341,8 +344,18 @@ class MainActivity : AppCompatActivity() {
                 )
             }
 
-            3 -> print("randomVal == 3")
-            4 -> print("randomVal == 4")
+            3 -> {gotoVerticalTripScreen(
+                body.schedules.get(0).playlists.get(0).layout.zones.get(0).contents,
+                body.schedules.get(0).playlists.get(0).layout.zones.get(1).contents,
+                body.schedules.get(0).playlists.get(0).layout.zones.get(2).contents
+            )}
+            4 -> {
+                gotoVerticalFourScreen(
+                body.schedules.get(0).playlists.get(0).layout.zones.get(0).contents,
+                body.schedules.get(0).playlists.get(0).layout.zones.get(1).contents,
+                body.schedules.get(0).playlists.get(0).layout.zones.get(2).contents,
+                body.schedules.get(0).playlists.get(0).layout.zones.get(3).contents
+            )}
             5 -> print("randomVal == 5")
             6 -> print("randomVal == 6")
             7 -> print("randomVal == 7")
@@ -393,6 +406,27 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    fun gotoVerticalTripScreen(content_data: List<Content>, content_data_second: List<Content>, content_data_triple: List<Content>) {
+        //   handler.removeCallbacksAndMessages(null)
+        handlerqr.removeCallbacksAndMessages(null)
+        //  handlerscreen.removeCallbacksAndMessages(null)
+        val intent = Intent(this, VerticalViewTriple::class.java)
+        intent.putParcelableArrayListExtra("CONTENT_LIST", ArrayList(content_data))
+        intent.putParcelableArrayListExtra("CONTENT_LIST_TWO", ArrayList(content_data_second))
+        intent.putParcelableArrayListExtra("CONTENT_LIST_TRIPLE", ArrayList(content_data_triple))
+        startActivity(intent)
+    }
+    fun gotoVerticalFourScreen(content_data: List<Content>, content_data_second: List<Content>, content_data_triple: List<Content>, content_data_four: List<Content>) {
+        //   handler.removeCallbacksAndMessages(null)
+        handlerqr.removeCallbacksAndMessages(null)
+        //  handlerscreen.removeCallbacksAndMessages(null)
+        val intent = Intent(this, VerticalViewFour::class.java)
+        intent.putParcelableArrayListExtra("CONTENT_LIST", ArrayList(content_data))
+        intent.putParcelableArrayListExtra("CONTENT_LIST_TWO", ArrayList(content_data_second))
+        intent.putParcelableArrayListExtra("CONTENT_LIST_TRIPLE", ArrayList(content_data_triple))
+        intent.putParcelableArrayListExtra("CONTENT_LIST_FOUR", ArrayList(content_data_four))
+        startActivity(intent)
+    }
     fun gotoVerticalSplitScreen(content_data: List<Content>, content_data_second: List<Content>) {
         //   handler.removeCallbacksAndMessages(null)
         handlerqr.removeCallbacksAndMessages(null)
