@@ -511,7 +511,6 @@ class LoginScreenActivity : AppCompatActivity() {
     }
 */
     override fun onBackPressed() {
-        super.onBackPressed()
 
             // binding.slidingPaneLayout.openPane();
             val dialog: Dialog
@@ -527,6 +526,8 @@ class LoginScreenActivity : AppCompatActivity() {
             button_yes.background = getSelectorDrawable()
             button_yes.setOnClickListener {
                 dialog.dismiss()
+                super.onBackPressed()
+
                 this.finishAffinity()
             }
             dialog.show()

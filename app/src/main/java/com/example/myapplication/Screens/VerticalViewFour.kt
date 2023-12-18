@@ -71,7 +71,7 @@ class VerticalViewFour : AppCompatActivity() {
         receivedContentList = intent.getParcelableArrayListExtra("CONTENT_LIST")!!
         receivedContentListSecond = intent.getParcelableArrayListExtra("CONTENT_LIST_TWO")!!
         receivedContentListTriple = intent.getParcelableArrayListExtra("CONTENT_LIST_TRIPLE")!!
-        receivedContentListFour = intent.getParcelableArrayListExtra("CONTENT_LIST_Four")!!
+        receivedContentListFour = intent.getParcelableArrayListExtra("CONTENT_LIST_FOUR")!!
         size = receivedContentList.size
         sizeSecond = receivedContentListSecond.size
         sizeTriple = receivedContentListTriple.size
@@ -444,7 +444,6 @@ class VerticalViewFour : AppCompatActivity() {
             }
             if (receivedContentListSecond.get(currentsizeSecond!!).contentType != "VIDEO") {
                 exoPlayerViewSecond!!.visibility = View.INVISIBLE
-
                 image_containSecond!!.setVisibility(View.VISIBLE)
                 updateCardViewImage(receivedContentListSecond.get(currentsizeSecond!!).permaLink, "")
                 var sec = receivedContentListSecond.get(currentsizeSecond!!).duration * 1000

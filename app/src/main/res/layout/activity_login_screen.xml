@@ -27,7 +27,7 @@
             <LinearLayout
                 android:id="@+id/ll_verify_otp"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:orientation="vertical"
@@ -47,12 +47,12 @@
                     android:gravity="center"
                     android:padding="15dp"
                     android:singleLine="true"
+                    android:letterSpacing="0.1"
                     android:text="@string/paircode"
                     android:textColor="@color/textcolor_paircode"
                     android:textColorHint="@color/black"
                     android:textSize="@dimen/_40sdp"
                     android:textStyle="bold"
-
                     android:visibility="visible" />
 
                 <TextView
