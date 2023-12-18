@@ -9,6 +9,10 @@
         <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
+    <style name="AppThemeNoAction" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
 
 
 

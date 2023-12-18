@@ -2,17 +2,16 @@ package com.example.myapplication.Actvity
 
 import android.app.Dialog
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.StateListDrawable
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.util.StateSet
 import android.view.View
 import android.view.Window
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -28,7 +27,6 @@ import com.example.myapplication.network.model.DeviceInfo
 import com.example.myapplication.network.model.GeneratePair
 import com.example.myapplication.utils.PreferenceUtils
 import com.example.myapplication.utils.ToastMsg
-import okhttp3.internal.http2.Settings
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -46,6 +44,10 @@ class LoginScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_screen)
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        window.decorView.systemUiVisibility =
+            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE
+
         pairCodeTextView = findViewById(R.id.paircode)
         progress_bar = findViewById(R.id.progress_bar_load)
 

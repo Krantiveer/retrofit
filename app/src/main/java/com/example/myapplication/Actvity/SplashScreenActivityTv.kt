@@ -10,6 +10,7 @@ import android.os.Handler
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
+import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -42,6 +43,9 @@ class SplashScreenActivityTv : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_onboarding)
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        window.decorView.systemUiVisibility =
+            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE
         appversion = findViewById<TextView>(R.id.appversion)
         sdkversion = findViewById<TextView>(R.id.sdkversion)
         appversion.text = "APK version: " + Config.APKVersion
