@@ -90,6 +90,14 @@
             android:name=".Screens.VerticalViewFive"
             android:exported="false" />
         <activity
+            android:screenOrientation="portrait"
+            android:name=".Screens.VerticalViewSplitMainFooter"
+            android:exported="false" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".Screens.VerticalViewSplitMainHeader"
+            android:exported="false" />
+        <activity
             android:name=".Screens.HorizontalView"
             android:exported="false" />
         <activity
@@ -97,6 +105,9 @@
             android:exported="false" />
         <activity
             android:name=".Screens.SplitThirdHorizontalView"
+            android:exported="false" />
+        <activity
+            android:name=".Screens.HorizontalViewFour"
             android:exported="false" />
         <activity
             android:name=".Actvity.LoginScreenActivity"

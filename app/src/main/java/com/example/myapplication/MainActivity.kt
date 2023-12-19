@@ -25,12 +25,16 @@ import androidx.lifecycle.VIEW_MODEL_STORE_OWNER_KEY
 import com.example.myapplication.Actvity.SplashScreenActivityTv
 import com.example.myapplication.Actvity.handlerqr
 import com.example.myapplication.Screens.HorizontalView
+import com.example.myapplication.Screens.HorizontalViewFour
 import com.example.myapplication.Screens.SplitHalfHorizontalView
 import com.example.myapplication.Screens.SplitThirdHorizontalView
 import com.example.myapplication.Screens.VerticalView
 import com.example.myapplication.Screens.VerticalViewFive
 import com.example.myapplication.Screens.VerticalViewFour
+import com.example.myapplication.Screens.VerticalViewSplitMainFooter
+import com.example.myapplication.Screens.VerticalViewSplitMainHeader
 import com.example.myapplication.Screens.VerticalViewTriple
+import com.example.myapplication.Screens.VerticalViewTripleHeaderFooter
 import com.example.myapplication.network.RetrofitClient
 import com.example.myapplication.network.api.MainApi
 import com.example.myapplication.network.model.ApiResponse
@@ -176,18 +180,18 @@ class MainActivity : AppCompatActivity() {
 
     fun restartApp(context: Context) {
         val intent = Intent(this, MainActivity::class.java)
-        intent.putExtra("dataFromlogin","Login")
+        intent.putExtra("dataFromlogin", "Login")
         startActivity(intent)
         this.finishAffinity()
         this.overridePendingTransition(R.anim.enter, R.anim.exit)
-/*
+        /*
 
-        val packageManager = context.packageManager
-        val intent = packageManager.getLaunchIntentForPackage(context.packageName)
-        val componentName = intent?.component
-        val mainIntent = Intent.makeRestartActivityTask(componentName)
-        context.startActivity(mainIntent)
-        Runtime.getRuntime().exit(0)*/
+                val packageManager = context.packageManager
+                val intent = packageManager.getLaunchIntentForPackage(context.packageName)
+                val componentName = intent?.component
+                val mainIntent = Intent.makeRestartActivityTask(componentName)
+                context.startActivity(mainIntent)
+                Runtime.getRuntime().exit(0)*/
     }
 
     private fun fetchScreenversionAPI(id: String) {
@@ -368,6 +372,8 @@ class MainActivity : AppCompatActivity() {
                 )
             }
 
+
+
             3 -> {
                 gotoVerticalTripScreen(
                     body.schedules.get(0).playlists.get(0).layout.zones.get(0).contents,
@@ -384,6 +390,7 @@ class MainActivity : AppCompatActivity() {
                     body.schedules.get(0).playlists.get(0).layout.zones.get(3).contents
                 )
             }
+
             5 -> {
                 gotoVerticalFiveScreen(
                     body.schedules.get(0).playlists.get(0).layout.zones.get(0).contents,
@@ -393,10 +400,25 @@ class MainActivity : AppCompatActivity() {
                     body.schedules.get(0).playlists.get(0).layout.zones.get(4).contents
                 )
             }
-
-            6 -> print("randomVal == 6")
-            7 -> print("randomVal == 7")
-            8 -> print("randomVal == 8")
+            6 -> {
+                gotoVerticalSplitMainFooterScreen(
+                    body.schedules.get(0).playlists.get(0).layout.zones.get(0).contents,
+                    body.schedules.get(0).playlists.get(0).layout.zones.get(1).contents
+                )
+            }
+            7 -> {
+                gotoVerticalSplitMainHeaderScreen(
+                    body.schedules.get(0).playlists.get(0).layout.zones.get(0).contents,
+                    body.schedules.get(0).playlists.get(0).layout.zones.get(1).contents
+                )
+            }
+            8 -> {
+                gotoVerticalTripHeaderFooterScreen(
+                    body.schedules.get(0).playlists.get(0).layout.zones.get(0).contents,
+                    body.schedules.get(0).playlists.get(0).layout.zones.get(1).contents,
+                    body.schedules.get(0).playlists.get(0).layout.zones.get(2).contents
+                )
+            }
             9 -> {
                 gotoHorizontalScreen(body.schedules.get(0).playlists.get(0).layout.zones.get(0).contents)
             }
@@ -418,7 +440,15 @@ class MainActivity : AppCompatActivity() {
                 )
             }
 
-            12 -> print("randomVal == 12")
+            12 -> {
+                gotoHorizontalFourScreen(
+                    body.schedules.get(0).playlists.get(0).layout.zones.get(0).contents,
+                    body.schedules.get(0).playlists.get(0).layout.zones.get(1).contents,
+                    body.schedules.get(0).playlists.get(0).layout.zones.get(2).contents,
+                    body.schedules.get(0).playlists.get(0).layout.zones.get(3).contents
+                )
+            }
+
             13 -> print("randomVal == 13")
             14 -> print("randomVal == 14")
             15 -> print("randomVal == 15")
@@ -457,6 +487,20 @@ class MainActivity : AppCompatActivity() {
         intent.putParcelableArrayListExtra("CONTENT_LIST_TRIPLE", ArrayList(content_data_triple))
         startActivity(intent)
     }
+    fun gotoVerticalTripHeaderFooterScreen(
+        content_data: List<Content>,
+        content_data_second: List<Content>,
+        content_data_triple: List<Content>
+    ) {
+        //   handler.removeCallbacksAndMessages(null)
+        handlerqr.removeCallbacksAndMessages(null)
+        //  handlerscreen.removeCallbacksAndMessages(null)
+        val intent = Intent(this, VerticalViewTripleHeaderFooter::class.java)
+        intent.putParcelableArrayListExtra("CONTENT_LIST", ArrayList(content_data))
+        intent.putParcelableArrayListExtra("CONTENT_LIST_TWO", ArrayList(content_data_second))
+        intent.putParcelableArrayListExtra("CONTENT_LIST_TRIPLE", ArrayList(content_data_triple))
+        startActivity(intent)
+    }
 
     fun gotoVerticalFourScreen(
         content_data: List<Content>,
@@ -474,6 +518,7 @@ class MainActivity : AppCompatActivity() {
         intent.putParcelableArrayListExtra("CONTENT_LIST_FOUR", ArrayList(content_data_four))
         startActivity(intent)
     }
+
     fun gotoVerticalFiveScreen(
         content_data: List<Content>,
         content_data_second: List<Content>,
@@ -498,6 +543,31 @@ class MainActivity : AppCompatActivity() {
         handlerqr.removeCallbacksAndMessages(null)
         //  handlerscreen.removeCallbacksAndMessages(null)
         val intent = Intent(this, SplitHalfHorizontalView::class.java)
+        intent.putParcelableArrayListExtra("CONTENT_LIST", ArrayList(content_data))
+        intent.putParcelableArrayListExtra("CONTENT_LIST_TWO", ArrayList(content_data_second))
+        startActivity(intent)
+    }
+
+    fun gotoVerticalSplitMainFooterScreen(
+        content_data: List<Content>,
+        content_data_second: List<Content>
+    ) {
+        //   handler.removeCallbacksAndMessages(null)
+        handlerqr.removeCallbacksAndMessages(null)
+        //  handlerscreen.removeCallbacksAndMessages(null)
+        val intent = Intent(this, VerticalViewSplitMainFooter::class.java)
+        intent.putParcelableArrayListExtra("CONTENT_LIST", ArrayList(content_data))
+        intent.putParcelableArrayListExtra("CONTENT_LIST_TWO", ArrayList(content_data_second))
+        startActivity(intent)
+    }
+    fun gotoVerticalSplitMainHeaderScreen(
+        content_data: List<Content>,
+        content_data_second: List<Content>
+    ) {
+        //   handler.removeCallbacksAndMessages(null)
+        handlerqr.removeCallbacksAndMessages(null)
+        //  handlerscreen.removeCallbacksAndMessages(null)
+        val intent = Intent(this, VerticalViewSplitMainHeader::class.java)
         intent.putParcelableArrayListExtra("CONTENT_LIST", ArrayList(content_data))
         intent.putParcelableArrayListExtra("CONTENT_LIST_TWO", ArrayList(content_data_second))
         startActivity(intent)
@@ -538,6 +608,22 @@ class MainActivity : AppCompatActivity() {
         intent.putParcelableArrayListExtra("CONTENT_LIST_Third", ArrayList(content_data_third))
         startActivity(intent)
 
+    }
+    fun gotoHorizontalFourScreen(
+        content_data: List<Content>,
+        content_data_second: List<Content>,
+        content_data_triple: List<Content>,
+        content_data_four: List<Content>
+    ) {
+        //   handler.removeCallbacksAndMessages(null)
+        handlerqr.removeCallbacksAndMessages(null)
+        //  handlerscreen.removeCallbacksAndMessages(null)
+        val intent = Intent(this, HorizontalViewFour::class.java)
+        intent.putParcelableArrayListExtra("CONTENT_LIST", ArrayList(content_data))
+        intent.putParcelableArrayListExtra("CONTENT_LIST_TWO", ArrayList(content_data_second))
+        intent.putParcelableArrayListExtra("CONTENT_LIST_TRIPLE", ArrayList(content_data_triple))
+        intent.putParcelableArrayListExtra("CONTENT_LIST_FOUR", ArrayList(content_data_four))
+        startActivity(intent)
     }
 
     override fun onResume() {
@@ -744,7 +830,8 @@ private open fun fetchDataFromApi() {
         //   restartApp(applicationContext)
         gotosplash()
     }
-    fun gotosplash(){
+
+    fun gotosplash() {
         val intent = Intent(this, SplashScreenActivityTv::class.java)
         startActivity(intent)
         handlerscreen.removeCallbacksAndMessages(null)
