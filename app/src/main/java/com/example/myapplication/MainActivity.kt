@@ -28,6 +28,7 @@ import com.example.myapplication.Screens.HorizontalView
 import com.example.myapplication.Screens.SplitHalfHorizontalView
 import com.example.myapplication.Screens.SplitThirdHorizontalView
 import com.example.myapplication.Screens.VerticalView
+import com.example.myapplication.Screens.VerticalViewFive
 import com.example.myapplication.Screens.VerticalViewFour
 import com.example.myapplication.Screens.VerticalViewTriple
 import com.example.myapplication.network.RetrofitClient
@@ -383,8 +384,16 @@ class MainActivity : AppCompatActivity() {
                     body.schedules.get(0).playlists.get(0).layout.zones.get(3).contents
                 )
             }
+            5 -> {
+                gotoVerticalFiveScreen(
+                    body.schedules.get(0).playlists.get(0).layout.zones.get(0).contents,
+                    body.schedules.get(0).playlists.get(0).layout.zones.get(1).contents,
+                    body.schedules.get(0).playlists.get(0).layout.zones.get(2).contents,
+                    body.schedules.get(0).playlists.get(0).layout.zones.get(3).contents,
+                    body.schedules.get(0).playlists.get(0).layout.zones.get(4).contents
+                )
+            }
 
-            5 -> print("randomVal == 5")
             6 -> print("randomVal == 6")
             7 -> print("randomVal == 7")
             8 -> print("randomVal == 8")
@@ -463,6 +472,24 @@ class MainActivity : AppCompatActivity() {
         intent.putParcelableArrayListExtra("CONTENT_LIST_TWO", ArrayList(content_data_second))
         intent.putParcelableArrayListExtra("CONTENT_LIST_TRIPLE", ArrayList(content_data_triple))
         intent.putParcelableArrayListExtra("CONTENT_LIST_FOUR", ArrayList(content_data_four))
+        startActivity(intent)
+    }
+    fun gotoVerticalFiveScreen(
+        content_data: List<Content>,
+        content_data_second: List<Content>,
+        content_data_triple: List<Content>,
+        content_data_four: List<Content>,
+        content_data_five: List<Content>
+    ) {
+        //   handler.removeCallbacksAndMessages(null)
+        handlerqr.removeCallbacksAndMessages(null)
+        //  handlerscreen.removeCallbacksAndMessages(null)
+        val intent = Intent(this, VerticalViewFive::class.java)
+        intent.putParcelableArrayListExtra("CONTENT_LIST", ArrayList(content_data))
+        intent.putParcelableArrayListExtra("CONTENT_LIST_TWO", ArrayList(content_data_second))
+        intent.putParcelableArrayListExtra("CONTENT_LIST_TRIPLE", ArrayList(content_data_triple))
+        intent.putParcelableArrayListExtra("CONTENT_LIST_FOUR", ArrayList(content_data_four))
+        intent.putParcelableArrayListExtra("CONTENT_LIST_FIVE", ArrayList(content_data_five))
         startActivity(intent)
     }
 
