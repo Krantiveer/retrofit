@@ -250,20 +250,7 @@ class LoginScreenActivity : AppCompatActivity() {
         call.enqueue(object : Callback<DeviceInfo?> {
             override fun onResponse(call: Call<DeviceInfo?>, response: Response<DeviceInfo?>) {
                 if (response.code() == 200) {
-                    Log.i(
-                        TAG,
-                        "success--> " + PreferenceUtils.getInstance()
-                            .getLoginPref(applicationContext)
-                    )
-
                     PreferenceUtils.getInstance().setLoginPref(applicationContext, "true")
-                    Log.i(
-                        TAG,
-                        "success--> " + PreferenceUtils.getInstance()
-                            .getLoginPref(applicationContext)
-                    )
-
-
                     PreferenceUtils.getInstance()
                         .setAccessTokenNPref(applicationContext, response.body()?.token)
                     gotoMainScreen()

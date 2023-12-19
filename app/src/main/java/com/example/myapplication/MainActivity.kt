@@ -1,20 +1,28 @@
 package com.example.myapplication
 
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.StateListDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.AbsoluteSizeSpan
 import android.util.Log
+import android.util.StateSet
 import android.view.View
+import android.view.Window
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.VIEW_MODEL_STORE_OWNER_KEY
+import com.example.myapplication.Actvity.SplashScreenActivityTv
 import com.example.myapplication.Actvity.handlerqr
 import com.example.myapplication.Screens.HorizontalView
 import com.example.myapplication.Screens.SplitHalfHorizontalView
@@ -166,12 +174,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun restartApp(context: Context) {
+        val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra("dataFromlogin","Login")
+        startActivity(intent)
+        this.finishAffinity()
+        this.overridePendingTransition(R.anim.enter, R.anim.exit)
+/*
+
         val packageManager = context.packageManager
         val intent = packageManager.getLaunchIntentForPackage(context.packageName)
         val componentName = intent?.component
         val mainIntent = Intent.makeRestartActivityTask(componentName)
         context.startActivity(mainIntent)
-        Runtime.getRuntime().exit(0)
+        Runtime.getRuntime().exit(0)*/
     }
 
     private fun fetchScreenversionAPI(id: String) {
@@ -280,17 +295,22 @@ class MainActivity : AppCompatActivity() {
                     } else {
 
                         //   handlerscreen.removeCallbacksAndMessages(null)
-                        if (PreferenceUtils.getInstance().getSCREEN_VERSION_CODEPref(applicationContext).contentEquals(response.body()?.toString())) {
+                        if (PreferenceUtils.getInstance()
+                                .getSCREEN_VERSION_CODEPref(applicationContext)
+                                .contentEquals(response.body()?.toString())
+                        ) {
                             Log.i("@veer", "fetchValidateAPI: ")
                         } else {
                             PreferenceUtils.getInstance().setSCREEN_VERSION_CODEPref(
                                 applicationContext,
                                 response.body().toString()
                             )
+
                             restartApp(applicationContext)
-                          /*  fetchActiveScheduleAPI(
-                                PreferenceUtils.getInstance().getPairIDPref(applicationContext)
-                            )*/
+
+                            /*  fetchActiveScheduleAPI(
+                                  PreferenceUtils.getInstance().getPairIDPref(applicationContext)
+                              )*/
                         }
 
                     }
@@ -331,7 +351,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onGetActiveScheduleSuccess(body: ScreenScheduleResponse) {
-        Log.i("@@activeschedule=-->", "onGetActiveScheduleSuccess: =="+body.schedules.get(0).playlists.get(0).layout.layoutId)
+        Log.i(
+            "@@activeschedule=-->",
+            "onGetActiveScheduleSuccess: ==" + body.schedules.get(0).playlists.get(0).layout.layoutId
+        )
         when (body.schedules.get(0).playlists.get(0).layout.layoutId) {
             1 -> {
                 gotoVerticalScreen(body.schedules.get(0).playlists.get(0).layout.zones.get(0).contents)
@@ -344,18 +367,23 @@ class MainActivity : AppCompatActivity() {
                 )
             }
 
-            3 -> {gotoVerticalTripScreen(
-                body.schedules.get(0).playlists.get(0).layout.zones.get(0).contents,
-                body.schedules.get(0).playlists.get(0).layout.zones.get(1).contents,
-                body.schedules.get(0).playlists.get(0).layout.zones.get(2).contents
-            )}
+            3 -> {
+                gotoVerticalTripScreen(
+                    body.schedules.get(0).playlists.get(0).layout.zones.get(0).contents,
+                    body.schedules.get(0).playlists.get(0).layout.zones.get(1).contents,
+                    body.schedules.get(0).playlists.get(0).layout.zones.get(2).contents
+                )
+            }
+
             4 -> {
                 gotoVerticalFourScreen(
-                body.schedules.get(0).playlists.get(0).layout.zones.get(0).contents,
-                body.schedules.get(0).playlists.get(0).layout.zones.get(1).contents,
-                body.schedules.get(0).playlists.get(0).layout.zones.get(2).contents,
-                body.schedules.get(0).playlists.get(0).layout.zones.get(3).contents
-            )}
+                    body.schedules.get(0).playlists.get(0).layout.zones.get(0).contents,
+                    body.schedules.get(0).playlists.get(0).layout.zones.get(1).contents,
+                    body.schedules.get(0).playlists.get(0).layout.zones.get(2).contents,
+                    body.schedules.get(0).playlists.get(0).layout.zones.get(3).contents
+                )
+            }
+
             5 -> print("randomVal == 5")
             6 -> print("randomVal == 6")
             7 -> print("randomVal == 7")
@@ -406,7 +434,11 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun gotoVerticalTripScreen(content_data: List<Content>, content_data_second: List<Content>, content_data_triple: List<Content>) {
+    fun gotoVerticalTripScreen(
+        content_data: List<Content>,
+        content_data_second: List<Content>,
+        content_data_triple: List<Content>
+    ) {
         //   handler.removeCallbacksAndMessages(null)
         handlerqr.removeCallbacksAndMessages(null)
         //  handlerscreen.removeCallbacksAndMessages(null)
@@ -416,7 +448,13 @@ class MainActivity : AppCompatActivity() {
         intent.putParcelableArrayListExtra("CONTENT_LIST_TRIPLE", ArrayList(content_data_triple))
         startActivity(intent)
     }
-    fun gotoVerticalFourScreen(content_data: List<Content>, content_data_second: List<Content>, content_data_triple: List<Content>, content_data_four: List<Content>) {
+
+    fun gotoVerticalFourScreen(
+        content_data: List<Content>,
+        content_data_second: List<Content>,
+        content_data_triple: List<Content>,
+        content_data_four: List<Content>
+    ) {
         //   handler.removeCallbacksAndMessages(null)
         handlerqr.removeCallbacksAndMessages(null)
         //  handlerscreen.removeCallbacksAndMessages(null)
@@ -427,6 +465,7 @@ class MainActivity : AppCompatActivity() {
         intent.putParcelableArrayListExtra("CONTENT_LIST_FOUR", ArrayList(content_data_four))
         startActivity(intent)
     }
+
     fun gotoVerticalSplitScreen(content_data: List<Content>, content_data_second: List<Content>) {
         //   handler.removeCallbacksAndMessages(null)
         handlerqr.removeCallbacksAndMessages(null)
@@ -476,7 +515,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        // handlerscreen.removeCallbacksAndMessages(null)
         //    handler.removeCallbacksAndMessages(null)
         /*     if(BuildConfig.FLAVOR.equalsIgnoreCase("kaafaltv")||BuildConfig.FLAVOR.equalsIgnoreCase("solidtv")){
         }else{*/
@@ -624,21 +662,97 @@ private open fun fetchDataFromApi() {
         })
     }
 
+    private fun getSelectorDrawable(): StateListDrawable? {
+        val out = StateListDrawable()
+        out.addState(
+            intArrayOf(android.R.attr.state_focused), createFocusedDrawable(
+                Color.parseColor("#EF3C23")
+            )
+        )
+        out.addState(
+            StateSet.WILD_CARD,
+            createNormalDrawable(Color.parseColor("#80858B"))
+        )
+        return out
+    }
+
+    private fun createFocusedDrawable(color: Int): GradientDrawable? {
+        val out = GradientDrawable()
+        out.setColor(color)
+        return out
+    }
+
+    private fun createNormalDrawable(color: Int): GradientDrawable? {
+        val out = GradientDrawable()
+        out.setColor(color)
+        return out
+    }
+
+
+    fun exit(view: View) {
+
+        val dialog: Dialog
+        dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.layout_dialog_exit)
+        dialog.setCancelable(true)
+        val button_no = dialog.findViewById<View>(R.id.button_no) as Button
+        button_no.background = getSelectorDrawable()
+        button_no.setOnClickListener { dialog.dismiss() }
+
+        val button_yes = dialog.findViewById<View>(R.id.button_yes) as Button
+        button_yes.background = getSelectorDrawable()
+        button_yes.setOnClickListener {
+            dialog.dismiss()
+            super.onBackPressed()
+
+            this.finishAffinity()
+        }
+        dialog.show()
+    }
+
+    fun unpair(view: View) {
+        PreferenceUtils.getInstance().setLoginPref(applicationContext, "false")
+        PreferenceUtils.getInstance().setPAIR_CODEPref(applicationContext, "PAIR_CODE")
+        //   restartApp(applicationContext)
+        gotosplash()
+    }
+    fun gotosplash(){
+        val intent = Intent(this, SplashScreenActivityTv::class.java)
+        startActivity(intent)
+        handlerscreen.removeCallbacksAndMessages(null)
+        finish()
+    }
+
+    fun refress(view: View) {
+        //restartApp(applicationContext)
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        handlerscreen.removeCallbacksAndMessages(null)
+        finish()
+
+
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+    }
+
     /*
-    private void loadRows(List<FeaturesGenreAndMovie> homeContents, ArrayList<Video> slideArrayList) {
+        private void loadRows(List<FeaturesGenreAndMovie> homeContents, ArrayList<Video> slideArrayList) {
 
-        HomeBannerAdapter adapter = new HomeBannerAdapter(slideArrayList, getContext());
-        adapter.setSendInterfacedata(description -> setTextViewBanner(description));
-        adapter.setSendInterfaceClick(() -> releasePlayer());
-        recyclerViewBannerTop.setAdapter(adapter);
+            HomeBannerAdapter adapter = new HomeBannerAdapter(slideArrayList, getContext());
+            adapter.setSendInterfacedata(description -> setTextViewBanner(description));
+            adapter.setSendInterfaceClick(() -> releasePlayer());
+            recyclerViewBannerTop.setAdapter(adapter);
 
-        HomeBannerSecAdapter homeBannerSecAdapter = new HomeBannerSecAdapter(homeContents, getContext());
+            HomeBannerSecAdapter homeBannerSecAdapter = new HomeBannerSecAdapter(homeContents, getContext());
 
-        homeBannerSecAdapter.setSendInterfacedata(description -> setTextViewBanner(description));
-        homeBannerSecAdapter.setSendInterfaceClick(() -> releasePlayer());
+            homeBannerSecAdapter.setSendInterfacedata(description -> setTextViewBanner(description));
+            homeBannerSecAdapter.setSendInterfaceClick(() -> releasePlayer());
 
-        recyclerViewBannerBottom.setAdapter(homeBannerSecAdapter);
-    }*//*
+            recyclerViewBannerBottom.setAdapter(homeBannerSecAdapter);
+        }*//*
     private void loadRowsnew(List<FeaturesGenreAndMovie> homeContents, ArrayList<Video> slideArrayList) {
 
         HomeBannerAdapter adapter = new HomeBannerAdapter(slideArrayList, getContext());

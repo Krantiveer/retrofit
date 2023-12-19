@@ -205,7 +205,7 @@ class VerticalViewFour : AppCompatActivity() {
         }
     }
     fun Triplescreen(){
-        receivedContentListTriple = intent.getParcelableArrayListExtra("CONTENT_LIST_TWO")!!
+        receivedContentListTriple = intent.getParcelableArrayListExtra("CONTENT_LIST_TRIPLE")!!
         sizeTriple = receivedContentListTriple.size
         var sec = receivedContentListTriple.get(currentsizeTriple!!).duration * 1000
 
@@ -236,7 +236,7 @@ class VerticalViewFour : AppCompatActivity() {
         }
     }
     fun Fourscreen(){
-        receivedContentListFour = intent.getParcelableArrayListExtra("CONTENT_LIST_TWO")!!
+        receivedContentListFour = intent.getParcelableArrayListExtra("CONTENT_LIST_FOUR")!!
         sizeFour = receivedContentListFour.size
         var sec = receivedContentListFour.get(currentsizeFour!!).duration * 1000
 
