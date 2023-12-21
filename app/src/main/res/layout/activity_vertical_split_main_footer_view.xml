@@ -14,7 +14,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0sp"
-        android:layout_weight="1"
+        android:layout_weight=".8"
 
         android:id="@+id/rv_first"
 
