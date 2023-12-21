@@ -78,15 +78,16 @@ class VerticalViewFive : AppCompatActivity() {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         window.decorView.systemUiVisibility =
             View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE
-        releasePlayer()
         intiViews()
+
+        releasePlayer()
 
 
         receivedContentList = intent.getParcelableArrayListExtra("CONTENT_LIST")!!
         receivedContentListSecond = intent.getParcelableArrayListExtra("CONTENT_LIST_TWO")!!
         receivedContentListTriple = intent.getParcelableArrayListExtra("CONTENT_LIST_TRIPLE")!!
         receivedContentListFour = intent.getParcelableArrayListExtra("CONTENT_LIST_FOUR")!!
-        receivedContentListFive = intent.getParcelableArrayListExtra("CONTENT_LIST_Five")!!
+        receivedContentListFive = intent.getParcelableArrayListExtra("CONTENT_LIST_FIVE")!!
         size = receivedContentList.size
         sizeSecond = receivedContentListSecond.size
         sizeTriple = receivedContentListTriple.size
@@ -280,12 +281,13 @@ class VerticalViewFive : AppCompatActivity() {
         }
     }
     fun Fivescreen(){
-        receivedContentListFive = intent.getParcelableArrayListExtra("CONTENT_LIST_Five")!!
+        receivedContentListFive = intent.getParcelableArrayListExtra("CONTENT_LIST_FIVE")!!
         sizeFive = receivedContentListFive.size
         var sec = receivedContentListFive.get(currentsizeFive!!).duration * 1000
 
         if (receivedContentListFive != null) {
             if (receivedContentListFive.get(0).contentType != "VIDEO") {
+
                 image_containFive!!.setVisibility(View.VISIBLE)
                 exoPlayerViewFive!!.setVisibility(View.INVISIBLE)
                 updateCardViewImage(receivedContentListFive.get(currentsizeFive!!).permaLink,"Five")
@@ -400,6 +402,10 @@ class VerticalViewFive : AppCompatActivity() {
         progressBarFour = findViewById(R.id.progress_bar_four)
         exoPlayerViewFour = findViewById(R.id.player_view_four)
         image_containFour = findViewById(R.id.image_contain_four)
+
+        progressBarFive = findViewById(R.id.progress_bar_Five)
+        exoPlayerViewFive = findViewById(R.id.player_view_Five)
+        image_containFive = findViewById(R.id.image_contain_Five)
 
     }
     fun logic() {

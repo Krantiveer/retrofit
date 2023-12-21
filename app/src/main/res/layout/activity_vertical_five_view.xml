@@ -134,66 +134,6 @@
         android:orientation="horizontal">
 
         <RelativeLayout
-            android:id="@+id/rv_five"
-            android:layout_width="0sp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-
-            >
-
-            <ProgressBar
-                android:id="@+id/progress_bar_five"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_centerInParent="true"
-                android:indeterminate="true"
-                android:indeterminateTint="@color/colorGold"
-                android:indeterminateTintMode="src_atop"
-                android:visibility="gone" />
-
-            <ImageView
-                android:id="@+id/image_contain_five"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:scaleType="fitCenter"
-                android:src="@drawable/banner_image"
-                android:visibility="gone"
-                tool:visibility="visible" />
-
-
-            <com.google.android.exoplayer2.ui.PlayerView
-                android:id="@+id/player_view_five"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:outlineAmbientShadowColor="@color/color_dark_yellow_high"
-                android:outlineSpotShadowColor="@color/green_500"
-                app:buffered_color="@color/player_progress_color"
-                app:controller_layout_id="@layout/custom_exo_layout"
-                app:played_color="@color/main_color"
-                app:scrubber_color="@color/main_color"
-                app:scrubber_disabled_size="@dimen/_15sp"
-                app:scrubber_dragged_size="@dimen/_20sp"
-                app:scrubber_enabled_size="@dimen/_20sp"
-                app:show_buffering="when_playing"
-                app:show_shuffle_button="false"
-                app:show_subtitle_button="false"
-                app:show_vr_button="false"
-
-                />
-
-
-        </RelativeLayout>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
-
-        <RelativeLayout
             android:id="@+id/rv_triple"
             android:layout_width="0sp"
             android:layout_height="match_parent"
@@ -246,6 +186,13 @@
 
         </RelativeLayout>
 
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
         <RelativeLayout
             android:id="@+id/rv_four"
             android:layout_width="0sp"
@@ -280,6 +227,61 @@
 
             <com.google.android.exoplayer2.ui.PlayerView
                 android:id="@+id/player_view_four"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:outlineAmbientShadowColor="@color/color_dark_yellow_high"
+                android:outlineSpotShadowColor="@color/green_500"
+                app:buffered_color="@color/player_progress_color"
+                app:controller_layout_id="@layout/custom_exo_layout"
+                app:played_color="@color/main_color"
+                app:scrubber_color="@color/main_color"
+                app:scrubber_disabled_size="@dimen/_15sp"
+                app:scrubber_dragged_size="@dimen/_20sp"
+                app:scrubber_enabled_size="@dimen/_20sp"
+                app:show_buffering="when_playing"
+                app:show_shuffle_button="false"
+                app:show_subtitle_button="false"
+                app:show_vr_button="false"
+
+                />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rv_Five"
+            android:layout_width="0sp"
+
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+
+            >
+
+
+            <ProgressBar
+                android:id="@+id/progress_bar_Five"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_centerInParent="true"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/colorGold"
+                android:indeterminateTintMode="src_atop"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/image_contain_Five"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/banner_image"
+                android:visibility="gone"
+                tool:visibility="visible" />
+
+
+            <com.google.android.exoplayer2.ui.PlayerView
+                android:id="@+id/player_view_Five"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:outlineAmbientShadowColor="@color/color_dark_yellow_high"

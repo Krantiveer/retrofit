@@ -714,5 +714,6 @@
     <dimen name="title_Text_Size">20sp</dimen>
     <dimen name="corner_radius_series">3sp</dimen>
     <dimen name="margin_start_detail">30sp</dimen>
+    <dimen name="fontsize_button_mainscreen">22sp</dimen>
 </resources>
 

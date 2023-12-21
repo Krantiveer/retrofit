@@ -97,10 +97,10 @@
                         android:paddingTop="@dimen/_10sdp"
                         android:paddingEnd="@dimen/_20sdp"
                         android:paddingBottom="@dimen/_10sdp"
-                        android:text=" Refress"
+                        android:text=" Refresh"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/_26sdp" />
+                        android:textSize="@dimen/fontsize_button_mainscreen" />
 
                     <Button
                         android:id="@+id/exit"
@@ -120,7 +120,7 @@
                         android:text=" Exit"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/_26sdp" />
+                        android:textSize="@dimen/fontsize_button_mainscreen" />
                     <Button
                         android:id="@+id/unpair"
                         android:layout_width="wrap_content"
@@ -138,7 +138,7 @@
                         android:text=" Unpair"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/_26sdp" />
+                        android:textSize="@dimen/fontsize_button_mainscreen" />
 
 
 

@@ -57,9 +57,11 @@
 
 
                 <TextView
+                    android:id="@+id/paircodebelowtxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_8sdp"
+                    android:visibility="invisible"
                     android:fontFamily="@font/roboto_medium"
                     android:text="Enter the above code to Pair your Screen"
                     android:textColor="@color/grey_60"

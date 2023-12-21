@@ -5,6 +5,7 @@
 
     android:layout_height="220dp"
     android:layout_gravity="center"
+    android:keepScreenOn="true"
 
     android:background="@drawable/card_border_focused">
 

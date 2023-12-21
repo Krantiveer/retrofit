@@ -33,6 +33,7 @@ import retrofit2.Response
 import java.security.AccessController
 
 private lateinit var pairCodeTextView: TextView // Declare as a class property
+private lateinit var pairCodeTextViewbelow: TextView // Declare as a class property
 private lateinit var progress_bar: ProgressBar // Declare as a class property
 val handler = Handler()
 val handlerqr = Handler()
@@ -49,6 +50,7 @@ class LoginScreenActivity : AppCompatActivity() {
             View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE
 
         pairCodeTextView = findViewById(R.id.paircode)
+        pairCodeTextViewbelow = findViewById(R.id.paircodebelowtxt)
         progress_bar = findViewById(R.id.progress_bar_load)
 
         fetchPairAPI();
@@ -171,6 +173,7 @@ class LoginScreenActivity : AppCompatActivity() {
                     if (response.body()?.pairCode != null) {
                         if (!response.body()?.pairCode.isNullOrBlank()) {
                             pairCodeTextView.text = response.body()?.pairCode.toString()
+                            pairCodeTextViewbelow.visibility=View.VISIBLE
                             fetchValidateAPI(
                                 response.body()!!.id,
                                 response.body()?.pairCode.toString()
