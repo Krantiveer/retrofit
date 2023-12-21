@@ -21,13 +21,13 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.VIEW_MODEL_STORE_OWNER_KEY
 import com.example.myapplication.Actvity.SplashScreenActivityTv
 import com.example.myapplication.Actvity.handlerqr
 import com.example.myapplication.Screens.HorizontalView
+import com.example.myapplication.Screens.HorizontalViewFive
 import com.example.myapplication.Screens.HorizontalViewFour
-import com.example.myapplication.Screens.SplitHalfHorizontalView
-import com.example.myapplication.Screens.SplitThirdHorizontalView
+import com.example.myapplication.Screens.HorizontalViewSplitHalf
+import com.example.myapplication.Screens.HorizontalViewSplitThird
 import com.example.myapplication.Screens.VerticalView
 import com.example.myapplication.Screens.VerticalViewFive
 import com.example.myapplication.Screens.VerticalViewFour
@@ -449,7 +449,15 @@ class MainActivity : AppCompatActivity() {
                 )
             }
 
-            13 -> print("randomVal == 13")
+            13 -> {
+                gotoHorizontalFiveScreen(
+                    body.schedules.get(0).playlists.get(0).layout.zones.get(0).contents,
+                    body.schedules.get(0).playlists.get(0).layout.zones.get(1).contents,
+                    body.schedules.get(0).playlists.get(0).layout.zones.get(2).contents,
+                    body.schedules.get(0).playlists.get(0).layout.zones.get(3).contents,
+                    body.schedules.get(0).playlists.get(0).layout.zones.get(4).contents
+                )
+            }
             14 -> print("randomVal == 14")
             15 -> print("randomVal == 15")
             else -> {
@@ -538,11 +546,31 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+
+    fun gotoHorizontalFiveScreen(
+        content_data: List<Content>,
+        content_data_second: List<Content>,
+        content_data_triple: List<Content>,
+        content_data_four: List<Content>,
+        content_data_five: List<Content>
+    ) {
+        //   handler.removeCallbacksAndMessages(null)
+        handlerqr.removeCallbacksAndMessages(null)
+        //  handlerscreen.removeCallbacksAndMessages(null)
+        val intent = Intent(this, HorizontalViewFive::class.java)
+        intent.putParcelableArrayListExtra("CONTENT_LIST", ArrayList(content_data))
+        intent.putParcelableArrayListExtra("CONTENT_LIST_TWO", ArrayList(content_data_second))
+        intent.putParcelableArrayListExtra("CONTENT_LIST_TRIPLE", ArrayList(content_data_triple))
+        intent.putParcelableArrayListExtra("CONTENT_LIST_FOUR", ArrayList(content_data_four))
+        intent.putParcelableArrayListExtra("CONTENT_LIST_FIVE", ArrayList(content_data_five))
+        startActivity(intent)
+    }
+
     fun gotoVerticalSplitScreen(content_data: List<Content>, content_data_second: List<Content>) {
         //   handler.removeCallbacksAndMessages(null)
         handlerqr.removeCallbacksAndMessages(null)
         //  handlerscreen.removeCallbacksAndMessages(null)
-        val intent = Intent(this, SplitHalfHorizontalView::class.java)
+        val intent = Intent(this, HorizontalViewSplitHalf::class.java)
         intent.putParcelableArrayListExtra("CONTENT_LIST", ArrayList(content_data))
         intent.putParcelableArrayListExtra("CONTENT_LIST_TWO", ArrayList(content_data_second))
         startActivity(intent)
@@ -587,7 +615,7 @@ class MainActivity : AppCompatActivity() {
         //   handler.removeCallbacksAndMessages(null)
         handlerqr.removeCallbacksAndMessages(null)
         //  handlerscreen.removeCallbacksAndMessages(null)
-        val intent = Intent(this, SplitHalfHorizontalView::class.java)
+        val intent = Intent(this, HorizontalViewSplitHalf::class.java)
         intent.putParcelableArrayListExtra("CONTENT_LIST", ArrayList(content_data))
         intent.putParcelableArrayListExtra("CONTENT_LIST_TWO", ArrayList(content_data_second))
         startActivity(intent)
@@ -602,7 +630,7 @@ class MainActivity : AppCompatActivity() {
         //   handler.removeCallbacksAndMessages(null)
         handlerqr.removeCallbacksAndMessages(null)
         //  handlerscreen.removeCallbacksAndMessages(null)
-        val intent = Intent(this, SplitThirdHorizontalView::class.java)
+        val intent = Intent(this, HorizontalViewSplitThird::class.java)
         intent.putParcelableArrayListExtra("CONTENT_LIST", ArrayList(content_data))
         intent.putParcelableArrayListExtra("CONTENT_LIST_TWO", ArrayList(content_data_second))
         intent.putParcelableArrayListExtra("CONTENT_LIST_Third", ArrayList(content_data_third))

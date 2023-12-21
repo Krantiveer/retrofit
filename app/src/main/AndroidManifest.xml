@@ -104,13 +104,16 @@
             android:name=".Screens.HorizontalView"
             android:exported="false" />
         <activity
-            android:name=".Screens.SplitHalfHorizontalView"
+            android:name=".Screens.HorizontalViewSplitHalf"
             android:exported="false" />
         <activity
-            android:name=".Screens.SplitThirdHorizontalView"
+            android:name=".Screens.HorizontalViewSplitThird"
             android:exported="false" />
         <activity
             android:name=".Screens.HorizontalViewFour"
+            android:exported="false" />
+        <activity
+            android:name=".Screens.HorizontalViewFive"
             android:exported="false" />
         <activity
             android:name=".Actvity.LoginScreenActivity"

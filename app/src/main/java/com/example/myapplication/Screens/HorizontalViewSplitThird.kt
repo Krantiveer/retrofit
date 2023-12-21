@@ -19,10 +19,8 @@ import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.ui.PlayerView
-import com.google.android.exoplayer2.upstream.DataSource
-import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 
-class SplitThirdHorizontalView : AppCompatActivity() {
+class HorizontalViewSplitThird : AppCompatActivity() {
 
     private fun intiViews() {
         progressBar = findViewById(R.id.progress_bar)
