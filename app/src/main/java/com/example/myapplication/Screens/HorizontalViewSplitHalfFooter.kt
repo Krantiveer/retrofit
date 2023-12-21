@@ -20,7 +20,7 @@ import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.ui.PlayerView
 
-class HorizontalViewSplitHalfHeader : AppCompatActivity() {
+class HorizontalViewSplitHalfFooter : AppCompatActivity() {
 
 
     private val TAG = "HorizontalView"
@@ -47,7 +47,7 @@ class HorizontalViewSplitHalfHeader : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_horizontal_split_header_view)
+        setContentView(R.layout.activity_horizontal_split_footer_view)
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         window.decorView.systemUiVisibility =
             View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE

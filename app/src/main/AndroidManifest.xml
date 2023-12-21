@@ -116,6 +116,12 @@
             android:name=".Screens.HorizontalViewFive"
             android:exported="false" />
         <activity
+            android:name=".Screens.HorizontalViewSplitHalfHeader"
+            android:exported="false" />
+        <activity
+            android:name=".Screens.HorizontalViewSplitHalfFooter"
+            android:exported="false" />
+        <activity
             android:name=".Actvity.LoginScreenActivity"
             android:exported="true">
             <meta-data
