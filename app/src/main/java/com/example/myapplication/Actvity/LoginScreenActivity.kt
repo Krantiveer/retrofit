@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.StateListDrawable
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Handler
 import android.util.Log
 import android.util.StateSet
@@ -20,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.Config
 import com.example.myapplication.MainActivity
 import com.example.myapplication.R
+import com.example.myapplication.handlerscreen
 import com.example.myapplication.network.RetrofitClient
 import com.example.myapplication.network.api.AppInfo
 import com.example.myapplication.network.api.MainApi
@@ -32,14 +34,15 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.security.AccessController
 
+
 private lateinit var pairCodeTextView: TextView // Declare as a class property
 private lateinit var pairCodeTextViewbelow: TextView // Declare as a class property
-private lateinit var progress_bar: ProgressBar // Declare as a class property
+private lateinit var progress_bar: ProgressBar// Declare as a class property
 val handler = Handler()
 val handlerqr = Handler()
 var randomNumber: String? = null
 private const val TAG = "LoginScreenActivity"
-
+private lateinit var refreshButton: Button
 
 class LoginScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,101 +51,115 @@ class LoginScreenActivity : AppCompatActivity() {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         window.decorView.systemUiVisibility =
             View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE
-
         pairCodeTextView = findViewById(R.id.paircode)
         pairCodeTextViewbelow = findViewById(R.id.paircodebelowtxt)
         progress_bar = findViewById(R.id.progress_bar_load)
+        refreshButton = findViewById(R.id.refress)
 
         fetchPairAPI();
+
+        object : CountDownTimer((2 * 60 * 1000).toLong(), 1000) {
+            // 2 minutes in milliseconds
+            override fun onTick(millisUntilFinished: Long) {
+                // You can optionally perform actions on each tick here
+            }
+
+            override fun onFinish() {
+                refreshButton.setVisibility(View.VISIBLE)
+                refreshButton.requestFocus()
+
+            }
+        }.start()
+
 
     }
 
 
     fun bt_verified_login(view: View) {
-/*
-        fetchScreenversionAPI(PreferenceUtils.getInstance().getPairIDPref(applicationContext))
-*/
+        /*
+                fetchScreenversionAPI(PreferenceUtils.getInstance().getPairIDPref(applicationContext))
+        */
         gotoMainScreen()
 
     }
-/*
-    private fun fetchScreenversionAPI(id: String) {
-        val retrofitcms = RetrofitClient.getRetrofitInstanceCMS()
-        val api = retrofitcms.create(MainApi::class.java)
-        val accessToken = "Bearer ";
-        Log.i(TAG, "fetchValidateAPI: ")
+    /*
+        private fun fetchScreenversionAPI(id: String) {
+            val retrofitcms = RetrofitClient.getRetrofitInstanceCMS()
+            val api = retrofitcms.create(MainApi::class.java)
+            val accessToken = "Bearer ";
+            Log.i(TAG, "fetchValidateAPI: ")
 
-        val call: Call<Long> = api.getScreenVersion(id)
-        call.enqueue(object : Callback<Long?> {
-            override fun onResponse(call: Call<Long?>, response: Response<Long?>) {
-                if (response.code() == 200) {
-                    if (response.body()?.toInt() == -1) {
-                        Log.i(
-                            TAG,
-                            "onResponse:SCREEN_VERSION_CODE -false " + (response.body()
-                                ?.toString())
-                        )
-                        Toast.makeText(
-                            applicationContext,
-                            "Screen Paired , Please schedule your content",
-                            Toast.LENGTH_LONG
-                        ).show()
+            val call: Call<Long> = api.getScreenVersion(id)
+            call.enqueue(object : Callback<Long?> {
+                override fun onResponse(call: Call<Long?>, response: Response<Long?>) {
+                    if (response.code() == 200) {
+                        if (response.body()?.toInt() == -1) {
+                            Log.i(
+                                TAG,
+                                "onResponse:SCREEN_VERSION_CODE -false " + (response.body()
+                                    ?.toString())
+                            )
+                            Toast.makeText(
+                                applicationContext,
+                                "Screen Paired , Please schedule your content",
+                                Toast.LENGTH_LONG
+                            ).show()
 
+                        } else {
+
+                            //   handlerscreen.removeCallbacksAndMessages(null)
+
+
+                            PreferenceUtils.getInstance().setSCREEN_VERSION_CODEPref(
+                                applicationContext,
+                                response.body().toString()
+                            )
+                            Log.i(
+                                TAG,
+                                "onResponse:SCREEN_VERSION_CODE else true" + (response.body()
+                                    ?.toString())
+                            )
+
+
+                        }
+
+
+
+                        Log.i(TAG, "success--> " + response.body())
+
+
+                    } else if (response.code() == 401) {
+
+                    } else if (response.errorBody() != null) {
+                        if (AccessController.getContext() != null) {
+                            Toast.makeText(
+                                applicationContext,
+                                "sorry! Something went wrong. Please try again after some time" + response.errorBody(),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     } else {
-
-                        //   handlerscreen.removeCallbacksAndMessages(null)
-
-
-                        PreferenceUtils.getInstance().setSCREEN_VERSION_CODEPref(
-                            applicationContext,
-                            response.body().toString()
-                        )
-                        Log.i(
-                            TAG,
-                            "onResponse:SCREEN_VERSION_CODE else true" + (response.body()
-                                ?.toString())
-                        )
-
-
-                    }
-
-
-
-                    Log.i(TAG, "success--> " + response.body())
-
-
-                } else if (response.code() == 401) {
-
-                } else if (response.errorBody() != null) {
-                    if (AccessController.getContext() != null) {
-                        Toast.makeText(
-                            applicationContext,
-                            "sorry! Something went wrong. Please try again after some time" + response.errorBody(),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                } else {
-                    if (AccessController.getContext() != null) {
-                        Toast.makeText(
-                            applicationContext,
-                            "sorry! Something went wrong. Please try again after some time",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        if (AccessController.getContext() != null) {
+                            Toast.makeText(
+                                applicationContext,
+                                "sorry! Something went wrong. Please try again after some time",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
                 }
-            }
 
-            override fun onFailure(call: Call<Long?>, t: Throwable) {
-                //   CMHelper.setSnackBar(requireView(), t.getMessage(), 2);
-                if (AccessController.getContext() != null) {
-                    Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT).show()
-                } else {
+                override fun onFailure(call: Call<Long?>, t: Throwable) {
+                    //   CMHelper.setSnackBar(requireView(), t.getMessage(), 2);
+                    if (AccessController.getContext() != null) {
+                        Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT).show()
+                    } else {
+                    }
                 }
-            }
-        })
+            })
 
-    }
-*/
+        }
+    */
 
 
     fun gotoMainScreen() {
@@ -151,7 +168,7 @@ class LoginScreenActivity : AppCompatActivity() {
         handlerqr.removeCallbacksAndMessages(null)
 
         val intent = Intent(this, MainActivity::class.java)
-        intent.putExtra("dataFromlogin","Login")
+        intent.putExtra("dataFromlogin", "Login")
         startActivity(intent)
         this.finishAffinity()
         this.overridePendingTransition(R.anim.enter, R.anim.exit)
@@ -173,7 +190,7 @@ class LoginScreenActivity : AppCompatActivity() {
                     if (response.body()?.pairCode != null) {
                         if (!response.body()?.pairCode.isNullOrBlank()) {
                             pairCodeTextView.text = response.body()?.pairCode.toString()
-                            pairCodeTextViewbelow.visibility=View.VISIBLE
+                            pairCodeTextViewbelow.visibility = View.VISIBLE
                             fetchValidateAPI(
                                 response.body()!!.id,
                                 response.body()?.pairCode.toString()
@@ -264,11 +281,11 @@ class LoginScreenActivity : AppCompatActivity() {
 
                 } else if (response.errorBody() != null) {
                     if (AccessController.getContext() != null) {
-                         /* Toast.makeText(
-                              applicationContext,
-                              "sorry! Something went wrong. Please try again after some time" + response.errorBody(),
-                              Toast.LENGTH_SHORT
-                          ).show()*/
+                        /* Toast.makeText(
+                             applicationContext,
+                             "sorry! Something went wrong. Please try again after some time" + response.errorBody(),
+                             Toast.LENGTH_SHORT
+                         ).show()*/
                     }
                 } else {
                     if (AccessController.getContext() != null) {
@@ -284,7 +301,7 @@ class LoginScreenActivity : AppCompatActivity() {
             override fun onFailure(call: Call<DeviceInfo?>, t: Throwable) {
                 //   CMHelper.setSnackBar(requireView(), t.getMessage(), 2);
                 if (AccessController.getContext() != null) {
-                //    Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT).show()
+                    //    Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT).show()
                 } else {
                 }
             }
@@ -504,26 +521,26 @@ class LoginScreenActivity : AppCompatActivity() {
 */
     override fun onBackPressed() {
 
-            // binding.slidingPaneLayout.openPane();
-            val dialog: Dialog
-            dialog = Dialog(this)
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-            dialog.setContentView(R.layout.layout_dialog_exit)
-            dialog.setCancelable(true)
-            val button_no = dialog.findViewById<View>(R.id.button_no) as Button
-            button_no.background = getSelectorDrawable()
-            button_no.setOnClickListener { dialog.dismiss() }
+        // binding.slidingPaneLayout.openPane();
+        val dialog: Dialog
+        dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.layout_dialog_exit)
+        dialog.setCancelable(true)
+        val button_no = dialog.findViewById<View>(R.id.button_no) as Button
+        button_no.background = getSelectorDrawable()
+        button_no.setOnClickListener { dialog.dismiss() }
 
-            val button_yes = dialog.findViewById<View>(R.id.button_yes) as Button
-            button_yes.background = getSelectorDrawable()
-            button_yes.setOnClickListener {
-                dialog.dismiss()
-                super.onBackPressed()
+        val button_yes = dialog.findViewById<View>(R.id.button_yes) as Button
+        button_yes.background = getSelectorDrawable()
+        button_yes.setOnClickListener {
+            dialog.dismiss()
+            super.onBackPressed()
 
-                this.finishAffinity()
-            }
-            dialog.show()
+            this.finishAffinity()
         }
+        dialog.show()
+    }
 
     private fun getSelectorDrawable(): StateListDrawable? {
         val out = StateListDrawable()
@@ -538,6 +555,7 @@ class LoginScreenActivity : AppCompatActivity() {
         )
         return out
     }
+
     private fun createFocusedDrawable(color: Int): GradientDrawable? {
         val out = GradientDrawable()
         out.setColor(color)
@@ -550,4 +568,13 @@ class LoginScreenActivity : AppCompatActivity() {
         return out
     }
 
+    fun refreshing(view: View) {
+        //restartApp(applicationContext)
+        val intent = Intent(this, LoginScreenActivity::class.java)
+        startActivity(intent)
+        handlerscreen.removeCallbacksAndMessages(null)
+        finish()
+
+
+    }
 }
