@@ -38,7 +38,7 @@
             android:visibility="gone"
             tool:visibility="visible"
             android:layout_centerVertical="true"
-            android:scaleType="fitCenter"
+            android:scaleType="fitXY"
             android:src="@drawable/banner_image"/>
 
 
@@ -92,7 +92,7 @@
             android:visibility="gone"
             tool:visibility="visible"
             android:layout_centerVertical="true"
-            android:scaleType="fitCenter"
+            android:scaleType="fitXY"
             android:src="@drawable/banner_image"/>
 
 

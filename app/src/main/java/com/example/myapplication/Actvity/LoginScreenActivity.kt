@@ -232,7 +232,7 @@ class LoginScreenActivity : AppCompatActivity() {
         handlerqr.postDelayed(object : Runnable {
             override fun run() {
                 Log.i(TAG, "Handler run run:1 $randomNumber")
-                handlerqr.postDelayed(this, 15000)
+                handlerqr.postDelayed(this, 10000)
                 //    CheckAccessCode(randomNumber)
                 fetchValidateAPI(
                     PreferenceUtils.getInstance().getPairIDPref(applicationContext).toInt(),
