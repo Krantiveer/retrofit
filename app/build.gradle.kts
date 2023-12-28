@@ -80,4 +80,9 @@ dependencies {
   //  implementation("com.google.firebase:firebase-crashlytics")
   //  implementation("com.google.gms:google-services:4.4.0")
 
+    implementation ("androidx.navigation:navigation-fragment:2.4.2")
+    implementation ("androidx.navigation:navigation-ui:2.4.2")
+    implementation ("com.google.android.material:material:1.3.0-alpha03")
+
+
 }

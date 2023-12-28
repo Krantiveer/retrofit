@@ -298,7 +298,10 @@ class VerticalViewSplitMainHeader : AppCompatActivity() {
         super.onDestroy()
         releasePlayer()
     }
-
+    override fun onBackPressed() {
+        return
+        super.onBackPressed()
+    }
     private val TAG = "HorizontalView"
     private var progressBar: ProgressBar? = null;
     private var progressBarSecond: ProgressBar? = null

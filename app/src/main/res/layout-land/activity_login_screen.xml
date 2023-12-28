@@ -178,7 +178,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:fontFamily="@font/roboto_medium"
-                android:text="App Version :1"
+                android:text="App Version :1.2"
                 android:textColor="@color/version_color"
                 android:textSize="@dimen/_14sdp"
                 android:visibility="visible" />

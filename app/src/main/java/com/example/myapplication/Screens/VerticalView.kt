@@ -334,5 +334,9 @@ class VerticalView : AppCompatActivity() {
         super.onDestroy()
         releasePlayer()
     }
+    override fun onBackPressed() {
+        return
+        super.onBackPressed()
+    }
 
 }

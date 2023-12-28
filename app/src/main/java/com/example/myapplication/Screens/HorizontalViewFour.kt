@@ -142,6 +142,10 @@ class HorizontalViewFour : AppCompatActivity() {
         Triplescreen()
         Fourscreen()
     }
+    override fun onBackPressed() {
+        return
+        super.onBackPressed()
+    }
     fun firstscreen(){
         receivedContentList = intent.getParcelableArrayListExtra("CONTENT_LIST")!!
         size = receivedContentList.size

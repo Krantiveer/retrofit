@@ -119,6 +119,10 @@ class HorizontalViewSplitHalfFooter : AppCompatActivity() {
         firstscreen()
         secondscreen()
     }
+    override fun onBackPressed() {
+        return
+        super.onBackPressed()
+    }
     fun firstscreen(){
         receivedContentList = intent.getParcelableArrayListExtra("CONTENT_LIST")!!
         size = receivedContentList.size

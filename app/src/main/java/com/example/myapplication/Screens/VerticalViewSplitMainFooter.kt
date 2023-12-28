@@ -298,6 +298,10 @@ class VerticalViewSplitMainFooter : AppCompatActivity() {
         super.onDestroy()
         releasePlayer()
     }
+    override fun onBackPressed() {
+        return
+        super.onBackPressed()
+    }
 
     private val TAG = "HorizontalView"
     private var progressBar: ProgressBar? = null;

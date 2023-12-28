@@ -80,6 +80,10 @@ class HorizontalView : AppCompatActivity() {
 
 
     }
+    override fun onBackPressed() {
+        return
+        super.onBackPressed()
+    }
 
     fun restart() {
         var sec = receivedContentList.get(currentsize!!).duration * 1000
@@ -295,5 +299,6 @@ class HorizontalView : AppCompatActivity() {
         super.onDestroy()
         releasePlayer()
     }
+
 
 }

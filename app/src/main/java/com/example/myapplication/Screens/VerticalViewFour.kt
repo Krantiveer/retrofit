@@ -925,6 +925,10 @@ class VerticalViewFour : AppCompatActivity() {
         super.onDestroy()
         releasePlayer()
     }
+    override fun onBackPressed() {
+        return
+        super.onBackPressed()
+    }
     fun restart() {
         Log.i(TAG, "restart: calling")
         var sec = receivedContentList.get(currentsize!!).duration * 1000

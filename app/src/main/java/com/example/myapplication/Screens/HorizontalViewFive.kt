@@ -1271,4 +1271,8 @@ class HorizontalViewFive : AppCompatActivity() {
         }
 
     }
+    override fun onBackPressed() {
+        return
+        super.onBackPressed()
+    }
 }
